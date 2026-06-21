@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 id="writeback-result">Approval Request Submitted</h1>
+<section class="panel">
+  <div class="field-grid">
+    <div class="data-field">
+      <span class="label">PO ID</span>
+      <span class="value">{{ result.po_id }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Writeback Status</span>
+      <span class="value" id="writeback-status">{{ result.status }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Execution Mode</span>
+      <span class="value" id="writeback-execution-mode">{{ result.execution_mode }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Audit Created</span>
+      <span class="value" id="writeback-audit-created">{{ "true" if result.audit_log_created else "false" }}</span>
+    </div>
+  </div>
+  <div class="actions">
+    <a class="button" href="/purchase-orders/{{ result.po_id }}">Return to PO</a>
+    <a class="button" href="/audit-logs">View Audit Logs</a>
+  </div>
+</section>
+{% endblock %}

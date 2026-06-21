@@ -1,0 +1,7 @@
+{
+  "po_id": "PO-1001",
+  "status": "PENDING_MANAGER_APPROVAL",
+  "audit_log_created": true,
+  "execution_mode": "API",
+  "source_case_id": "CASE-001"
+}

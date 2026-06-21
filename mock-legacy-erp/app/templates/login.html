@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Legacy ERP Login</h1>
+<section class="panel">
+  <form method="post" action="/login">
+    <label for="username">Username</label>
+    <input id="username" name="username" autocomplete="username" value="demo">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" value="demo">
+    <div class="actions">
+      <button id="login-button" type="submit">Sign in</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

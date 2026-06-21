@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Purchase Order Detail</h1>
+<section class="panel" aria-label="purchase order fields">
+  <div class="field-grid">
+    <div class="data-field">
+      <span class="label">PO ID</span>
+      <span class="value" id="po-id">{{ po.po_id }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Amount</span>
+      <span class="value" id="amount">{{ po.amount }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Budget Limit</span>
+      <span class="value" id="budget-limit">{{ po.budget_limit }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Vendor ID</span>
+      <span class="value" id="vendor-id">{{ po.vendor_id or "" }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Vendor Info Complete</span>
+      <span class="value" id="vendor-info-complete">{{ "true" if po.vendor_info_complete else "false" }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Inventory Available</span>
+      <span class="value" id="inventory-available">{{ "true" if po.inventory_available else "false" }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">ERP Status</span>
+      <span class="value" id="erp-status">{{ po.status }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Last Action</span>
+      <span class="value" id="last-action">{{ po.last_action }}</span>
+    </div>
+  </div>
+  <div class="banner" id="raw-exception-text">{{ po.exception_text }}</div>
+</section>
+
+<section class="panel">
+  <h2>Request Manager Approval</h2>
+  <form method="post" action="/purchase-orders/{{ po.po_id }}/request-approval">
+    <label for="approval-reason-input">Approval reason</label>
+    <textarea id="approval-reason-input" name="approval_reason">{{ po.exception_text }}</textarea>
+
+    <label for="manager-id-input">Manager ID</label>
+    <input id="manager-id-input" name="manager_id" value="MGR-001">
+
+    <div class="actions">
+      <button id="request-approval-button" type="submit">Request Approval</button>
+    </div>
+  </form>
+</section>
+
+<section class="panel">
+  <span class="label">Status After Update</span>
+  <span class="value" id="status-after-update">{{ po.status }}</span>
+  <span class="label">Audit Log Created</span>
+  <span class="value" id="audit-log-created">false</span>
+</section>
+{% endblock %}

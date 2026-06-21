@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title | default("Mock Legacy ERP") }}</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f8fa;
+        --surface: #ffffff;
+        --text: #17202a;
+        --muted: #5f6b7a;
+        --line: #d9dee7;
+        --primary: #155eef;
+        --primary-dark: #0f47b8;
+        --warning-bg: #fff3d6;
+        --warning-text: #714700;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      header {
+        background: #202b3c;
+        color: #fff;
+        padding: 16px 24px;
+      }
+      header a {
+        color: #fff;
+        margin-right: 18px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      h1, h2 { line-height: 1.2; letter-spacing: 0; }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+      th, td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+      }
+      th {
+        background: #eef2f7;
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 18px;
+      }
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 14px;
+      }
+      .data-field {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 12px;
+        background: #fbfcfe;
+      }
+      .label {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+      }
+      .value {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .banner {
+        background: var(--warning-bg);
+        color: var(--warning-text);
+        border: 1px solid #f5d48a;
+        border-radius: 6px;
+        padding: 12px;
+        margin: 16px 0;
+        font-weight: 700;
+      }
+      label {
+        display: block;
+        font-weight: 700;
+        margin: 12px 0 6px;
+      }
+      input, textarea {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 12px;
+        border: 1px solid #aeb8c7;
+        border-radius: 6px;
+        font: inherit;
+      }
+      textarea { min-height: 88px; resize: vertical; }
+      button, .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 16px;
+        border: 0;
+        border-radius: 6px;
+        background: var(--primary);
+        color: #fff;
+        cursor: pointer;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      button:hover, .button:hover { background: var(--primary-dark); }
+      a { color: #155eef; }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      @media (max-width: 640px) {
+        main { padding: 16px; }
+        th, td { padding: 10px 8px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="/purchase-orders">Purchase Orders</a>
+      <a href="/audit-logs">Audit Logs</a>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

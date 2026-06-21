@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Purchase Orders</h1>
+<p>Legacy ERP exception queue for UiPath RPA extraction through Chrome UI.</p>
+<table id="purchase-orders-table">
+  <thead>
+    <tr>
+      <th>PO ID</th>
+      <th>Amount</th>
+      <th>Budget Limit</th>
+      <th>Status</th>
+      <th>Exception</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for po in purchase_orders %}
+    <tr id="row-{{ po.po_id }}">
+      <td id="list-po-id-{{ po.po_id }}">{{ po.po_id }}</td>
+      <td>{{ po.amount }}</td>
+      <td>{{ po.budget_limit }}</td>
+      <td>{{ po.status }}</td>
+      <td>{{ po.exception_text }}</td>
+      <td><a class="button" id="view-{{ po.po_id }}" href="/purchase-orders/{{ po.po_id }}">Open</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

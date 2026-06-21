@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Audit Logs</h1>
+<table id="audit-logs-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>PO ID</th>
+      <th>Action</th>
+      <th>Execution Mode</th>
+      <th>Manager</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in audit_logs %}
+    <tr>
+      <td>{{ log.id }}</td>
+      <td>{{ log.po_id }}</td>
+      <td>{{ log.action }}</td>
+      <td>{{ log.execution_mode }}</td>
+      <td>{{ log.manager_id }}</td>
+      <td>{{ log.created_at }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{
+  "case_id": "CASE-001",
+  "po_id": "PO-1001",
+  "detected_exception_type": "budget_exceeded",
+  "risk_level": "high",
+  "confidence": 0.94,
+  "recommended_path": "manager_approval_required",
+  "requires_human_approval": true,
+  "next_stage": "WAITING_FOR_HUMAN_APPROVAL",
+  "reasoning_summary": "The purchase order amount exceeds the approved budget limit.",
+  "evidence": {
+    "amount": 18000.0,
+    "budget_limit": 10000.0,
+    "vendor_id": "V-203",
+    "vendor_info_complete": true,
+    "inventory_available": true,
+    "erp_status": "Exception",
+    "raw_exception_text": "Amount exceeds approved budget limit"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "case_id": "CASE-002",
+  "po_id": "PO-1002",
+  "detected_exception_type": "vendor_info_missing",
+  "risk_level": "medium",
+  "confidence": 0.91,
+  "recommended_path": "vendor_information_request",
+  "requires_human_approval": false,
+  "next_stage": "WAITING_VENDOR_INFO",
+  "reasoning_summary": "Vendor information is incomplete or the vendor ID is missing.",
+  "evidence": {
+    "amount": 6000.0,
+    "budget_limit": 10000.0,
+    "vendor_id": null,
+    "vendor_info_complete": false,
+    "inventory_available": true,
+    "erp_status": "Exception",
+    "raw_exception_text": "Vendor information missing"
+  }
+}

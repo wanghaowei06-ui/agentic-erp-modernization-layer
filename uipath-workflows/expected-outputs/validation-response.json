@@ -1,0 +1,17 @@
+{
+  "business_action": "request_purchase_order_approval",
+  "data_isolation": "cloned_test_cases",
+  "rpa_test_case_id": "PO-1001-RPA",
+  "api_test_case_id": "PO-1001-API",
+  "same_initial_state": true,
+  "contract_test": "passed",
+  "business_rule_test": "passed",
+  "rpa_api_parity_check": "passed",
+  "compared_fields": [
+    "status",
+    "audit_log_created",
+    "last_action"
+  ],
+  "trusted_tool_candidate": true,
+  "requires_registration_approval": true
+}

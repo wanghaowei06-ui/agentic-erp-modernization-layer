@@ -1,0 +1,11 @@
+{
+  "case_id": "CASE-001",
+  "po_id": "PO-1001",
+  "current_stage": "API_MODE_EXECUTED",
+  "detected_exception_type": "budget_exceeded",
+  "risk_level": "high",
+  "human_approval_status": "approved",
+  "validation_status": "passed",
+  "trusted_tool_status": "registered",
+  "execution_mode": "API"
+}
