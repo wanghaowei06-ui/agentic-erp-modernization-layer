@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Tool Registry</h1>
+<p>Local demo registry evidence. UiPath governs trusted-tool registration and API-mode execution.</p>
+
+<section id="tool-registry" class="panel">
+  <table>
+    <thead>
+      <tr>
+        <th>Business Action</th>
+        <th>Status</th>
+        <th>Validation</th>
+        <th>Registration</th>
+        <th>Execution Mode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="tool-request-po-approval">
+        <td>request_purchase_order_approval<br><small>POST /api/purchase-orders/{po_id}/approval-request</small></td>
+        <td id="tool-request-po-approval-status">registered</td>
+        <td id="tool-request-po-approval-validation">passed</td>
+        <td id="tool-request-po-approval-registration">approved</td>
+        <td>API</td>
+      </tr>
+      <tr>
+        <td>resolve_vendor_info_missing</td>
+        <td id="tool-vendor-info-status">not_generated</td>
+        <td>not_started</td>
+        <td>not_requested</td>
+        <td>RPA</td>
+      </tr>
+      <tr>
+        <td>handle_inventory_shortage</td>
+        <td id="tool-inventory-status">roadmap</td>
+        <td>roadmap</td>
+        <td>not_requested</td>
+        <td>RPA</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Allowed consumers for registered tool:</strong> UiPath API Workflow, optional LangChain/LangGraph wrapper.</p>
+</section>
+{% endblock %}

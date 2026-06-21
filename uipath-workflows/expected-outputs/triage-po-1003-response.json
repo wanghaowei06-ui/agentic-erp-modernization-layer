@@ -1,0 +1,20 @@
+{
+  "case_id": "CASE-003",
+  "po_id": "PO-1003",
+  "detected_exception_type": "inventory_shortage",
+  "risk_level": "medium",
+  "confidence": 0.88,
+  "recommended_path": "inventory_review_required",
+  "requires_human_approval": true,
+  "next_stage": "WAITING_INVENTORY_REVIEW",
+  "reasoning_summary": "Inventory is not available for this purchase order.",
+  "evidence": {
+    "amount": 8500.0,
+    "budget_limit": 10000.0,
+    "vendor_id": "V-118",
+    "vendor_info_complete": true,
+    "inventory_available": false,
+    "erp_status": "Exception",
+    "raw_exception_text": "Inventory shortage"
+  }
+}

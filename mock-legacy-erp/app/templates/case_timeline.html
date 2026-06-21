@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Case Timeline</h1>
+<p>Target timeline for {{ case_id }}. UiPath remains responsible for driving these case stages.</p>
+
+<section id="case-timeline" class="panel">
+  <ol class="timeline">
+    {% for item in timeline %}
+    <li id="{{ item.id }}">{{ item.label }}</li>
+    {% endfor %}
+  </ol>
+</section>
+{% endblock %}

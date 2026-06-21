@@ -65,7 +65,9 @@ The router must use `detected_exception_type`, not `po_id`.
 ### Branch: `inventory_shortage`
 
 1. Assign `current_stage = "WAITING_INVENTORY_REVIEW"`.
-2. Create or display an inventory review task placeholder.
+2. Show PO-1003 lightweight route proof using `http-request-bodies/triage-po-1003.json`.
+3. Create or display an inventory review task placeholder.
+4. Treat this as roadmap evidence, not full processing.
 
 ### Branch: `unknown_exception`
 
@@ -99,6 +101,18 @@ The router must use `detected_exception_type`, not `po_id`.
 5. Assign `validation_status = "passed"`.
 6. Assign `current_stage = "VALIDATION_GATE_PASSED"`.
 
+### Optional Validation Failure Demo
+
+1. HTTP Request:
+   - Method: `POST`
+   - URL: `http://localhost:8003/validate/request-purchase-order-approval`
+   - Body: `{"simulate_failure": true}`
+2. Verify `rpa_api_parity_check = "failed"`.
+3. Verify `trusted_tool_candidate = false`.
+4. Keep `execution_mode = "RPA"`.
+5. Create an IT review or fix task in UiPath.
+6. Do not register the API facade as a trusted tool in this failed branch.
+
 ## Sequence: Trusted Tool Approval
 
 1. Create or display trusted tool registration approval.
@@ -131,3 +145,14 @@ The router must use `detected_exception_type`, not `po_id`.
    - `execution_mode`
 2. Log final output.
 3. Display or save final output for the demo evidence.
+
+## Sequence: Enhanced Evidence Screens
+
+UiPath or the demo operator can open these local support pages for screenshots:
+
+- `http://localhost:8000/case-dashboard`
+- `http://localhost:8000/case-timeline/CASE-001`
+- `http://localhost:8000/api-readiness-scorecard`
+- `http://localhost:8000/tool-registry`
+
+These pages are evidence views only. UiPath remains the case orchestration and governance layer.

@@ -22,7 +22,7 @@ cd /home/changv/projects/Uipath
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-chmod +x scripts/start_all.sh scripts/smoke_test.sh
+chmod +x scripts/start_all.sh scripts/smoke_test.sh scripts/reset_demo_data.sh
 ```
 
 ## Start All Services
@@ -60,7 +60,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8003
 ./scripts/smoke_test.sh
 ```
 
-The smoke test checks health endpoints, PO-1001 and PO-1002 triage, the validation gate, and the generated API facade.
+The smoke test checks health endpoints, enhanced demo pages, PO-1001/PO-1002/PO-1003 triage, the validation gate, the validation failed simulation, the generated API facade, and local demo reset.
 
 ## Curl Examples
 
@@ -88,7 +88,29 @@ curl -sS -X POST http://localhost:8001/triage \
 ```
 
 ```bash
+curl -sS -X POST http://localhost:8001/triage \
+  -H "Content-Type: application/json" \
+  -d '{
+    "case_id": "CASE-003",
+    "po_id": "PO-1003",
+    "amount": 8500,
+    "budget_limit": 10000,
+    "vendor_id": "V-118",
+    "vendor_info_complete": true,
+    "inventory_available": false,
+    "erp_status": "Exception",
+    "raw_exception_text": "Inventory shortage"
+  }'
+```
+
+```bash
 curl -sS -X POST http://localhost:8003/validate/request-purchase-order-approval
+```
+
+```bash
+curl -sS -X POST http://localhost:8003/validate/request-purchase-order-approval \
+  -H "Content-Type: application/json" \
+  -d '{"simulate_failure": true}'
 ```
 
 ```bash
@@ -99,6 +121,25 @@ curl -sS -X POST http://localhost:8002/api/purchase-orders/PO-1001/approval-requ
     "manager_id": "MGR-001",
     "source_case_id": "CASE-001"
   }'
+```
+
+## Enhanced MVP Support Pages
+
+These pages are local demo evidence surfaces. They do not orchestrate the business process; UiPath remains the main orchestration and governance layer.
+
+- Case Dashboard: `http://localhost:8000/case-dashboard`
+- Case Timeline: `http://localhost:8000/case-timeline/CASE-001`
+- API Readiness Scorecard: `http://localhost:8000/api-readiness-scorecard`
+- Tool Registry: `http://localhost:8000/tool-registry`
+- Timeline JSON: `http://localhost:8000/api/demo/cases/CASE-001/timeline`
+- Scorecard JSON: `http://localhost:8000/api/demo/api-readiness-scorecard`
+- Tool Registry JSON: `http://localhost:8000/api/demo/tool-registry`
+- Local demo reset: `POST http://localhost:8000/api/demo/reset`
+
+To reset local demo data from WSL2:
+
+```bash
+./scripts/reset_demo_data.sh
 ```
 
 ## Demo Flow
@@ -112,6 +153,7 @@ curl -sS -X POST http://localhost:8002/api/purchase-orders/PO-1001/approval-requ
 7. UiPath calls `POST http://localhost:8003/validate/request-purchase-order-approval`.
 8. If validation passes and registration is approved, UiPath can switch the approved case to API mode.
 9. UiPath calls `POST http://localhost:8002/api/purchase-orders/{po_id}/approval-request`.
+10. For enhanced evidence, UiPath or the demo operator can show dashboard, timeline, scorecard, registry, and validation failure simulation pages.
 
 ## UiPath Implementation Pack
 
