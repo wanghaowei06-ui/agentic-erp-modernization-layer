@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Case Dashboard</h1>
+<p>Local demo case evidence for a UiPath-governed modernization flow. The dashboard is seeded support data, not Python orchestration.</p>
+
+<section id="case-dashboard" class="card-grid" aria-label="case dashboard">
+  {% for case in cases %}
+  <article class="state-card" id="{{ case.case_id | lower | replace('-', '-') }}-card">
+    <h2>{{ case.case_id }} / {{ case.po_id }}</h2>
+    <div class="metric">
+      <strong>Path</strong>
+      <span>{{ case.path }}</span>
+    </div>
+    <div class="metric">
+      <strong>Current Stage</strong>
+      <span id="{{ case.case_id | lower | replace('-', '-') }}-stage">{{ case.current_stage }}</span>
+    </div>
+    <div class="metric">
+      <strong>Exception</strong>
+      <span>{{ case.detected_exception_type }}</span>
+    </div>
+    <div class="metric">
+      <strong>Risk</strong>
+      <span>{{ case.risk_level }}</span>
+    </div>
+    <div class="metric">
+      <strong>Assigned Actor</strong>
+      <span>{{ case.assigned_actor }}</span>
+    </div>
+    <div class="metric">
+      <strong>Waiting For</strong>
+      <span>{{ case.waiting_for }}</span>
+    </div>
+    <div class="metric">
+      <strong>Execution Mode</strong>
+      <span id="{{ case.case_id | lower | replace('-', '-') }}-execution-mode">{{ case.execution_mode }}</span>
+    </div>
+    <div class="metric">
+      <strong>Validation</strong>
+      <span id="{{ case.case_id | lower | replace('-', '-') }}-validation-status">{{ case.validation_status }}</span>
+    </div>
+    <div class="metric">
+      <strong>Trusted Tool</strong>
+      <span id="{{ case.case_id | lower | replace('-', '-') }}-trusted-tool-status">{{ case.trusted_tool_status }}</span>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

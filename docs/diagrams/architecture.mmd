@@ -1,0 +1,15 @@
+flowchart TD
+    A[UiPath Maestro / Case Orchestration] --> B[UiPath RPA Robot]
+    B --> C[Mock Legacy ERP UI]
+    A --> D[Triage Agent Support Service]
+    D --> A
+    A --> E[Human Approval]
+    E --> A
+    A --> F[Validation Suite]
+    F --> A
+    A --> G[Trusted Tool Approval]
+    G --> A
+    A --> H[UiPath API Workflow]
+    H --> I[Generated API Facade]
+    I --> H
+    J[Optional LangChain/LangGraph Consumer] -. after approval .-> I

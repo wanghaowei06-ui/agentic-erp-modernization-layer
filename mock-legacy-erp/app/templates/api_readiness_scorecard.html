@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>API Readiness Scorecard</h1>
+<p>This local demo scorecard supports UiPath validation governance for one candidate business action.</p>
+
+<section id="api-readiness-scorecard" class="panel">
+  <div class="field-grid">
+    <div class="data-field">
+      <span class="label">Business Action</span>
+      <span class="value">{{ scorecard.business_action }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Final Score</span>
+      <span class="score" id="readiness-final-score">{{ scorecard.final_score }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Frequency</span>
+      <span class="value" id="readiness-frequency">{{ "%.2f"|format(scorecard.frequency) }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Business Value</span>
+      <span class="value" id="readiness-business-value">{{ "%.2f"|format(scorecard.business_value) }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Field Stability</span>
+      <span class="value" id="readiness-field-stability">{{ "%.2f"|format(scorecard.field_stability) }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">UI Fragility</span>
+      <span class="value" id="readiness-ui-fragility">{{ "%.2f"|format(scorecard.ui_fragility) }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Risk Level</span>
+      <span class="value" id="readiness-risk-level">{{ scorecard.risk_level }}</span>
+    </div>
+    <div class="data-field">
+      <span class="label">Parity Status</span>
+      <span class="value" id="readiness-parity-status">{{ scorecard.parity_status }}</span>
+    </div>
+  </div>
+  <div class="banner">{{ scorecard.risk_note }}</div>
+  <p><strong>Formula:</strong> {{ scorecard.score_formula }}</p>
+  <p><strong>Formula result:</strong> {{ scorecard.formula_score }}. <strong>Deterministic demo final score:</strong> {{ scorecard.final_score }}.</p>
+</section>
+{% endblock %}

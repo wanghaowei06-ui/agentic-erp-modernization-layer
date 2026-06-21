@@ -2,32 +2,81 @@
 
 A UiPath-governed modernization case that turns fragile legacy ERP clicks into validated, human-approved API tools for enterprise agents.
 
-This repository contains local demo support assets only. UiPath creates and governs the modernization case. UiPath RPA extracts data from the legacy ERP UI. UiPath invokes the exception triage service. UiPath routes the case. UiPath handles human approval. UiPath governs validation and tool registration. UiPath API Workflow switches execution from RPA to API.
+Demo media placeholder: add final screenshot or GIF after recording the UiPath run.
 
-## Services
+This repository contains hackathon MVP support assets. UiPath remains the main orchestration, governance, approval, RPA, validation, trusted-tool registration, and API-mode execution layer. Python services are callable support assets, demo UI, validation helpers, fixtures, and evidence surfaces only.
 
-| Service | Port | Purpose |
-| --- | ---: | --- |
-| `mock-legacy-erp` | 8000 | Legacy ERP UI for UiPath RPA scraping and clicking |
-| `reasoning-agent` | 8001 | Deterministic exception triage support service |
-| `generated-api-facade` | 8002 | Validated API facade candidate for approval requests |
-| `validation-suite` | 8003 | Validation support service before trusted-tool registration |
+The repository includes the support services and UiPath implementation pack. The UiPath process is configured by the human builder in UiPath Studio / Automation Cloud.
 
-All services bind to `0.0.0.0` so UiPath on Windows can call them through `localhost` when the repo runs in WSL2 Ubuntu.
+## Why This Matters
 
-## Setup
+Many ERP processes begin as fragile UI workflows, not clean APIs. This project shows a controlled path from RPA discovery to validated API-mode execution for one narrow business action: `request_purchase_order_approval`.
+
+The MVP does not claim production ERP modernization. It demonstrates a governance pattern: use UiPath RPA first, classify exceptions, route cases, keep humans in control, validate parity, then approve a trusted API tool.
+
+## Track 1 Alignment
+
+This project maps to UiPath AgentHack Track 1:
+
+- Dynamic exception-heavy workflow
+- Case-style lifecycle
+- Agents, robots, and humans
+- Human-in-the-loop controls
+- Stage-based routing
+- Auditability and demo evidence
+- UiPath as the orchestration and governance layer
+
+See [docs/submission/judging-alignment.md](/home/changv/projects/Uipath/docs/submission/judging-alignment.md).
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A[UiPath Maestro / Case Orchestration] --> B[UiPath RPA Robot]
+    B --> C[Mock Legacy ERP UI]
+    A --> D[Triage Agent Support Service]
+    D --> A
+    A --> E[Human Approval]
+    E --> A
+    A --> F[Validation Suite]
+    F --> A
+    A --> G[Trusted Tool Approval]
+    G --> A
+    A --> H[UiPath API Workflow]
+    H --> I[Generated API Facade]
+```
+
+More diagrams are in [docs/diagrams](/home/changv/projects/Uipath/docs/diagrams).
+
+## Hard MVP
+
+- Mock legacy ERP UI with stable element IDs for UiPath RPA.
+- Deterministic triage support service.
+- Generated API facade candidate.
+- Validation support service.
+- UiPath implementation pack with variables, request bodies, expected outputs, selectors, and a template-only XAML skeleton.
+
+## Enhanced MVP
+
+- Case Dashboard
+- Case Timeline
+- API Readiness Scorecard
+- Tool Registry
+- Validation failed simulation
+- PO-1002 and PO-1003 route proofs
+- Demo reset utility
+- Submission and demo evidence assets
+
+See [docs/enhanced-mvp.md](/home/changv/projects/Uipath/docs/enhanced-mvp.md).
+
+## Running Locally
 
 ```bash
 cd /home/changv/projects/Uipath
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-chmod +x scripts/start_all.sh scripts/smoke_test.sh
-```
-
-## Start All Services
-
-```bash
+chmod +x scripts/*.sh
 ./scripts/start_all.sh
 ```
 
@@ -38,108 +87,126 @@ Windows/UiPath URLs:
 - `http://localhost:8002`
 - `http://localhost:8003`
 
-You can also start each service directly from its module directory:
+Run tests:
 
 ```bash
-cd mock-legacy-erp
-uvicorn app.main:app --host 0.0.0.0 --port 8000
-
-cd reasoning-agent
-uvicorn app.main:app --host 0.0.0.0 --port 8001
-
-cd generated-api-facade
-uvicorn app.main:app --host 0.0.0.0 --port 8002
-
-cd validation-suite
-uvicorn app.main:app --host 0.0.0.0 --port 8003
+.venv/bin/python -m pytest mock-legacy-erp reasoning-agent generated-api-facade validation-suite
 ```
 
-## Smoke Tests
+Run smoke tests:
 
 ```bash
 ./scripts/smoke_test.sh
 ```
 
-The smoke test checks health endpoints, PO-1001 and PO-1002 triage, the validation gate, and the generated API facade.
-
-## Curl Examples
+Reset demo data:
 
 ```bash
-curl http://localhost:8000/health
-curl http://localhost:8001/health
-curl http://localhost:8002/health
-curl http://localhost:8003/health
+./scripts/reset_demo_data.sh
 ```
+
+Optional Docker Compose:
 
 ```bash
-curl -sS -X POST http://localhost:8001/triage \
-  -H "Content-Type: application/json" \
-  -d '{
-    "case_id": "CASE-001",
-    "po_id": "PO-1001",
-    "amount": 18000,
-    "budget_limit": 10000,
-    "vendor_id": "V-203",
-    "vendor_info_complete": true,
-    "inventory_available": true,
-    "erp_status": "Exception",
-    "raw_exception_text": "Amount exceeds approved budget limit"
-  }'
+docker compose up --build
 ```
 
-```bash
-curl -sS -X POST http://localhost:8003/validate/request-purchase-order-approval
-```
+See [docs/docker-run.md](/home/changv/projects/Uipath/docs/docker-run.md).
 
-```bash
-curl -sS -X POST http://localhost:8002/api/purchase-orders/PO-1001/approval-request \
-  -H "Content-Type: application/json" \
-  -d '{
-    "approval_reason": "Amount exceeds budget limit",
-    "manager_id": "MGR-001",
-    "source_case_id": "CASE-001"
-  }'
-```
+## Service Endpoints
 
-## Demo Flow
+| Service | URL | Purpose |
+| --- | --- | --- |
+| Mock legacy ERP | `http://localhost:8000` | Legacy UI and demo evidence pages |
+| Triage support service | `http://localhost:8001/triage` | Structured exception classification |
+| Generated API facade | `http://localhost:8002/api/purchase-orders/{po_id}/approval-request` | API candidate after validation and approval |
+| Validation suite | `http://localhost:8003/validate/request-purchase-order-approval` | Contract, rule, and parity evidence |
 
-1. Open `http://localhost:8000/purchase-orders` in a Windows browser. PO-1001, PO-1002, and PO-1003 are visible.
-2. UiPath RPA opens a purchase order detail page and scrapes stable element IDs such as `po-id`, `amount`, `budget-limit`, and `raw-exception-text`.
-3. UiPath calls `POST http://localhost:8001/triage` with scraped fields.
-4. UiPath routes the case based on `detected_exception_type`, `risk_level`, and `requires_human_approval`.
-5. UiPath handles any human approval.
-6. For the legacy path, UiPath RPA writes back by filling `approval-reason-input`, `manager-id-input`, and clicking `request-approval-button`.
-7. UiPath calls `POST http://localhost:8003/validate/request-purchase-order-approval`.
-8. If validation passes and registration is approved, UiPath can switch the approved case to API mode.
-9. UiPath calls `POST http://localhost:8002/api/purchase-orders/{po_id}/approval-request`.
+Enhanced evidence pages:
+
+- `http://localhost:8000/case-dashboard`
+- `http://localhost:8000/case-timeline/CASE-001`
+- `http://localhost:8000/api-readiness-scorecard`
+- `http://localhost:8000/tool-registry`
 
 ## UiPath Implementation Pack
 
-UiPath builder assets are in [uipath-workflows/README.md](/home/changv/projects/Uipath/uipath-workflows/README.md). The folder includes workflow outlines, variable tables, request bodies, expected outputs, selector notes, troubleshooting, runbook material, and a template-only XAML skeleton.
+UiPath builder assets are in [uipath-workflows/README.md](/home/changv/projects/Uipath/uipath-workflows/README.md). The pack includes workflow outlines, variable tables, request bodies, expected outputs, selector notes, troubleshooting, runbook material, and a template-only XAML skeleton.
 
-## What the human builder still configures in UiPath
+## Demo Flow
+
+1. UiPath creates the modernization case.
+2. UiPath RPA opens the mock ERP UI and extracts PO fields.
+3. UiPath calls the triage support service.
+4. UiPath routes by `detected_exception_type`, not hardcoded PO ID.
+5. UiPath handles human approval.
+6. UiPath performs RPA write-back through the legacy UI.
+7. UiPath calls the validation suite.
+8. UiPath gates trusted-tool registration.
+9. UiPath switches the approved path to API mode.
+10. Demo evidence pages show dashboard, timeline, scorecard, registry, and final output.
+
+## Validation / Parity
+
+The validation suite simulates:
+
+- Contract test
+- Business rule test
+- RPA/API parity check using cloned/reset test cases
+- Failed validation recovery recommendation
+
+If `simulate_failure` is true, the validation suite returns a failed parity branch and recommends staying in RPA mode.
+
+## Coding Agent Usage
+
+Codex generated support services, fixtures, scripts, documentation, diagrams, and implementation aids. Codex did not operate UiPath Studio, did not configure the tenant, did not modify production ERP code, and does not run at UiPath runtime in this demo.
+
+## Human Builder Responsibilities
 
 - Create UiPath process / app / case-style flow
 - Configure browser automation
 - Pick UI elements in Chrome
 - Configure HTTP Request activities
 - Configure human approval steps
+- Configure trusted-tool approval
 - Run attended robot
 - Capture UiPath screenshots/video
 
-## What Codex Generated
+## Limitations
 
-Codex generated the non-UiPath support assets in this repository: mock UI, deterministic triage service, API facade candidate, validation service, tests, scripts, documentation, and UiPath implementation aids.
+- Mock ERP, not real ERP
+- Deterministic triage in MVP
+- Demo-grade validation simulation
+- API facade uses demo data layer
+- No production deployment
+- No production ERP code modification
+- UiPath workflow still configured by a human builder
 
-Codex did not implement the main workflow orchestration. Codex is not triggered at runtime by UiPath in this demo. Codex did not modify production ERP code.
+See [docs/submission/risk-and-limitations.md](/home/changv/projects/Uipath/docs/submission/risk-and-limitations.md).
 
-## Tests
+## Roadmap
 
-```bash
-source .venv/bin/activate
-pytest mock-legacy-erp reasoning-agent generated-api-facade validation-suite
+- More exception branches
+- Real Maestro case integration
+- UiPath Apps dashboard
+- UiPath Data Service / Orchestrator queues
+- Production-grade validation suite
+- Security, RBAC, and connector hardening
+- Governed tool registry with access control
+- Real ERP adapter patterns
+- Optional LangGraph consumer
+- Optional Codex Record & Replay evidence
+
+## Repository Structure
+
+```text
+mock-legacy-erp/          Legacy UI simulation and evidence pages
+reasoning-agent/          Deterministic triage support service
+generated-api-facade/     API candidate support service
+validation-suite/         Validation support service
+uipath-workflows/         UiPath implementation pack
+docs/                     Guides, diagrams, submission docs
+scripts/                  Start, smoke, reset, CI helpers
+.github/workflows/        GitHub Actions CI
+docker-compose.yml        Optional support-service container runner
 ```
-
-## Scope Notes
-
-This is a local hackathon MVP. It does not claim full ERP modernization, production deployment, or production ERP code modification.

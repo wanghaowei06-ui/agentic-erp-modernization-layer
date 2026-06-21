@@ -1,0 +1,14 @@
+{
+  "business_action": "request_purchase_order_approval",
+  "data_isolation": "cloned_test_cases",
+  "rpa_test_case_id": "PO-1001-RPA",
+  "api_test_case_id": "PO-1001-API",
+  "same_initial_state": true,
+  "contract_test": "passed",
+  "business_rule_test": "passed",
+  "rpa_api_parity_check": "failed",
+  "parity_failure_reason": "Simulated mismatch in audit log creation for demo failure path.",
+  "trusted_tool_candidate": false,
+  "requires_registration_approval": false,
+  "recommended_recovery": "Keep execution mode as RPA, generate fix task, require IT review, and rerun validation."
+}

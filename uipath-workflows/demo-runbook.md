@@ -27,8 +27,11 @@ Confirm:
 
 - PO-1001 triage returns `budget_exceeded`.
 - PO-1002 triage returns `vendor_info_missing`.
+- PO-1003 triage returns `inventory_shortage`.
 - Validation returns `passed`.
+- Validation failed simulation returns `rpa_api_parity_check = failed`.
 - API mode response returns `execution_mode` as `API`.
+- Enhanced pages return HTTP 200.
 
 ## 3. Open Windows Chrome
 
@@ -39,6 +42,13 @@ http://localhost:8000/purchase-orders
 ```
 
 Confirm the Mock ERP is visible and PO-1001 and PO-1002 appear in the exception queue.
+
+Open the enhanced evidence pages:
+
+- `http://localhost:8000/case-dashboard`
+- `http://localhost:8000/case-timeline/CASE-001`
+- `http://localhost:8000/api-readiness-scorecard`
+- `http://localhost:8000/tool-registry`
 
 ## 4. Run UiPath Workflow
 
@@ -85,6 +95,23 @@ Show:
 - `rpa_test_case_id = PO-1001-RPA`
 - `api_test_case_id = PO-1001-API`
 
+## 7A. Show Validation Failed Simulation
+
+Call:
+
+```text
+POST http://localhost:8003/validate/request-purchase-order-approval
+Body: {"simulate_failure": true}
+```
+
+Show:
+
+- `rpa_api_parity_check = failed`
+- `trusted_tool_candidate = false`
+- `recommended_recovery = Keep execution mode as RPA, generate fix task, require IT review, and rerun validation.`
+
+Explain that UiPath would keep execution mode as RPA and create a review path. Python is only simulating the validation evidence.
+
 ## 8. Show API Mode Execution
 
 Call:
@@ -115,4 +142,18 @@ Show `expected-outputs/final-case-output.json` or the UiPath log output:
   "trusted_tool_status": "registered",
   "execution_mode": "API"
 }
+```
+
+## 10. Reset Demo Data
+
+Before another run:
+
+```bash
+./scripts/reset_demo_data.sh
+```
+
+Or call the local demo endpoint:
+
+```text
+POST http://localhost:8000/api/demo/reset
 ```

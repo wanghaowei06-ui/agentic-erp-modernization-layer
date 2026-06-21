@@ -1,0 +1,11 @@
+flowchart LR
+    A[Case Intake] --> B[Legacy ERP Extraction]
+    B --> C[Exception Triage]
+    C --> D[Dynamic Routing]
+    D --> E[Human Approval]
+    E --> F[RPA Write-back]
+    F --> G[API Modernization Task]
+    G --> H[Validation Gate]
+    H --> I[Trusted Tool Approval]
+    I --> J[API Mode Execution]
+    J --> K[Case Closed]

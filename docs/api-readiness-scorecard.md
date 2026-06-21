@@ -13,3 +13,5 @@ This deterministic demo score estimates whether the `request_purchase_order_appr
 The score supports the demo decision to validate this action as a trusted-tool candidate. It is not a production readiness assessment.
 
 `risk_level` from the triage service controls approvals and validation strictness in the UiPath-governed case. It does not control the readiness score.
+
+The enhanced scorecard also exposes the weighted formula. The deterministic demo final score remains 86 for consistency with the evidence pack.

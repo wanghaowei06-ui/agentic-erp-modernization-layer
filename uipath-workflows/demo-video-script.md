@@ -16,6 +16,8 @@ UiPath calls the exception triage support service over HTTP. For PO-1001, the se
 
 UiPath routes the case using `detected_exception_type`, not the purchase order ID. To prove dynamic routing, UiPath also shows the PO-1002 route where the triage result is `vendor_info_missing` and human approval is not required.
 
+For the enhanced route proof, UiPath also shows PO-1003 classified as `inventory_shortage`, which routes to `WAITING_INVENTORY_REVIEW`. This is a roadmap route proof, not full processing.
+
 ## 2:00 - 2:40 Human Approval and RPA Write-back
 
 UiPath handles the business approval step. After approval, UiPath returns to the legacy ERP UI and performs the write-back through browser automation: it fills the approval reason, enters the manager ID, and clicks the approval request button.
@@ -28,11 +30,15 @@ UiPath calls the validation support service before trusting the API facade. The 
 
 The parity check uses cloned reset test cases: `PO-1001-RPA` and `PO-1001-API`. UiPath does not compare the API result against a record already mutated by the RPA path.
 
+UiPath can also show a simulated failed validation branch. In that branch, the parity check fails, the trusted-tool candidate flag is false, and UiPath keeps execution mode as RPA while routing the case to IT review.
+
 ## 3:30 - 4:20 API Mode Execution
 
 After validation and trusted-tool registration approval, UiPath switches the approved case to API mode. UiPath calls the generated API facade candidate for `request_purchase_order_approval`.
 
 The response shows `PENDING_MANAGER_APPROVAL`, `audit_log_created = true`, and `execution_mode = API`.
+
+The enhanced support pages now provide evidence views: Case Dashboard, Case Timeline, API Readiness Scorecard, and Tool Registry. These pages support screenshots and demo narration; they do not replace UiPath orchestration.
 
 ## 4:20 - 5:00 Impact and Roadmap
 
