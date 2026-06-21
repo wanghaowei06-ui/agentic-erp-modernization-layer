@@ -1,0 +1,28 @@
+services:
+  mock-legacy-erp:
+    build:
+      context: .
+      dockerfile: mock-legacy-erp/Dockerfile
+    ports:
+      - "8000:8000"
+
+  reasoning-agent:
+    build:
+      context: .
+      dockerfile: reasoning-agent/Dockerfile
+    ports:
+      - "8001:8001"
+
+  generated-api-facade:
+    build:
+      context: .
+      dockerfile: generated-api-facade/Dockerfile
+    ports:
+      - "8002:8002"
+
+  validation-suite:
+    build:
+      context: .
+      dockerfile: validation-suite/Dockerfile
+    ports:
+      - "8003:8003"
