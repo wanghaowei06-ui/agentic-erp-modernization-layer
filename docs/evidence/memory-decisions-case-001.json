@@ -1,0 +1,81 @@
+{
+  "case_id": "CASE-001",
+  "empty": false,
+  "events": [
+    {
+      "event_id": "evt_665147dcf87a42c2a6ec05f09f507ebc",
+      "case_id": "CASE-001",
+      "event_type": "TRIAGE_COMPLETED",
+      "source_service": "reasoning-agent",
+      "schema_version": "1.0",
+      "created_at": "2026-06-24T09:13:55.673129Z",
+      "correlation_id": "corr_3035eecd47544a40971c5c8a962e5172",
+      "payload": {
+        "input_summary": {
+          "po_id": "PO-1001",
+          "amount": 18000,
+          "budget_limit": 10000,
+          "vendor_id": "V-203",
+          "available_inventory": true
+        },
+        "decision_output": {
+          "case_id": "CASE-001",
+          "po_id": "PO-1001",
+          "detected_exception_type": "budget_exceeded",
+          "risk_level": "high",
+          "confidence": 0.94,
+          "recommended_path": "manager_approval_required",
+          "next_action": "request_manager_approval",
+          "requires_human_approval": true,
+          "next_stage": "WAITING_FOR_HUMAN_APPROVAL",
+          "reasoning_summary": "The purchase order amount exceeds the approved budget limit.",
+          "evidence": [
+            {
+              "field": "amount",
+              "value": 18000,
+              "source": "legacy_erp_screen"
+            },
+            {
+              "field": "budget_limit",
+              "value": 10000,
+              "source": "legacy_erp_screen"
+            }
+          ],
+          "fallback": "manual_investigation",
+          "decision_source": "deterministic_rule",
+          "business_action": "request_purchase_order_approval",
+          "required_approval_type": "manager_approval",
+          "recommended_next_stage": "WAITING_FOR_HUMAN_APPROVAL",
+          "capability_lookup_required": true,
+          "guardrail_status": "passed",
+          "memory_references": [],
+          "correlation_id": "corr_3035eecd47544a40971c5c8a962e5172",
+          "schema_version": "1.0"
+        },
+        "po_id": "PO-1001",
+        "detected_exception_type": "budget_exceeded",
+        "risk_level": "high",
+        "confidence": 0.94,
+        "decision_source": "deterministic_rule",
+        "business_action": "request_purchase_order_approval",
+        "required_approval_type": "manager_approval",
+        "recommended_next_stage": "WAITING_FOR_HUMAN_APPROVAL",
+        "capability_lookup_required": true,
+        "guardrail_status": "passed",
+        "evidence": [
+          {
+            "field": "amount",
+            "value": 18000,
+            "source": "legacy_erp_screen"
+          },
+          {
+            "field": "budget_limit",
+            "value": 10000,
+            "source": "legacy_erp_screen"
+          }
+        ],
+        "fallback": "manual_investigation"
+      }
+    }
+  ]
+}

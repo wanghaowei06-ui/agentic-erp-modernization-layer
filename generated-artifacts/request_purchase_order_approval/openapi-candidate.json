@@ -1,0 +1,51 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Purchase Order Approval API Candidate",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/purchase-orders/{po_id}/approval-request": {
+      "post": {
+        "summary": "Request purchase order approval",
+        "description": "Candidate API facade for a UiPath-approved modernization path.",
+        "parameters": [
+          {
+            "name": "po_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "approval_reason",
+                  "manager_id",
+                  "source_case_id"
+                ],
+                "properties": {
+                  "approval_reason": {
+                    "type": "string"
+                  },
+                  "manager_id": {
+                    "type": "string"
+                  },
+                  "source_case_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ UiPath is the case orchestration layer. UiPath owns the case lifecycle, dynamic 
 The Python services in this repository are callable support assets only:
 
 - Mock legacy ERP UI for UiPath RPA extraction and write-back.
-- Deterministic exception triage service called by UiPath over HTTP.
+- LLM-backed LangGraph exception triage service called by UiPath over HTTP, with schema validation and deterministic guardrails.
 - Validation support service called by UiPath before trusted-tool registration.
 - Generated API facade candidate called by UiPath only after validation and approval.
 

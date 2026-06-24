@@ -14,7 +14,7 @@ UiPath owns robots, approvals, case lifecycle, governance, validation gates, and
 
 ## What does the agent do?
 
-The triage support service classifies exception fields and returns a structured route recommendation. In the MVP it is deterministic for reliability.
+The reasoning support service uses LangGraph and an LLM to classify exceptions and return structured route recommendations. Deterministic rules validate the model output and block unsafe or invalid decisions.
 
 ## What does Codex do?
 

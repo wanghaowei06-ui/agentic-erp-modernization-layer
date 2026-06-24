@@ -1,0 +1,46 @@
+{
+  "generated_at": "2026-06-24T09:13:55.967498Z",
+  "commit_sha": "14d4418-dirty",
+  "release_candidate": "hard-mvp-automation-memory-rc1",
+  "service_ports": {
+    "mock_legacy_erp": 8001,
+    "reasoning_agent": 8002,
+    "generated_api_facade": 8003,
+    "validation_suite": 8004
+  },
+  "smoke_test_status": "passed_by_latest_smoke_test_required",
+  "pytest_summary": "run make demo-check or individual pytest commands before submission",
+  "demo_case_id": "CASE-001",
+  "primary_po_id": "PO-1001",
+  "capability_gap_case_id": "CASE-003",
+  "capability_gap_po_id": "PO-1003",
+  "memory_events_expected": [
+    "TRIAGE_COMPLETED",
+    "RPA_WRITEBACK_COMPLETED",
+    "VALIDATION_COMPLETED",
+    "API_EXECUTION_COMPLETED"
+  ],
+  "memory_query_urls": [
+    "http://localhost:8004/memory/cases/CASE-001",
+    "http://localhost:8004/memory/cases/CASE-001/timeline",
+    "http://localhost:8004/memory/decisions/CASE-001",
+    "http://localhost:8004/memory/capabilities",
+    "http://localhost:8004/memory/gaps"
+  ],
+  "evidence_files": [
+    "capability-gap-case-003.json",
+    "generated-api-approval.json",
+    "health-8001.json",
+    "health-8002.json",
+    "health-8003.json",
+    "health-8004.json",
+    "memory-capabilities.json",
+    "memory-case-001.json",
+    "memory-decisions-case-001.json",
+    "memory-gaps.json",
+    "memory-timeline-case-001.json",
+    "rpa-writeback-po-1001.html",
+    "triage-po-1001.json",
+    "validation-result.json"
+  ]
+}

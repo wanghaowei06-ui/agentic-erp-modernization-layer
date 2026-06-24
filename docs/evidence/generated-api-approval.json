@@ -1,0 +1,15 @@
+{
+  "po_id": "PO-1001-API",
+  "status": "PENDING_MANAGER_APPROVAL",
+  "audit_log_created": true,
+  "execution_mode": "API",
+  "source_case_id": "CASE-001",
+  "side_effects": [
+    "PO_STATUS_UPDATED",
+    "APPROVAL_TASK_CREATED",
+    "AUDIT_LOG_CREATED",
+    "MANAGER_NOTIFICATION_QUEUED",
+    "BUDGET_REVIEW_FLAGGED"
+  ],
+  "event_trace_id": "api-trace-PO-1001-API"
+}

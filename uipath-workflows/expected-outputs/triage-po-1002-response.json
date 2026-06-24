@@ -7,7 +7,7 @@
   "recommended_path": "vendor_information_request",
   "requires_human_approval": false,
   "next_stage": "WAITING_VENDOR_INFO",
-  "reasoning_summary": "Vendor information is incomplete or the vendor ID is missing.",
+  "reasoning_summary": "Vendor fields are incomplete, so vendor information is required.",
   "evidence": {
     "amount": 6000.0,
     "budget_limit": 10000.0,
@@ -16,5 +16,13 @@
     "inventory_available": true,
     "erp_status": "Exception",
     "raw_exception_text": "Vendor information missing"
-  }
+  },
+  "agent_runtime": "langgraph",
+  "reasoning_mode": "llm_backed",
+  "llm_enabled": true,
+  "model": "deepseek-v4-flash",
+  "schema_validated": true,
+  "guardrails_applied": true,
+  "decision_status": "DECISION_READY",
+  "blocking_reasons": []
 }

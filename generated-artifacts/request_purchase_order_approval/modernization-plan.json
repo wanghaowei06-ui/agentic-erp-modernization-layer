@@ -1,0 +1,31 @@
+{
+  "plan_id": "MOD-PLAN-001",
+  "case_id": "CASE-001",
+  "target_tool_name": "request_purchase_order_approval",
+  "target_service": "generated-api-facade",
+  "proposed_endpoint": "POST /api/purchase-orders/{po_id}/approval-request",
+  "source_rpa_trace": "UiPath clicked Request Approval in Mock Legacy ERP and observed PENDING_MANAGER_APPROVAL.",
+  "contract_requirements": [
+    "must return po_id",
+    "must return status=PENDING_MANAGER_APPROVAL",
+    "must return audit_log_created=true",
+    "must return execution_mode=API",
+    "must preserve source_case_id"
+  ],
+  "tests_required": [
+    "contract_test",
+    "business_rule_test",
+    "rpa_api_parity_check"
+  ],
+  "side_effects_signature": [
+    "PO_STATUS_UPDATED",
+    "APPROVAL_TASK_CREATED",
+    "AUDIT_LOG_CREATED",
+    "MANAGER_NOTIFICATION_QUEUED",
+    "BUDGET_REVIEW_FLAGGED"
+  ],
+  "rpa_api_parity_required": true,
+  "risk_level": "medium",
+  "requires_engineer_approval": true,
+  "recommended_next_stage": "AUTOMATION_OWNER_PLAN_REVIEW"
+}

@@ -12,15 +12,15 @@ source .venv/bin/activate
 
 Confirm the printed Windows/UiPath URLs:
 
-- `http://localhost:8000`
 - `http://localhost:8001`
 - `http://localhost:8002`
 - `http://localhost:8003`
+- `http://localhost:8004`
 
 ## 2. Run Smoke Test
 
 ```bash
-./scripts/smoke_test.sh
+./scripts/smoke-test.sh
 ```
 
 Confirm:
@@ -31,24 +31,32 @@ Confirm:
 - Validation returns `passed`.
 - Validation failed simulation returns `rpa_api_parity_check = failed`.
 - API mode response returns `execution_mode` as `API`.
-- Enhanced pages return HTTP 200.
+- Automation Memory timeline, capabilities, and gaps queries return HTTP 200.
 
 ## 3. Open Windows Chrome
 
 Open:
 
 ```text
-http://localhost:8000/purchase-orders
+http://localhost:8001/purchase-orders
 ```
 
 Confirm the Mock ERP is visible and PO-1001 and PO-1002 appear in the exception queue.
 
 Open the enhanced evidence pages:
 
-- `http://localhost:8000/case-dashboard`
-- `http://localhost:8000/case-timeline/CASE-001`
-- `http://localhost:8000/api-readiness-scorecard`
-- `http://localhost:8000/tool-registry`
+- `http://localhost:8004/memory/cases/CASE-001`
+- `http://localhost:8004/memory/cases/CASE-001/timeline`
+- `http://localhost:8004/memory/decisions/CASE-001`
+- `http://localhost:8004/memory/capabilities`
+- `http://localhost:8004/memory/gaps`
+
+Optional enhanced evidence pages, if enabled:
+
+- `http://localhost:8001/case-dashboard`
+- `http://localhost:8001/case-timeline/CASE-001`
+- `http://localhost:8001/api-readiness-scorecard`
+- `http://localhost:8001/tool-registry`
 
 ## 4. Run UiPath Workflow
 
@@ -59,7 +67,7 @@ Run the UiPath workflow from Studio or attended robot. UiPath should drive the c
 Show UiPath scraping PO-1001 fields from:
 
 ```text
-http://localhost:8000/purchase-orders/PO-1001
+http://localhost:8001/purchase-orders/PO-1001
 ```
 
 Show the triage result:
@@ -83,7 +91,7 @@ Explain that UiPath routes by `detected_exception_type`, not by `po_id`.
 Call:
 
 ```text
-POST http://localhost:8003/validate/request-purchase-order-approval
+POST http://localhost:8004/validate/request-purchase-order-approval
 ```
 
 Show:
@@ -100,7 +108,7 @@ Show:
 Call:
 
 ```text
-POST http://localhost:8003/validate/request-purchase-order-approval
+POST http://localhost:8004/validate/request-purchase-order-approval
 Body: {"simulate_failure": true}
 ```
 
@@ -117,7 +125,7 @@ Explain that UiPath would keep execution mode as RPA and create a review path. P
 Call:
 
 ```text
-POST http://localhost:8002/api/purchase-orders/PO-1001/approval-request
+POST http://localhost:8003/api/purchase-orders/PO-1001/approval-request
 ```
 
 Show:
@@ -144,6 +152,8 @@ Show `expected-outputs/final-case-output.json` or the UiPath log output:
 }
 ```
 
+`API_MODE_EXECUTED` is the UiPath case stage. The Automation Memory event emitted by generated-api-facade is `API_EXECUTION_COMPLETED`.
+
 ## 10. Reset Demo Data
 
 Before another run:
@@ -155,5 +165,5 @@ Before another run:
 Or call the local demo endpoint:
 
 ```text
-POST http://localhost:8000/api/demo/reset
+POST http://localhost:8001/api/demo/reset
 ```

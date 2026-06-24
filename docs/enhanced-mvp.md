@@ -6,16 +6,16 @@ Python remains limited to callable support assets, UI evidence pages, fixtures, 
 
 ## Implemented
 
-- Case Dashboard at `GET http://localhost:8000/case-dashboard`
-- Case Timeline at `GET http://localhost:8000/case-timeline/CASE-001`
-- Timeline JSON at `GET http://localhost:8000/api/demo/cases/CASE-001/timeline`
-- API Readiness Scorecard at `GET http://localhost:8000/api-readiness-scorecard`
-- Scorecard JSON at `GET http://localhost:8000/api/demo/api-readiness-scorecard`
-- Tool Registry at `GET http://localhost:8000/tool-registry`
-- Tool Registry JSON at `GET http://localhost:8000/api/demo/tool-registry`
+- Case Dashboard at `GET http://localhost:8001/case-dashboard`
+- Case Timeline at `GET http://localhost:8001/case-timeline/CASE-001`
+- Timeline JSON at `GET http://localhost:8001/api/demo/cases/CASE-001/timeline`
+- API Readiness Scorecard at `GET http://localhost:8001/api-readiness-scorecard`
+- Scorecard JSON at `GET http://localhost:8001/api/demo/api-readiness-scorecard`
+- Tool Registry at `GET http://localhost:8001/tool-registry`
+- Tool Registry JSON at `GET http://localhost:8001/api/demo/tool-registry`
 - Validation failed simulation with `{"simulate_failure": true}`
 - PO-1003 lightweight `inventory_shortage` route proof fixtures
-- Local demo reset endpoint at `POST http://localhost:8000/api/demo/reset`
+- Local demo reset endpoint at `POST http://localhost:8001/api/demo/reset`
 - Local demo reset script at `scripts/reset_demo_data.sh`
 
 ## Roadmap

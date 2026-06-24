@@ -15,7 +15,7 @@ This is a precise UiPath workflow outline. It is not Python orchestration. UiPat
 
 ## Sequence: Legacy ERP Extraction
 
-1. Use Browser or Open Browser: `http://localhost:8000/purchase-orders/PO-1001`.
+1. Use Browser or Open Browser: `http://localhost:8001/purchase-orders/PO-1001`.
 2. Get Text from stable ID `po-id`; assign to `po_id`.
 3. Get Text from stable ID `amount`; convert to number and assign to `amount`.
 4. Get Text from stable ID `budget-limit`; convert to number and assign to `budget_limit`.
@@ -31,7 +31,7 @@ This is a precise UiPath workflow outline. It is not Python orchestration. UiPat
 1. Build request body from the extracted values.
 2. HTTP Request:
    - Method: `POST`
-   - URL: `http://localhost:8001/triage`
+   - URL: `http://localhost:8002/triage`
    - Body: JSON matching `http-request-bodies/triage-po-1001.json`
 3. Assign response body to `triage_result_json`.
 4. Deserialize JSON.
@@ -89,7 +89,7 @@ The router must use `detected_exception_type`, not `po_id`.
 
 1. HTTP Request:
    - Method: `POST`
-   - URL: `http://localhost:8003/validate/request-purchase-order-approval`
+   - URL: `http://localhost:8004/validate/request-purchase-order-approval`
    - Body: `{}` or an empty JSON object.
 2. Assign response body to `validation_result_json`.
 3. Deserialize JSON.
@@ -105,7 +105,7 @@ The router must use `detected_exception_type`, not `po_id`.
 
 1. HTTP Request:
    - Method: `POST`
-   - URL: `http://localhost:8003/validate/request-purchase-order-approval`
+   - URL: `http://localhost:8004/validate/request-purchase-order-approval`
    - Body: `{"simulate_failure": true}`
 2. Verify `rpa_api_parity_check = "failed"`.
 3. Verify `trusted_tool_candidate = false`.
@@ -123,7 +123,7 @@ The router must use `detected_exception_type`, not `po_id`.
 
 1. HTTP Request:
    - Method: `POST`
-   - URL: `http://localhost:8002/api/purchase-orders/PO-1001/approval-request`
+   - URL: `http://localhost:8003/api/purchase-orders/PO-1001/approval-request`
    - Body: JSON matching `http-request-bodies/api-mode-request.json`
 2. Assign response body to `api_result_json`.
 3. Deserialize JSON.
@@ -150,9 +150,9 @@ The router must use `detected_exception_type`, not `po_id`.
 
 UiPath or the demo operator can open these local support pages for screenshots:
 
-- `http://localhost:8000/case-dashboard`
-- `http://localhost:8000/case-timeline/CASE-001`
-- `http://localhost:8000/api-readiness-scorecard`
-- `http://localhost:8000/tool-registry`
+- `http://localhost:8001/case-dashboard`
+- `http://localhost:8001/case-timeline/CASE-001`
+- `http://localhost:8001/api-readiness-scorecard`
+- `http://localhost:8001/tool-registry`
 
 These pages are evidence views only. UiPath remains the case orchestration and governance layer.

@@ -20,11 +20,11 @@ UiPath is the main orchestration layer for this MVP. UiPath creates and governs 
 
 ## Endpoints UiPath Should Call
 
-- Legacy ERP UI for RPA scraping and clicking: `http://localhost:8000/purchase-orders`
-- Triage support service: `POST http://localhost:8001/triage`
-- Validation support service: `POST http://localhost:8003/validate/request-purchase-order-approval`
-- API facade candidate after approval: `POST http://localhost:8002/api/purchase-orders/{po_id}/approval-request`
-- API facade OpenAPI document: `GET http://localhost:8002/openapi.yaml`
+- Legacy ERP UI for RPA scraping and clicking: `http://localhost:8001/purchase-orders`
+- Triage support service: `POST http://localhost:8002/triage`
+- Validation support service: `POST http://localhost:8004/validate/request-purchase-order-approval`
+- API facade candidate after approval: `POST http://localhost:8003/api/purchase-orders/{po_id}/approval-request`
+- API facade OpenAPI document: `GET http://localhost:8003/openapi.yaml`
 
 ## Suggested UiPath Stages
 
@@ -40,7 +40,7 @@ UiPath is the main orchestration layer for this MVP. UiPath creates and governs 
 
 ## RPA Extraction Fields
 
-On `http://localhost:8000/purchase-orders/{po_id}`, UiPath can scrape:
+On `http://localhost:8001/purchase-orders/{po_id}`, UiPath can scrape:
 
 - `po-id`
 - `amount`

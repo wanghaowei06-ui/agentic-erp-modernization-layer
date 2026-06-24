@@ -10,10 +10,10 @@ docker compose up --build
 
 Services:
 
-- `http://localhost:8000` mock legacy ERP UI and demo evidence pages
-- `http://localhost:8001` triage support service
-- `http://localhost:8002` generated API facade candidate
-- `http://localhost:8003` validation support service
+- `http://localhost:8001` mock legacy ERP UI and demo evidence pages
+- `http://localhost:8002` triage support service
+- `http://localhost:8003` generated API facade candidate
+- `http://localhost:8004` validation support service
 
 Run smoke tests from another terminal:
 

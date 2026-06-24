@@ -1,0 +1,35 @@
+{
+  "case_id": "CASE-001",
+  "business_action": "request_purchase_order_approval",
+  "contract_test": "passed",
+  "business_rule_test": "passed",
+  "rpa_api_parity_check": "passed",
+  "same_initial_state": true,
+  "rpa_result": {
+    "status": "PENDING_MANAGER_APPROVAL",
+    "audit_log_created": true
+  },
+  "api_result": {
+    "status": "PENDING_MANAGER_APPROVAL",
+    "audit_log_created": true
+  },
+  "trusted_tool_candidate": true,
+  "requires_registration_approval": true,
+  "data_isolation": "cloned_test_cases",
+  "rpa_test_case_id": "PO-1001-RPA",
+  "api_test_case_id": "PO-1001-API",
+  "compared_fields": [
+    "status",
+    "audit_log_created"
+  ],
+  "matched_side_effects": [
+    "PO_STATUS_UPDATED",
+    "APPROVAL_TASK_CREATED",
+    "AUDIT_LOG_CREATED",
+    "MANAGER_NOTIFICATION_QUEUED",
+    "BUDGET_REVIEW_FLAGGED"
+  ],
+  "missing_side_effects": [],
+  "extra_side_effects": [],
+  "parity_summary": "Hard MVP demo heuristic: cloned PO-1001-RPA and PO-1001-API start from identical seed data, then compare status and audit-log side effects."
+}

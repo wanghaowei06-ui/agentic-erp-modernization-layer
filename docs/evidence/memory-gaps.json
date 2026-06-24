@@ -1,0 +1,33 @@
+{
+  "gaps": [
+    {
+      "event_id": "evt_598f83affc6b4089bba0f4442f5da27d",
+      "case_id": "CASE-003",
+      "event_type": "CAPABILITY_GAP_RECORDED",
+      "source_service": "validation-suite",
+      "schema_version": "1.0",
+      "created_at": "2026-06-24T09:13:55.780687Z",
+      "correlation_id": "corr_3cbf812edfc04201927cfd4dd429faca",
+      "payload": {
+        "case_id": "CASE-003",
+        "po_id": "PO-1003",
+        "business_action": "resolve_inventory_shortage",
+        "gap_type": "missing_trusted_capability",
+        "gap_status": "open",
+        "recommended_capability": "HandleInventoryShortageReview.xaml",
+        "priority": "medium",
+        "source_endpoint": "/capability-gaps/inventory-shortage",
+        "legacy_gap_payload": {
+          "case_id": "CASE-003",
+          "exception_type": "inventory_shortage",
+          "required_business_action": "request_inventory_review",
+          "coverage_status": "not_covered",
+          "gap_type": "missing_workflow",
+          "manual_resolution_required": true,
+          "recommended_capability": "HandleInventoryShortageReview.xaml",
+          "human_approval_required": true
+        }
+      }
+    }
+  ]
+}

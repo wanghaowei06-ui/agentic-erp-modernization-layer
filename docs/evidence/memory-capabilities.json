@@ -1,0 +1,28 @@
+{
+  "capabilities": [
+    {
+      "capability_id": "cap_api_request_po_approval_v1",
+      "business_action": "request_purchase_order_approval",
+      "capability_type": "api",
+      "execution_mode": "API",
+      "status": "trusted",
+      "validation_status": "passed",
+      "schema_version": "1.0",
+      "created_at": "2026-06-24T09:13:55.748960Z",
+      "endpoint": "http://localhost:8003/api/purchase-orders/{po_id}/approval-request",
+      "workflow_name": null
+    },
+    {
+      "capability_id": "cap_human_po_approval_v1",
+      "business_action": "request_purchase_order_approval",
+      "capability_type": "human_task",
+      "execution_mode": "HUMAN_APPROVAL",
+      "status": "trusted",
+      "validation_status": "passed",
+      "schema_version": "1.0",
+      "created_at": "2026-06-24T09:13:55.749155Z",
+      "endpoint": null,
+      "workflow_name": "HumanApproval_PO1001"
+    }
+  ]
+}

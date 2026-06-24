@@ -4,12 +4,12 @@
 
 - Confirm the services are running in WSL2 with `./scripts/start_all.sh`.
 - Confirm the services bind to `0.0.0.0` with `ss -ltnp | rg ':800[0-3]'`.
-- Try opening `http://localhost:8000/health` in Windows Chrome.
+- Try opening `http://localhost:8001/health` in Windows Chrome.
 - If localhost forwarding is unavailable, get the WSL2 IP with `hostname -I` and try `http://<wsl-ip>:8000`.
 
 ## UiPath cannot scrape fields
 
-- Open `http://localhost:8000/purchase-orders/PO-1001` manually in Chrome.
+- Open `http://localhost:8001/purchase-orders/PO-1001` manually in Chrome.
 - Confirm the HTML IDs in `selectors/mock-erp-element-ids.md`.
 - Re-pick the element in UiPath Studio and prefer selectors using the `id` attribute.
 - Avoid coordinate-based selectors.
@@ -55,7 +55,7 @@ pip install -r requirements.txt
 
 ## RPA write-back form not found
 
-- Confirm the browser is on `http://localhost:8000/purchase-orders/PO-1001`.
+- Confirm the browser is on `http://localhost:8001/purchase-orders/PO-1001`.
 - Confirm the form contains:
   - `approval-reason-input`
   - `manager-id-input`
@@ -64,7 +64,7 @@ pip install -r requirements.txt
 
 ## API mode returns wrong output
 
-- Confirm the request URL is `http://localhost:8002/api/purchase-orders/PO-1001/approval-request`.
+- Confirm the request URL is `http://localhost:8003/api/purchase-orders/PO-1001/approval-request`.
 - Confirm the JSON body includes `approval_reason`, `manager_id`, and `source_case_id`.
 - Confirm the expected response contains `execution_mode = API`.
 - Restart the API facade if demo state needs a clean reset.
