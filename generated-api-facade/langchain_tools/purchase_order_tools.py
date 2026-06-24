@@ -8,7 +8,7 @@ def request_purchase_order_approval(
     approval_reason: str,
     manager_id: str,
     source_case_id: str,
-    base_url: str = "http://localhost:8002",
+    base_url: str = "http://localhost:8003",
 ) -> dict:
     """Optional client wrapper for the API facade, not a workflow orchestrator."""
     response = httpx.post(

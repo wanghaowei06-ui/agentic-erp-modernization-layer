@@ -1,0 +1,8 @@
+{
+  "case_id": "CASE-001",
+  "po_id": "PO-1001",
+  "detected_exception_type": "budget_exceeded",
+  "next_stage": "WAITING_FOR_HUMAN_APPROVAL",
+  "next_action": "request_manager_approval",
+  "confidence": 0.94
+}

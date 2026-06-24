@@ -6,7 +6,7 @@ info:
     Demo API candidate for request_purchase_order_approval. UiPath should call
     this facade only after validation and trusted-tool registration approval.
 servers:
-  - url: http://localhost:8002
+  - url: http://localhost:8003
 paths:
   /health:
     get:
@@ -64,6 +64,8 @@ components:
         - audit_log_created
         - execution_mode
         - source_case_id
+        - side_effects
+        - event_trace_id
       properties:
         po_id:
           type: string
@@ -80,3 +82,16 @@ components:
         source_case_id:
           type: string
           example: CASE-001
+        side_effects:
+          type: array
+          items:
+            type: string
+          example:
+            - PO_STATUS_UPDATED
+            - APPROVAL_TASK_CREATED
+            - AUDIT_LOG_CREATED
+            - MANAGER_NOTIFICATION_QUEUED
+            - BUDGET_REVIEW_FLAGGED
+        event_trace_id:
+          type: string
+          example: api-trace-PO-1001

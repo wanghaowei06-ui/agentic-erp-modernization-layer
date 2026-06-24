@@ -1,28 +1,77 @@
 {% extends "base.html" %}
 {% block content %}
 <h1 id="writeback-result">Approval Request Submitted</h1>
-<section class="panel">
-  <div class="field-grid">
-    <div class="data-field">
-      <span class="label">PO ID</span>
-      <span class="value">{{ result.po_id }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Writeback Status</span>
-      <span class="value" id="writeback-status">{{ result.status }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Execution Mode</span>
-      <span class="value" id="writeback-execution-mode">{{ result.execution_mode }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Audit Created</span>
-      <span class="value" id="writeback-audit-created">{{ "true" if result.audit_log_created else "false" }}</span>
+
+<div class="legacy-panel fixed-results-panel">
+  <h2>Legacy Button Execution Result</h2>
+  <div class="legacy-panel-body">
+    <table class="form-table" aria-label="writeback result">
+      <tbody>
+        <tr>
+          <th>PO Number</th>
+          <td>
+            <span class="field-value" id="ctl00_MainContent_lblPoNumber">{{ result.po_id }}</span>
+          </td>
+          <th>Writeback Status</th>
+          <td>
+            <span id="writeback-status" hidden>{{ result.status }}</span>
+            <span class="field-value status-pending" id="ctl00_MainContent_lblWritebackStatus" name="ctl00$MainContent$lblWritebackStatus">{{ result.status }}</span>
+          </td>
+        </tr>
+        <tr>
+          <th>Execution Mode</th>
+          <td>
+            <span id="writeback-execution-mode" hidden>{{ result.execution_mode }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblExecutionMode">{{ result.execution_mode }}</span>
+          </td>
+          <th>Audit Created</th>
+          <td>
+            <span id="writeback-audit-created" hidden>{{ "true" if result.audit_log_created else "false" }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblAuditCreated">{{ "true" if result.audit_log_created else "false" }}</span>
+          </td>
+        </tr>
+        <tr>
+          <th>Event Trace</th>
+          <td colspan="3">
+            <span class="field-value" id="writeback-event-trace-id">{{ result.event_trace_id }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="legacy-panel fixed-side-effects-panel">
+  <h2>Observed Legacy Side Effects</h2>
+  <div class="legacy-panel-body scroll-table-region">
+    <table class="legacy-grid" id="writeback-side-effects">
+      <thead>
+        <tr>
+          <th>Sequence</th>
+          <th>Business Event</th>
+          <th>Observed Through UI Button</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for effect in result.side_effects %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ effect }}</td>
+          <td>true</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="legacy-panel">
+  <h2>Navigation</h2>
+  <div class="legacy-panel-body">
+    <div class="actions">
+      <a class="button" href="/purchase-orders/{{ result.po_id }}">Return to PO</a>
+      <a class="button" href="/audit-logs">View Audit Logs</a>
     </div>
   </div>
-  <div class="actions">
-    <a class="button" href="/purchase-orders/{{ result.po_id }}">Return to PO</a>
-    <a class="button" href="/audit-logs">View Audit Logs</a>
-  </div>
-</section>
+</div>
 {% endblock %}

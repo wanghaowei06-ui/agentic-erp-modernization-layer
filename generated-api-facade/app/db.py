@@ -7,11 +7,20 @@ from typing import Any
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "api_facade.db"
 
+APPROVAL_SIDE_EFFECTS = [
+    "PO_STATUS_UPDATED",
+    "APPROVAL_TASK_CREATED",
+    "AUDIT_LOG_CREATED",
+    "MANAGER_NOTIFICATION_QUEUED",
+    "BUDGET_REVIEW_FLAGGED",
+]
+
 
 SEED_PURCHASE_ORDERS = [
     ("PO-1001", 18000, 10000, "Exception", ""),
     ("PO-1002", 6000, 10000, "Exception", ""),
     ("PO-1003", 8500, 10000, "Exception", ""),
+    ("PO-1001-API", 18000, 10000, "Exception", ""),
 ]
 
 
@@ -113,6 +122,8 @@ def request_approval(
             "audit_log_created": True,
             "execution_mode": "API",
             "source_case_id": source_case_id,
+            "side_effects": APPROVAL_SIDE_EFFECTS,
+            "event_trace_id": f"api-trace-{po_id}",
         }
 
 

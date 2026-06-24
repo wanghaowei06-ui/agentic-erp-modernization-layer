@@ -1,0 +1,7 @@
+{
+  "case_id": "CASE-001",
+  "po_id": "PO-1001-RPA",
+  "status": "PENDING_MANAGER_APPROVAL",
+  "audit_log_created": true,
+  "execution_mode": "RPA"
+}

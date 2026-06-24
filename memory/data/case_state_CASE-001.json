@@ -1,0 +1,14 @@
+{
+  "case_id": "CASE-001",
+  "current_stage": "API_MODE_EXECUTED",
+  "timeline": [
+    "CASE_CREATED",
+    "RPA_EXTRACTED",
+    "TRIAGE_COMPLETED",
+    "HUMAN_APPROVED",
+    "RPA_WRITEBACK_COMPLETED",
+    "VALIDATION_PASSED",
+    "TRUSTED_TOOL_APPROVED",
+    "API_MODE_EXECUTED"
+  ]
+}

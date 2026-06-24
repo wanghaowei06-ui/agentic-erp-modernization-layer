@@ -1,28 +1,62 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Audit Logs</h1>
-<table id="audit-logs-table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>PO ID</th>
-      <th>Action</th>
-      <th>Execution Mode</th>
-      <th>Manager</th>
-      <th>Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for log in audit_logs %}
-    <tr>
-      <td>{{ log.id }}</td>
-      <td>{{ log.po_id }}</td>
-      <td>{{ log.action }}</td>
-      <td>{{ log.execution_mode }}</td>
-      <td>{{ log.manager_id }}</td>
-      <td>{{ log.created_at }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<h1>System Audit Inquiry</h1>
+
+<div class="legacy-panel">
+  <h2>Audit Search Filter</h2>
+  <div class="legacy-panel-body">
+    <table class="form-table" aria-label="audit search filter">
+      <tbody>
+        <tr>
+          <th>Application Area</th>
+          <td><div class="readonly-box">Procurement</div></td>
+          <th>Record Type</th>
+          <td><div class="readonly-box">Purchase Order Approval</div></td>
+        </tr>
+        <tr>
+          <th>Mode</th>
+          <td><div class="readonly-box">Read-only inquiry</div></td>
+          <th>Sort</th>
+          <td><div class="readonly-box">Newest first</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="legacy-panel">
+  <h2>Audit Log Results</h2>
+  <div class="legacy-panel-body">
+    <table id="audit-logs-table" class="legacy-grid">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>PO Number</th>
+          <th>Action</th>
+          <th>Execution Mode</th>
+          <th>Manager</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if audit_logs %}
+          {% for log in audit_logs %}
+          <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.po_id }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.execution_mode }}</td>
+            <td>{{ log.manager_id }}</td>
+            <td>{{ log.created_at }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6">No audit records found.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

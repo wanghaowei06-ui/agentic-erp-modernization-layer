@@ -38,6 +38,31 @@
       </tr>
     </tbody>
   </table>
+  {% if registered_tools %}
+  <h2>Registered Tool Evidence</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Registration ID</th>
+        <th>Tool</th>
+        <th>Case</th>
+        <th>Target Mode</th>
+        <th>Endpoint</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tool in registered_tools %}
+      <tr>
+        <td>{{ tool.registration_id }}</td>
+        <td>{{ tool.tool_name }}</td>
+        <td>{{ tool.case_id }}</td>
+        <td>{{ tool.target_execution_mode }}</td>
+        <td>{{ tool.api_endpoint }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
   <p><strong>Allowed consumers for registered tool:</strong> UiPath API Workflow, optional LangChain/LangGraph wrapper.</p>
 </section>
 {% endblock %}

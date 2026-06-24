@@ -1,29 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Purchase Orders</h1>
-<p>Legacy ERP exception queue for UiPath RPA extraction through Chrome UI.</p>
-<table id="purchase-orders-table">
-  <thead>
-    <tr>
-      <th>PO ID</th>
-      <th>Amount</th>
-      <th>Budget Limit</th>
-      <th>Status</th>
-      <th>Exception</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for po in purchase_orders %}
-    <tr id="row-{{ po.po_id }}">
-      <td id="list-po-id-{{ po.po_id }}">{{ po.po_id }}</td>
-      <td>{{ po.amount }}</td>
-      <td>{{ po.budget_limit }}</td>
-      <td>{{ po.status }}</td>
-      <td>{{ po.exception_text }}</td>
-      <td><a class="button" id="view-{{ po.po_id }}" href="/purchase-orders/{{ po.po_id }}">Open</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<h1>Purchase Order Exception Workbench</h1>
+
+<div class="legacy-panel">
+  <h2>Search Criteria</h2>
+  <div class="legacy-panel-body">
+    <table class="form-table" aria-label="search criteria">
+      <tbody>
+        <tr class="fixed-row">
+          <th>Operating Unit</th>
+          <td><div class="readonly-box">US01 - North America Procurement</div></td>
+          <th>Document Type</th>
+          <td><div class="readonly-box">Standard Purchase Order</div></td>
+        </tr>
+        <tr class="fixed-row">
+          <th>Exception Queue</th>
+          <td><div class="readonly-box">Approval / Vendor / Inventory</div></td>
+          <th>Refresh Mode</th>
+          <td><div class="readonly-box">Manual Review</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="legacy-panel">
+  <h2>Open Purchase Order Exceptions</h2>
+  <div class="legacy-panel-body">
+    <p class="legacy-note">Legacy ERP exception queue for UiPath RPA extraction through Chrome UI.</p>
+    <table id="purchase-orders-table" class="legacy-grid">
+      <thead>
+        <tr>
+          <th>PO Number</th>
+          <th>Amount</th>
+          <th>Budget Limit</th>
+          <th>Status</th>
+          <th>Exception Reason</th>
+          <th>Last Action</th>
+          <th>Open</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for po in purchase_orders %}
+        <tr id="row-{{ po.po_id }}" class="fixed-row">
+          <td id="list-po-id-{{ po.po_id }}">{{ po.po_id }}</td>
+          <td>{{ po.amount }}</td>
+          <td>{{ po.budget_limit }}</td>
+          <td class="status-exception">{{ po.status }}</td>
+          <td>{{ po.exception_text }}</td>
+          <td>{{ po.last_action or "none" }}</td>
+          <td><a class="button" id="view-{{ po.po_id }}" href="/purchase-orders/{{ po.po_id }}">Open</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

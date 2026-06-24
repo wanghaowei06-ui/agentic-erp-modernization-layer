@@ -1,63 +1,196 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Purchase Order Detail</h1>
-<section class="panel" aria-label="purchase order fields">
-  <div class="field-grid">
-    <div class="data-field">
-      <span class="label">PO ID</span>
-      <span class="value" id="po-id">{{ po.po_id }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Amount</span>
-      <span class="value" id="amount">{{ po.amount }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Budget Limit</span>
-      <span class="value" id="budget-limit">{{ po.budget_limit }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Vendor ID</span>
-      <span class="value" id="vendor-id">{{ po.vendor_id or "" }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Vendor Info Complete</span>
-      <span class="value" id="vendor-info-complete">{{ "true" if po.vendor_info_complete else "false" }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Inventory Available</span>
-      <span class="value" id="inventory-available">{{ "true" if po.inventory_available else "false" }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">ERP Status</span>
-      <span class="value" id="erp-status">{{ po.status }}</span>
-    </div>
-    <div class="data-field">
-      <span class="label">Last Action</span>
-      <span class="value" id="last-action">{{ po.last_action }}</span>
+<h1>Purchase Order Maintenance</h1>
+
+<div class="legacy-panel fixed-detail-panel">
+  <h2>Document Header</h2>
+  <div class="legacy-panel-body">
+    <table class="form-table" aria-label="purchase order header">
+      <tbody>
+        <tr class="fixed-row">
+          <th><span class="field-label">PO Number</span></th>
+          <td>
+            <span id="po-id" hidden>{{ po.po_id }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblPoNumber" name="ctl00$MainContent$lblPoNumber">{{ po.po_id }}</span>
+          </td>
+          <th><span class="field-label">ERP Status</span></th>
+          <td>
+            <span id="erp-status" hidden>{{ po.status }}</span>
+            <span class="field-value {% if po.status == 'Exception' %}status-exception{% else %}status-pending{% endif %}" id="ctl00_MainContent_lblStatus" name="ctl00$MainContent$lblStatus">{{ po.status }}</span>
+          </td>
+        </tr>
+        <tr class="fixed-row">
+          <th><span class="field-label">Amount</span></th>
+          <td>
+            <span id="amount" hidden>{{ po.amount }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblAmount" name="ctl00$MainContent$lblAmount">{{ po.amount }}</span>
+          </td>
+          <th><span class="field-label">Budget Limit</span></th>
+          <td>
+            <span id="budget-limit" hidden>{{ po.budget_limit }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblBudgetLimit" name="ctl00$MainContent$lblBudgetLimit">{{ po.budget_limit }}</span>
+          </td>
+        </tr>
+        <tr class="fixed-row">
+          <th><span class="field-label">Vendor ID</span></th>
+          <td>
+            <span id="vendor-id" hidden>{{ po.vendor_id or "" }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblVendorId" name="ctl00$MainContent$lblVendorId">{{ po.vendor_id or "" }}</span>
+          </td>
+          <th><span class="field-label">Last Action</span></th>
+          <td>
+            <span id="last-action" hidden>{{ po.last_action }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblLastAction" name="ctl00$MainContent$lblLastAction">{{ po.last_action or "none" }}</span>
+          </td>
+        </tr>
+        <tr class="fixed-row">
+          <th><span class="field-label">Vendor Info Complete</span></th>
+          <td>
+            <span id="vendor-info-complete" hidden>{{ "true" if po.vendor_info_complete else "false" }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblVendorInfoComplete" name="ctl00$MainContent$lblVendorInfoComplete">{{ "true" if po.vendor_info_complete else "false" }}</span>
+          </td>
+          <th><span class="field-label">Inventory Available</span></th>
+          <td>
+            <span id="inventory-available" hidden>{{ "true" if po.inventory_available else "false" }}</span>
+            <span class="field-value" id="ctl00_MainContent_lblInventoryAvailable" name="ctl00$MainContent$lblInventoryAvailable">{{ "true" if po.inventory_available else "false" }}</span>
+          </td>
+        </tr>
+        <tr class="fixed-row">
+          <th><span class="field-label">Exception Reason</span></th>
+          <td colspan="3">
+            <span id="raw-exception-text" hidden>{{ po.exception_text }}</span>
+            <div class="banner" id="ctl00_MainContent_lblExceptionReason" name="ctl00$MainContent$lblExceptionReason">{{ po.exception_text }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="two-column">
+  <div class="legacy-panel fixed-entry-panel">
+    <h2>Approval Request Entry</h2>
+    <div class="legacy-panel-body">
+      <form method="post" action="/purchase-orders/{{ po.po_id }}/request-approval">
+        <table class="form-table" aria-label="approval request form">
+          <tbody>
+            <tr>
+              <th><label for="ctl00_MainContent_txtApprovalReason">Approval Reason</label></th>
+              <td>
+                <textarea id="approval-reason-input" hidden>{{ po.exception_text }}</textarea>
+                <textarea id="ctl00_MainContent_txtApprovalReason" name="approval_reason">{{ po.exception_text }}</textarea>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="ctl00_MainContent_txtManagerId">Manager ID</label></th>
+              <td>
+                <input id="manager-id-input" value="MGR-001" hidden>
+                <input id="ctl00_MainContent_txtManagerId" name="manager_id" value="MGR-001">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="actions">
+          <button id="request-approval-button" name="ctl00$MainContent$btnRequestApprovalLegacy" type="submit" hidden>Request Approval</button>
+          <button id="ctl00_MainContent_btnRequestApproval" name="ctl00$MainContent$btnRequestApproval" type="submit">Request Approval</button>
+        </div>
+      </form>
     </div>
   </div>
-  <div class="banner" id="raw-exception-text">{{ po.exception_text }}</div>
-</section>
 
-<section class="panel">
-  <h2>Request Manager Approval</h2>
-  <form method="post" action="/purchase-orders/{{ po.po_id }}/request-approval">
-    <label for="approval-reason-input">Approval reason</label>
-    <textarea id="approval-reason-input" name="approval_reason">{{ po.exception_text }}</textarea>
-
-    <label for="manager-id-input">Manager ID</label>
-    <input id="manager-id-input" name="manager_id" value="MGR-001">
-
-    <div class="actions">
-      <button id="request-approval-button" type="submit">Request Approval</button>
+  <div class="legacy-panel fixed-state-panel">
+    <h2>Current Write-back State</h2>
+    <div class="legacy-panel-body">
+      <table class="form-table" aria-label="writeback state">
+        <tbody>
+          <tr>
+            <th>Status After Update</th>
+            <td>
+              <span id="status-after-update" hidden>{{ po.status }}</span>
+              <span class="field-value {% if po.status == 'Exception' %}status-exception{% else %}status-pending{% endif %}" id="ctl00_MainContent_lblWritebackStatus" name="ctl00$MainContent$lblWritebackStatus">{{ po.status }}</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Audit Log Created</th>
+            <td>
+              <span id="audit-log-created" hidden>false</span>
+              <span class="field-value" id="ctl00_MainContent_lblAuditLogCreated" name="ctl00$MainContent$lblAuditLogCreated">false</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Execution Mode</th>
+            <td><span class="field-value" id="ctl00_MainContent_lblExecutionMode">UI / RPA pending</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </form>
-</section>
+  </div>
+</div>
 
-<section class="panel">
-  <span class="label">Status After Update</span>
-  <span class="value" id="status-after-update">{{ po.status }}</span>
-  <span class="label">Audit Log Created</span>
-  <span class="value" id="audit-log-created">false</span>
-</section>
+<div class="legacy-panel fixed-history-panel">
+  <h2>Approval History</h2>
+  <div class="legacy-panel-body scroll-table-region">
+    <table class="legacy-grid" aria-label="approval history">
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Actor</th>
+          <th>Action</th>
+          <th>Status</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>System Rule Engine</td>
+          <td>Exception Raised</td>
+          <td>Complete</td>
+          <td>{{ po.exception_text }}</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Procurement Manager</td>
+          <td>Manager Approval</td>
+          <td>{% if po.status == "PENDING_MANAGER_APPROVAL" %}Pending{% else %}Not Started{% endif %}</td>
+          <td>Generated by legacy Request Approval button.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="legacy-panel fixed-audit-panel">
+  <h2>Audit Log Read-only View</h2>
+  <div class="legacy-panel-body scroll-table-region">
+    <table class="legacy-grid" aria-label="purchase order audit logs">
+      <thead>
+        <tr>
+          <th>Audit ID</th>
+          <th>Action</th>
+          <th>Execution Mode</th>
+          <th>Manager</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if audit_logs %}
+          {% for log in audit_logs %}
+          <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.execution_mode }}</td>
+            <td>{{ log.manager_id }}</td>
+            <td>{{ log.created_at }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5">No audit log records exist for this purchase order.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

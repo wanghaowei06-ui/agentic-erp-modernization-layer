@@ -1,0 +1,10 @@
+{
+  "capability_id": "request_purchase_order_approval_api",
+  "type": "API_TOOL",
+  "business_action": "request_purchase_order_approval",
+  "status": "trusted",
+  "validation_status": "passed",
+  "approved_by": "it.owner",
+  "execution_mode": "API",
+  "endpoint": "POST /api/purchase-orders/{po_id}/approval-request"
+}
