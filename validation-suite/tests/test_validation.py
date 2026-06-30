@@ -346,3 +346,138 @@ def test_memory_query_api_does_not_affect_validation_endpoint(monkeypatch, tmp_p
     assert timeline.status_code == 200
     assert validation.status_code == 200
     assert validation.json()["rpa_api_parity_check"] == "passed"
+
+
+def test_approval_endpoint_records_human_approval_in_memory(monkeypatch, tmp_path):
+    client = TestClient(load_app(monkeypatch, tmp_path))
+
+    response = client.post(
+        "/approvals",
+        json={
+            "case_id": "CASE-001",
+            "po_id": "PO-1001",
+            "approval_type": "business_approval",
+            "decision": "approved",
+            "approved_by": "demo.manager",
+            "comment": "Approved for demonstration after budget exception review.",
+            "risk_level": "high",
+            "amount": 18000,
+            "budget_limit": 10000,
+            "recommended_action": "request_purchase_order_approval",
+            "correlation_id": "corr-approval-001",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["case_id"] == "CASE-001"
+    assert body["approval_type"] == "business_approval"
+    assert body["decision"] == "approved"
+    assert body["approved_by"] == "demo.manager"
+    assert body["recorded"] is True
+    assert body["memory_event_id"] is not None
+    assert body["correlation_id"] == "corr-approval-001"
+
+    from shared.automation_memory.event_types import MemoryEventType
+    from shared.automation_memory.repository import query_case_timeline
+
+    events = query_case_timeline("CASE-001", data_dir=tmp_path)
+    approval_events = [
+        event
+        for event in events
+        if event.event_type == MemoryEventType.HUMAN_APPROVAL_COMPLETED
+    ]
+    assert len(approval_events) == 1
+    event = approval_events[0]
+    assert event.source_service == "validation-suite"
+    assert event.correlation_id == "corr-approval-001"
+    assert event.payload["approval_type"] == "business_approval"
+    assert event.payload["decision"] == "approved"
+    assert event.payload["approved_by"] == "demo.manager"
+    assert event.payload["po_id"] == "PO-1001"
+    assert event.payload["source_endpoint"] == "/approvals"
+
+
+def test_approval_endpoint_memory_failure_does_not_block(monkeypatch, tmp_path):
+    app = load_app(monkeypatch, tmp_path)
+    import app.main as main
+
+    def fail_record_human_approval(*_args, **_kwargs):
+        raise RuntimeError("memory unavailable")
+
+    monkeypatch.setattr(main, "record_human_approval", fail_record_human_approval)
+
+    response = TestClient(app).post(
+        "/approvals",
+        json={
+            "case_id": "CASE-001",
+            "approval_type": "business_approval",
+            "decision": "approved",
+            "approved_by": "demo.manager",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["decision"] == "approved"
+    assert body["recorded"] is False
+    assert body["memory_event_id"] is None
+
+
+def test_memory_write_endpoints_require_api_key_when_configured(monkeypatch, tmp_path):
+    monkeypatch.setenv("MEMORY_WRITE_API_KEY", "uipath-secret")
+    client = TestClient(load_app(monkeypatch, tmp_path))
+
+    missing = client.post(
+        "/approvals",
+        json={
+            "case_id": "CASE-001",
+            "approval_type": "business_approval",
+            "decision": "approved",
+            "approved_by": "demo.manager",
+        },
+    )
+    assert missing.status_code == 401
+    assert missing.json()["detail"]["error"] == "missing_api_key"
+
+    wrong = client.post(
+        "/approvals",
+        headers={"X-API-Key": "wrong"},
+        json={
+            "case_id": "CASE-001",
+            "approval_type": "business_approval",
+            "decision": "approved",
+            "approved_by": "demo.manager",
+        },
+    )
+    assert wrong.status_code == 403
+    assert wrong.json()["detail"]["error"] == "invalid_api_key"
+
+    ok = client.post(
+        "/approvals",
+        headers={"X-API-Key": "uipath-secret"},
+        json={
+            "case_id": "CASE-001",
+            "approval_type": "business_approval",
+            "decision": "approved",
+            "approved_by": "demo.manager",
+        },
+    )
+    assert ok.status_code == 200
+    assert ok.json()["recorded"] is True
+
+
+def test_memory_write_endpoints_open_in_dev_mode(monkeypatch, tmp_path):
+    monkeypatch.delenv("MEMORY_WRITE_API_KEY", raising=False)
+    client = TestClient(load_app(monkeypatch, tmp_path))
+
+    response = client.post(
+        "/approvals",
+        json={
+            "case_id": "CASE-001",
+            "approval_type": "business_approval",
+            "decision": "approved",
+            "approved_by": "demo.manager",
+        },
+    )
+    assert response.status_code == 200

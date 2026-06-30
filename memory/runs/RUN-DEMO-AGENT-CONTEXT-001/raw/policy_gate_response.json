@@ -1,0 +1,11 @@
+{
+  "artifact_type": "policy_gate_response",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "source": "injected_demo_policy_gate",
+    "encoding": "base64_utf8",
+    "response_json_base64": "eyJwb2xpY3lfZGVjaXNpb24iOiAiUkVRVUlSRV9IVU1BTl9BUFBST1ZBTCIsICJleGVjdXRpb25fYWxsb3dlZCI6IGZhbHNlLCAiaHVtYW5fcmVxdWlyZWQiOiB0cnVlLCAidmFsaWRhdGlvbl9yZXF1aXJlZCI6IHRydWUsICJwb2xpY3lfZ2F0ZV9yZWFzb24iOiAiRmluYW5jZSBwb2xpY3kgcmVxdWlyZXMgbWFuYWdlciBhcHByb3ZhbCBmb3IgUE8gYW1vdW50cyBhYm92ZSBidWRnZXQ7IHNhbGVzIGNvbnRleHQgbWFya3MgQUNNRSBSZXRhaWwgcmVuZXdhbCByaXNrIGFzIHN0cmF0ZWdpY2FsbHkgaW1wb3J0YW50LiIsICJibG9ja2VkX2FjdGlvbnMiOiBbIkFVVE9fQVBQUk9WRV9FUlBfT1JERVIiLCAiU1VCTUlUX0FQUFJPVkFMX1JFUVVFU1RfV0lUSE9VVF9IVU1BTl9SRVZJRVciXX0="
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "artifact_type": "approval_task",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "approval_id": "APR-DEMO-CTX-001",
+    "status": "PENDING",
+    "po_id": "PO-DEMO-CTX-001",
+    "amount": 18000,
+    "budget_limit": 10000,
+    "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+    "agent_reasoning_summary": "Demo replay: the agent combined the PO budget overrun, buyer remarks about Q4 delivery risk, finance approval policy, and sales renewal pressure for ACME Retail. The chosen route is human approval, not deterministic auto-processing.",
+    "company_context_reference": {
+      "finance_policy_used": true,
+      "sales_context_used": true,
+      "operations_context_used": true
+    },
+    "policy_gate_reason": "Finance policy requires manager approval for PO amounts above budget; sales context marks ACME Retail renewal risk as strategically important."
+  }
+}

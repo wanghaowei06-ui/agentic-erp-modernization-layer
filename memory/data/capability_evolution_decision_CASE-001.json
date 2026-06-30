@@ -1,0 +1,40 @@
+{
+  "case_id": "CASE-001",
+  "decision": "USE_TRUSTED_CAPABILITY",
+  "capability_id": "request_purchase_order_approval_api",
+  "execution_mode": "API",
+  "modernization_required": false,
+  "reason": "A trusted API capability is already registered for this business action.",
+  "rule_evaluation": {
+    "observed_count >= 5": true,
+    "business_value >= 0.75": true,
+    "field_stability >= 0.75": true,
+    "validation_pass_rate >= 0.8": false,
+    "validation_passed_now": true,
+    "human_approval_gate_exists": true,
+    "trusted_capability_exists": true,
+    "repeated_gap_count >= 3": false,
+    "selector_failure_count >= 3": false,
+    "no_api_modernization_required": false
+  },
+  "evidence": {
+    "process_signature": "request_purchase_order_approval__budget_exceeded",
+    "evidence_run_ids": [],
+    "pattern_file": "memory/patterns/request_purchase_order_approval__budget_exceeded.json",
+    "validation_file": null,
+    "repeated_gap_count": 0
+  },
+  "pattern_snapshot": {
+    "observed_count": 18,
+    "validation_pass_count": 12,
+    "validation_pass_rate": 0.6667,
+    "field_stability": 0.92,
+    "business_value": 0.9,
+    "ui_fragility": 0.68,
+    "selector_failure_count": 0
+  },
+  "why_not": {
+    "API_MODERNIZATION_PROPOSAL": "A trusted API capability is already registered; no modernization needed.",
+    "KEEP_RPA_MODE": "Trusted API capability is registered and ready for reuse."
+  }
+}

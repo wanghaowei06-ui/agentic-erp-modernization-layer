@@ -1,0 +1,12 @@
+{
+  "artifact_type": "final_branch_result",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "result": "WAITING_WEB_APPROVAL",
+    "branch": "create_web_approval_task",
+    "erp_button_clicked": false,
+    "reason": "Human approval required by policy gate."
+  }
+}

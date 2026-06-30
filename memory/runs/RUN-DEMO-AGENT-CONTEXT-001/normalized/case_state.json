@@ -1,0 +1,15 @@
+{
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "po_id": "PO-DEMO-CTX-001",
+  "workflow_name": "Main.xaml",
+  "source": "demo_seed",
+  "demo_mode": true,
+  "status": "RUN_COMPLETED",
+  "current_stage": "WAITING_FOR_HUMAN_APPROVAL",
+  "result": "WAITING_WEB_APPROVAL",
+  "execution_mode": "RPA_DEMO_REPLAY",
+  "started_at": "2026-06-30T02:41:01.468Z",
+  "completed_at": "2026-06-30T02:41:01.468Z",
+  "schema_version": "1.0"
+}

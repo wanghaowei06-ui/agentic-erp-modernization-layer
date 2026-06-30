@@ -1,0 +1,9 @@
+{
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "latest_run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "status": "RUN_COMPLETED",
+  "current_stage": "WAITING_FOR_HUMAN_APPROVAL",
+  "result": "WAITING_WEB_APPROVAL",
+  "execution_mode": "RPA_DEMO_REPLAY",
+  "updated_at": "2026-06-30T02:41:01.468Z"
+}

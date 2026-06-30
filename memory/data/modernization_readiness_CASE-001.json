@@ -1,0 +1,16 @@
+{
+  "case_id": "CASE-001",
+  "business_action": "request_purchase_order_approval",
+  "modernization_candidate": true,
+  "readiness_score": 0.88,
+  "frequency_score": 0.86,
+  "risk_score": 0.32,
+  "recommended_api_tool_name": "request_purchase_order_approval_api",
+  "recommended_next_stage": "GENERATE_PLAN",
+  "reasoning_summary": "High frequency and field stability with moderate UI fragility make this a strong API modernization candidate.",
+  "blocking_reasons": [],
+  "side_effects_observed": true,
+  "rpa_api_parity_required": true,
+  "agent_runtime": "langgraph",
+  "source": "demo_seeded_history"
+}

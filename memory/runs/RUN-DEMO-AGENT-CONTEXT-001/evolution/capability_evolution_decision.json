@@ -1,0 +1,6 @@
+{
+  "decision": "KEEP_RPA_MODE_FOR_DEMO_TRACE",
+  "reason": "Injected agent-context trace is evidence-only; no modernization proposal is created from this single run.",
+  "auto_execution_allowed": false,
+  "human_review_required": true
+}

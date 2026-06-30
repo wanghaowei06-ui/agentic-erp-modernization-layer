@@ -1,0 +1,18 @@
+{
+  "artifact_type": "llm_validation_proof",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "reasoning_mode": "demo_replay_from_seeded_agent_decision",
+    "llm_enabled": false,
+    "llm_call_mode": "mocked_replay_no_live_llm_call",
+    "llm_provider": "demo-seed",
+    "llm_model": "seeded-agent-trace-v1",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_invocation_verified": false,
+    "decision_source": "injected_demo_trace"
+  }
+}

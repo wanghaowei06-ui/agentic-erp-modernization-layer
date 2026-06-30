@@ -231,3 +231,48 @@ def query_gaps(
     data_dir: str | Path | None = None,
 ) -> list[MemoryEvent]:
     return json_query_gaps(data_dir)
+
+
+def count_repeated_gaps(
+    business_action: str,
+    gap_type: str | None = None,
+    *,
+    data_dir: str | Path | None = None,
+) -> int:
+    """Count capability-gap events for a business action (PRD 17.6 / 18.2).
+
+    Signature follows PRD 17.6 ``count_repeated_gaps(gap_type, business_action)``.
+    ``business_action`` is the primary key (kept first for backward
+    compatibility with the Capability Evolution Loop trigger). ``gap_type`` is
+    the optional ``exception_type`` filter (e.g. ``inventory_shortage``); when
+    omitted, all gap events for the business action are counted.
+
+    Used by the Capability Evolution Loop trigger: when the number of repeated
+    gaps for an uncovered ``business_action`` reaches the configured threshold,
+    the system proposes a new capability via ``run_plan_agent``.
+    """
+    from .sqlite_store import count_gaps_by_business_action
+
+    return count_gaps_by_business_action(
+        business_action,
+        data_dir,
+        exception_type=gap_type,
+    )
+
+
+def find_similar_cases(
+    exception_type: str,
+    business_action: str,
+    *,
+    data_dir: str | Path | None = None,
+) -> list[MemoryEvent]:
+    """Return past capability-gap cases matching the same exception + action.
+
+    Implements PRD 17.6 ``find_similar_cases(exception_type, business_action)``.
+    Matching is delegated to the SQLite store and uses ``json_extract`` on the
+    ``CAPABILITY_GAP_RECORDED`` payload so it is index-backed rather than a
+    Python full-table scan.
+    """
+    from .sqlite_store import find_similar_cases as _find
+
+    return _find(exception_type, business_action, data_dir)

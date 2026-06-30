@@ -1,0 +1,45 @@
+{
+  "case_id": "CASE-000",
+  "decision": "NO_EVOLUTION_REQUIRED",
+  "business_action": "standard_purchase_order_processing",
+  "exception_type": "none",
+  "api_modernization_required": false,
+  "xaml_improvement_required": false,
+  "requires_human_approval": false,
+  "reason": "Normal standard path requires no capability evolution.",
+  "next_stage": "STANDARD_PROCESSING",
+  "status": "NO_EVOLUTION_REQUIRED",
+  "rule_evaluation": {
+    "observed_count >= 5": false,
+    "business_value >= 0.75": false,
+    "field_stability >= 0.75": false,
+    "validation_pass_rate >= 0.8": false,
+    "validation_passed_now": false,
+    "human_approval_gate_exists": true,
+    "trusted_capability_exists": false,
+    "repeated_gap_count >= 3": false,
+    "selector_failure_count >= 3": false,
+    "no_api_modernization_required": false
+  },
+  "evidence": {
+    "process_signature": "standard_purchase_order_processing__none",
+    "evidence_run_ids": [],
+    "pattern_file": "memory/patterns/standard_purchase_order_processing__none.json",
+    "validation_file": null,
+    "repeated_gap_count": 0
+  },
+  "pattern_snapshot": {
+    "observed_count": 0,
+    "validation_pass_count": 0,
+    "validation_pass_rate": 0.0,
+    "field_stability": 0.0,
+    "business_value": 0.0,
+    "ui_fragility": 0.0,
+    "selector_failure_count": 0
+  },
+  "why_not": {
+    "API_MODERNIZATION_PROPOSAL": "Normal standard path \u2014 no exception detected, no modernization needed.",
+    "XAML_WORKFLOW_PROPOSAL": "Normal standard path \u2014 no capability gap to close with a new workflow.",
+    "KEEP_RPA_MODE": "Normal standard path is already optimal; no RPA fragility to investigate."
+  }
+}

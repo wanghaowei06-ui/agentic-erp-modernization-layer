@@ -1,0 +1,69 @@
+{
+  "artifact_type": "triage_agent_io",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "request": {
+      "case_id": "CASE-DEMO-AGENT-CONTEXT",
+      "po_id": "PO-DEMO-CTX-001",
+      "amount": 18000,
+      "budget_limit": 10000,
+      "vendor_id": "V-203",
+      "raw_exception_text": "Amount exceeds approved budget limit",
+      "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+      "agent_context_policy": "fetch_enterprise_context_before_decision"
+    },
+    "response": {
+      "case_id": "CASE-DEMO-AGENT-CONTEXT",
+      "po_id": "PO-DEMO-CTX-001",
+      "scenario": "agent_context_budget_exception_demo",
+      "exception_reason": "Amount exceeds approved budget limit",
+      "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+      "agent_context_policy": "fetch_enterprise_context_before_decision",
+      "enterprise_context_source": "demo_injected_enterprise_context_snapshot",
+      "company_context_endpoint": "demo seed artifact: memory/runs/RUN-DEMO-AGENT-CONTEXT-001/raw/company_context_snapshot.json",
+      "route_agent_mode": "demo_injected_agent_decision_no_live_call",
+      "business_action": "request_purchase_order_approval",
+      "final_route": "WAITING_FOR_HUMAN_APPROVAL",
+      "detected_exception_type": "budget_exceeded",
+      "capability_decision": "KEEP_RPA_MODE_FOR_DEMO_TRACE",
+      "agent_context_used": true,
+      "company_context_reference": {
+        "finance_policy_used": true,
+        "sales_context_used": true,
+        "operations_context_used": true
+      },
+      "agent_reasoning_summary": "Demo replay: the agent combined the PO budget overrun, buyer remarks about Q4 delivery risk, finance approval policy, and sales renewal pressure for ACME Retail. The chosen route is human approval, not deterministic auto-processing.",
+      "llm_validation_proof": {
+        "reasoning_mode": "demo_replay_from_seeded_agent_decision",
+        "llm_enabled": false,
+        "llm_call_mode": "mocked_replay_no_live_llm_call",
+        "llm_provider": "demo-seed",
+        "llm_model": "seeded-agent-trace-v1",
+        "schema_validated": true,
+        "guardrails_applied": true,
+        "decision_status": "DECISION_READY",
+        "llm_invocation_verified": false,
+        "decision_source": "injected_demo_trace"
+      },
+      "policy_gate": {
+        "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+        "execution_allowed": false,
+        "human_required": true,
+        "validation_required": true,
+        "policy_gate_reason": "Finance policy requires manager approval for PO amounts above budget; sales context marks ACME Retail renewal risk as strategically important.",
+        "blocked_actions": [
+          "AUTO_APPROVE_ERP_ORDER",
+          "SUBMIT_APPROVAL_REQUEST_WITHOUT_HUMAN_REVIEW"
+        ]
+      },
+      "recommended_erp_action": {
+        "action_id": "CREATE_WEB_APPROVAL_TASK",
+        "button_selector_id": null,
+        "reason": "Budget exception needs manager approval; UiPath should not click an ERP approval button."
+      },
+      "recommended_erp_action_note": "No ERP approval click; create web approval task."
+    }
+  }
+}

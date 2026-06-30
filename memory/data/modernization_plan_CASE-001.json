@@ -1,0 +1,30 @@
+{
+  "case_id": "CASE-001",
+  "plan_id": "MOD-PLAN-001",
+  "target_tool_name": "request_purchase_order_approval_api",
+  "target_service": "generated-api-facade",
+  "proposed_endpoint": "POST /api/purchase-orders/{po_id}/approval-request",
+  "source_rpa_trace": "rpa_trace_CASE-001.json",
+  "contract_requirements": [
+    "Must ensure RPA/API side effects parity, including same notification and approval flow.",
+    "API must return same status codes and error handling as RPA.",
+    "Must adhere to security and authorization standards."
+  ],
+  "tests_required": [
+    "Test side effects parity between RPA and API.",
+    "Test endpoint response time within SLA.",
+    "Test authorization for different roles."
+  ],
+  "side_effects_signature": [
+    "PO_STATUS_UPDATED",
+    "APPROVAL_TASK_CREATED",
+    "AUDIT_LOG_CREATED",
+    "MANAGER_NOTIFICATION_QUEUED",
+    "BUDGET_REVIEW_FLAGGED"
+  ],
+  "rpa_api_parity_required": true,
+  "risk_level": "medium",
+  "requires_engineer_approval": true,
+  "recommended_next_stage": "AWAITING_HUMAN_APPROVAL",
+  "source": "demo_seeded_history"
+}

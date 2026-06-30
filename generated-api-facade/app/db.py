@@ -7,13 +7,20 @@ from typing import Any
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "api_facade.db"
 
-APPROVAL_SIDE_EFFECTS = [
-    "PO_STATUS_UPDATED",
-    "APPROVAL_TASK_CREATED",
-    "AUDIT_LOG_CREATED",
-    "MANAGER_NOTIFICATION_QUEUED",
-    "BUDGET_REVIEW_FLAGGED",
+BUSINESS_ACTION = "manual_investigation"
+PROCESS_SIGNATURE = (
+    "manual_investigation__budget_exceeded__waiting_for_human_approval__"
+    "require_human_approval__no_side_effects"
+)
+EVIDENCE_RUN_IDS = [
+    "RUN-20260630-001",
+    "RUN-20260630-002",
+    "RUN-20260630-003",
+    "RUN-20260630-004",
 ]
+OBSERVED_COUNT = 4
+APPROVAL_TASK_STATUS = "PENDING_HUMAN_APPROVAL"
+NO_BUSINESS_SIDE_EFFECTS: list[str] = []
 
 
 SEED_PURCHASE_ORDERS = [
@@ -57,7 +64,28 @@ def init_db() -> None:
             )
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS approval_tasks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                task_id TEXT UNIQUE NOT NULL,
+                po_id TEXT NOT NULL,
+                business_action TEXT NOT NULL,
+                process_signature TEXT NOT NULL,
+                status TEXT NOT NULL,
+                approval_reason TEXT NOT NULL,
+                manager_id TEXT NOT NULL,
+                source_case_id TEXT NOT NULL,
+                correlation_id TEXT,
+                evidence_run_ids TEXT NOT NULL,
+                observed_count INTEGER NOT NULL,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
         conn.execute("DELETE FROM audit_logs")
+        conn.execute("DELETE FROM approval_tasks")
         for po in SEED_PURCHASE_ORDERS:
             conn.execute(
                 """
@@ -75,11 +103,20 @@ def init_db() -> None:
             )
 
 
-def request_approval(
+def _task_id_for(po_id: str) -> str:
+    safe_po_id = "".join(
+        character if character.isalnum() else "-"
+        for character in po_id.upper()
+    ).strip("-")
+    return f"TASK-{safe_po_id}-APPROVAL"
+
+
+def create_approval_task(
     po_id: str,
     approval_reason: str,
     manager_id: str,
     source_case_id: str,
+    correlation_id: str | None = None,
 ) -> dict[str, Any] | None:
     with get_connection() as conn:
         po = conn.execute(
@@ -89,14 +126,35 @@ def request_approval(
         if po is None:
             return None
 
-        if po["status"] != "PENDING_MANAGER_APPROVAL":
+        task_id = _task_id_for(po_id)
+        task = conn.execute(
+            "SELECT * FROM approval_tasks WHERE task_id = ?",
+            (task_id,),
+        ).fetchone()
+        created = task is None
+        if created:
             conn.execute(
                 """
-                UPDATE purchase_orders
-                SET status = ?, last_action = ?
-                WHERE po_id = ?
+                INSERT INTO approval_tasks (
+                    task_id, po_id, business_action, process_signature, status,
+                    approval_reason, manager_id, source_case_id, correlation_id,
+                    evidence_run_ids, observed_count
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                ("PENDING_MANAGER_APPROVAL", "approval_requested", po_id),
+                (
+                    task_id,
+                    po_id,
+                    BUSINESS_ACTION,
+                    PROCESS_SIGNATURE,
+                    APPROVAL_TASK_STATUS,
+                    approval_reason,
+                    manager_id,
+                    source_case_id,
+                    correlation_id,
+                    ",".join(EVIDENCE_RUN_IDS),
+                    OBSERVED_COUNT,
+                ),
             )
             conn.execute(
                 """
@@ -108,22 +166,26 @@ def request_approval(
                 """,
                 (
                     po_id,
-                    "approval_requested",
+                    "human_approval_task_created",
                     approval_reason,
                     manager_id,
                     source_case_id,
-                    "API",
+                    "HUMAN_APPROVAL",
                 ),
             )
 
         return {
             "po_id": po_id,
-            "status": "PENDING_MANAGER_APPROVAL",
+            "task_id": task_id,
+            "status": APPROVAL_TASK_STATUS,
+            "business_action": BUSINESS_ACTION,
+            "process_signature": PROCESS_SIGNATURE,
             "audit_log_created": True,
-            "execution_mode": "API",
             "source_case_id": source_case_id,
-            "side_effects": APPROVAL_SIDE_EFFECTS,
-            "event_trace_id": f"api-trace-{po_id}",
+            "business_side_effects": NO_BUSINESS_SIDE_EFFECTS,
+            "evidence_run_ids": EVIDENCE_RUN_IDS,
+            "observed_count": OBSERVED_COUNT,
+            "created": created,
         }
 
 
@@ -134,3 +196,21 @@ def audit_count(po_id: str) -> int:
             (po_id,),
         ).fetchone()
         return int(row["count"])
+
+
+def approval_task_count(po_id: str) -> int:
+    with get_connection() as conn:
+        row = conn.execute(
+            "SELECT COUNT(*) AS count FROM approval_tasks WHERE po_id = ?",
+            (po_id,),
+        ).fetchone()
+        return int(row["count"])
+
+
+def purchase_order_status(po_id: str) -> str | None:
+    with get_connection() as conn:
+        row = conn.execute(
+            "SELECT status FROM purchase_orders WHERE po_id = ?",
+            (po_id,),
+        ).fetchone()
+        return str(row["status"]) if row else None

@@ -1,0 +1,39 @@
+{
+  "case_id": "CASE-002",
+  "decision": "WAIT_FOR_VENDOR_INFO",
+  "next_stage": "WAITING_VENDOR_INFO",
+  "api_modernization_required": false,
+  "reason": "Vendor information is missing and the case is waiting for business data completion.",
+  "status": "WAITING_BUSINESS_DATA",
+  "rule_evaluation": {
+    "observed_count >= 5": true,
+    "business_value >= 0.75": false,
+    "field_stability >= 0.75": false,
+    "validation_pass_rate >= 0.8": false,
+    "validation_passed_now": false,
+    "human_approval_gate_exists": true,
+    "trusted_capability_exists": false,
+    "repeated_gap_count >= 3": false,
+    "selector_failure_count >= 3": false,
+    "no_api_modernization_required": true
+  },
+  "evidence": {
+    "process_signature": "handle_vendor_info_missing__vendor_info_missing",
+    "evidence_run_ids": [],
+    "pattern_file": "memory/patterns/handle_vendor_info_missing__vendor_info_missing.json",
+    "validation_file": null,
+    "repeated_gap_count": 0
+  },
+  "pattern_snapshot": {
+    "observed_count": 5,
+    "validation_pass_count": 0,
+    "validation_pass_rate": 0.0,
+    "field_stability": 0.0,
+    "business_value": 0.0,
+    "ui_fragility": 0.0,
+    "selector_failure_count": 0
+  },
+  "why_not": {
+    "API_MODERNIZATION_PROPOSAL": "Business data is missing (vendor info); this is not an automation problem."
+  }
+}

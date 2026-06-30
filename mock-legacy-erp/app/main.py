@@ -93,7 +93,7 @@ CASE_001_TIMELINE = [
         "label": "Modernization Readiness Evaluated",
     },
     {"id": "timeline-plan-approved", "label": "Modernization Plan Approved"},
-    {"id": "timeline-codex-handoff", "label": "Codex Draft PR Handoff Ready"},
+    {"id": "timeline-implementation-handoff", "label": "Implementation Handoff Ready"},
     {"id": "timeline-tool-registered", "label": "Trusted Tool Registered"},
     {"id": "timeline-api-mode-executed", "label": "API Mode Executed"},
 ]

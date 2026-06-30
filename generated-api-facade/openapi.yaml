@@ -3,8 +3,9 @@ info:
   title: Generated Purchase Order API Facade
   version: 0.1.0
   description: >
-    Demo API candidate for request_purchase_order_approval. UiPath should call
-    this facade only after validation and trusted-tool registration approval.
+    Draft API candidate for manual_investigation approval-task creation.
+    This contract is for human review only and is not registered for
+    trusted-tool execution.
 servers:
   - url: http://localhost:8003
 paths:
@@ -16,7 +17,11 @@ paths:
           description: Service health
   /api/purchase-orders/{po_id}/approval-request:
     post:
-      summary: Request purchase order approval
+      summary: Create a human approval task for manual investigation
+      description: >
+        Accepts a purchase order ID, creates or reuses a pending human approval
+        task, writes an audit log entry, and returns 202 Accepted with task_id.
+        It does not update purchase order business state.
       parameters:
         - name: po_id
           in: path
@@ -30,12 +35,12 @@ paths:
             schema:
               $ref: "#/components/schemas/ApprovalRequest"
       responses:
-        "200":
-          description: Approval request accepted
+        "202":
+          description: Approval task accepted for human review
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ApprovalResponse"
+                $ref: "#/components/schemas/ApprovalTaskResponse"
         "404":
           description: Purchase order not found
 components:
@@ -56,42 +61,63 @@ components:
         source_case_id:
           type: string
           example: CASE-001
-    ApprovalResponse:
+        case_id:
+          type: string
+          nullable: true
+          example: CASE-SIM-001
+        correlation_id:
+          type: string
+          nullable: true
+          example: corr-manual-investigation-001
+    ApprovalTaskResponse:
       type: object
       required:
         - po_id
+        - task_id
         - status
+        - business_action
+        - process_signature
         - audit_log_created
-        - execution_mode
         - source_case_id
-        - side_effects
-        - event_trace_id
+        - business_side_effects
+        - evidence_run_ids
+        - observed_count
       properties:
         po_id:
           type: string
           example: PO-1001
+        task_id:
+          type: string
+          example: TASK-PO-1001-APPROVAL
         status:
           type: string
-          example: PENDING_MANAGER_APPROVAL
+          example: PENDING_HUMAN_APPROVAL
+        business_action:
+          type: string
+          example: manual_investigation
+        process_signature:
+          type: string
+          example: manual_investigation__budget_exceeded__waiting_for_human_approval__require_human_approval__no_side_effects
         audit_log_created:
           type: boolean
           example: true
-        execution_mode:
-          type: string
-          example: API
         source_case_id:
           type: string
           example: CASE-001
-        side_effects:
+        business_side_effects:
+          type: array
+          items:
+            type: string
+          example: []
+        evidence_run_ids:
           type: array
           items:
             type: string
           example:
-            - PO_STATUS_UPDATED
-            - APPROVAL_TASK_CREATED
-            - AUDIT_LOG_CREATED
-            - MANAGER_NOTIFICATION_QUEUED
-            - BUDGET_REVIEW_FLAGGED
-        event_trace_id:
-          type: string
-          example: api-trace-PO-1001
+            - RUN-20260630-001
+            - RUN-20260630-002
+            - RUN-20260630-003
+            - RUN-20260630-004
+        observed_count:
+          type: integer
+          example: 4

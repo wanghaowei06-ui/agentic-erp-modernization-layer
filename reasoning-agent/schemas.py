@@ -27,6 +27,11 @@ class TriageRequest(BaseModel):
     inventory_available: bool
     erp_status: str
     raw_exception_text: str
+    scenario: str | None = None
+    exception_reason: str | None = None
+    business_remarks: str | None = None
+    agent_context_policy: str | None = None
+    business_action: str | None = None
 
 
 class TriageResponse(BaseModel):

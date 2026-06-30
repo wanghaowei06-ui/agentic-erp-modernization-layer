@@ -1,0 +1,51 @@
+[
+  {
+    "step": 1,
+    "event_type": "CASE_RUN_STARTED",
+    "stage": "RUN_STARTED",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  },
+  {
+    "step": 2,
+    "event_type": "ERP_FIELDS_EXTRACTED",
+    "stage": "ERP_FIELDS_EXTRACTED",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  },
+  {
+    "step": 3,
+    "event_type": "HTTP_REQUEST_SENT",
+    "stage": "ROUTE_AGENT_CALLED",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  },
+  {
+    "step": 4,
+    "event_type": "ENTERPRISE_CONTEXT_LOADED",
+    "stage": "CONTEXT_SNAPSHOT_INJECTED",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  },
+  {
+    "step": 5,
+    "event_type": "AGENT_DECISION_RECEIVED",
+    "stage": "WAITING_FOR_HUMAN_APPROVAL",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  },
+  {
+    "step": 6,
+    "event_type": "POLICY_GATE_EVALUATED",
+    "stage": "REQUIRE_HUMAN_APPROVAL",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  },
+  {
+    "step": 7,
+    "event_type": "RUN_COMPLETED",
+    "stage": "WAITING_FOR_HUMAN_APPROVAL",
+    "occurred_at": "2026-06-30T02:41:01.468Z",
+    "run_id": "RUN-DEMO-AGENT-CONTEXT-001"
+  }
+]

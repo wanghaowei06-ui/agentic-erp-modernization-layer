@@ -1,0 +1,47 @@
+{
+  "case_id": "CASE-004",
+  "decision": "MANUAL_INVESTIGATION",
+  "case_type": "ambiguous",
+  "business_action": "manual_case_review",
+  "exception_type": "unknown_exception",
+  "api_modernization_required": false,
+  "xaml_improvement_required": false,
+  "requires_human_review": true,
+  "requires_human_approval": true,
+  "reason": "Low confidence or ambiguous business state requires human investigation before any capability evolution or reuse.",
+  "next_stage": "WAITING_MANUAL_INVESTIGATION",
+  "status": "MANUAL_INVESTIGATION_REQUIRED",
+  "rule_evaluation": {
+    "observed_count >= 5": false,
+    "business_value >= 0.75": false,
+    "field_stability >= 0.75": false,
+    "validation_pass_rate >= 0.8": false,
+    "validation_passed_now": false,
+    "human_approval_gate_exists": true,
+    "trusted_capability_exists": false,
+    "repeated_gap_count >= 3": false,
+    "selector_failure_count >= 3": false,
+    "no_api_modernization_required": false
+  },
+  "evidence": {
+    "process_signature": "manual_case_review__unknown_exception",
+    "evidence_run_ids": [],
+    "pattern_file": "memory/patterns/manual_case_review__unknown_exception.json",
+    "validation_file": null,
+    "repeated_gap_count": 0
+  },
+  "pattern_snapshot": {
+    "observed_count": 0,
+    "validation_pass_count": 0,
+    "validation_pass_rate": 0.0,
+    "field_stability": 0.0,
+    "business_value": 0.0,
+    "ui_fragility": 0.0,
+    "selector_failure_count": 0
+  },
+  "why_not": {
+    "API_MODERNIZATION_PROPOSAL": "Ambiguous case \u2014 insufficient evidence and low confidence; cannot justify modernization without human investigation.",
+    "XAML_WORKFLOW_PROPOSAL": "Ambiguous case \u2014 no confirmed capability gap; cannot propose a new workflow until the business state is clarified.",
+    "NO_EVOLUTION_REQUIRED": "Ambiguous case \u2014 not a normal standard path; exception state is uncertain and requires human review."
+  }
+}

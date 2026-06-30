@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 
 SERVICE_ROOT = Path(__file__).resolve().parents[1]
@@ -14,12 +14,15 @@ for path in (SERVICE_ROOT, REPO_ROOT):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
+from shared.auth.api_key import require_memory_write_api_key
+
 from business_rule_tests import validate_budget_exceeded_requires_approval
 from contract_tests import validate_contract
 from parity_check import APPROVAL_SIDE_EFFECTS, run_parity_check
 from memory.repository import record_case_001_hard_mvp_artifacts
 from memory.repository import record_inventory_shortage_gap
 from shared.automation_memory.repository import record_capability_gap
+from shared.automation_memory.repository import record_human_approval
 from shared.automation_memory.repository import record_validation_result
 from shared.automation_memory.repository import register_capability
 from shared.automation_memory.repository import query_capabilities
@@ -63,6 +66,31 @@ class ValidationResponse(BaseModel):
     extra_side_effects: list[str] | None = None
     parity_summary: str | None = None
     recommended_recovery: str | None = None
+
+
+class ApprovalRequest(BaseModel):
+    case_id: str
+    po_id: str | None = None
+    approval_type: str = "business_approval"
+    decision: str
+    approved_by: str
+    comment: str | None = None
+    risk_level: str | None = None
+    amount: float | None = None
+    budget_limit: float | None = None
+    recommended_action: str | None = None
+    correlation_id: str | None = None
+
+
+class ApprovalResponse(BaseModel):
+    case_id: str
+    approval_type: str
+    decision: str
+    approved_by: str
+    comment: str | None = None
+    recorded: bool
+    memory_event_id: str | None = None
+    correlation_id: str | None = None
 
 
 def validation_status_for(response: ValidationResponse) -> str:
@@ -266,6 +294,7 @@ def memory_gaps() -> dict[str, object]:
 )
 def validate_request_purchase_order_approval(
     payload: ValidationRequest | None = None,
+    _api_key: str | None = Depends(require_memory_write_api_key),
 ) -> ValidationResponse:
     request_payload = {
         "approval_reason": "Amount exceeds budget limit",
@@ -346,7 +375,53 @@ def validate_request_purchase_order_approval(
 
 
 @app.post("/capability-gaps/inventory-shortage")
-def capability_gap_inventory_shortage() -> dict[str, object]:
+def capability_gap_inventory_shortage(
+    _api_key: str | None = Depends(require_memory_write_api_key),
+) -> dict[str, object]:
     gap = record_inventory_shortage_gap()
     record_gap_memory(gap)
     return gap
+
+
+@app.post("/approvals", response_model=ApprovalResponse)
+def record_approval(
+    payload: ApprovalRequest,
+    _api_key: str | None = Depends(require_memory_write_api_key),
+) -> ApprovalResponse:
+    approval_payload = {
+        "case_id": payload.case_id,
+        "po_id": payload.po_id,
+        "approval_type": payload.approval_type,
+        "decision": payload.decision,
+        "approved_by": payload.approved_by,
+        "comment": payload.comment,
+        "risk_level": payload.risk_level,
+        "amount": payload.amount,
+        "budget_limit": payload.budget_limit,
+        "recommended_action": payload.recommended_action,
+        "source_endpoint": "/approvals",
+    }
+    memory_event_id: str | None = None
+    recorded = False
+    try:
+        event = record_human_approval(
+            payload.case_id,
+            approval_payload,
+            source_service="validation-suite",
+            correlation_id=payload.correlation_id,
+        )
+        memory_event_id = event.event_id
+        recorded = True
+    except Exception as exc:  # pragma: no cover - covered via monkeypatch test
+        memory_logger.warning("Automation Memory human approval write failed: %s", exc)
+
+    return ApprovalResponse(
+        case_id=payload.case_id,
+        approval_type=payload.approval_type,
+        decision=payload.decision,
+        approved_by=payload.approved_by,
+        comment=payload.comment,
+        recorded=recorded,
+        memory_event_id=memory_event_id,
+        correlation_id=payload.correlation_id,
+    )

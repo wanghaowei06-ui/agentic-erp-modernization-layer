@@ -1,0 +1,100 @@
+{
+  "session_id": "CODEX-PROP-XAML-DEMO-0001-001",
+  "proposal_id": "PROP-XAML-DEMO-0001",
+  "proposal_type": "XAML_WORKFLOW_PROPOSAL",
+  "process_signature": "request_inventory_review__inventory_shortage__capability_gap_detected__policy_gate_skipped__audit_log_created",
+  "execution_mode": "mock",
+  "execution_mode_label": "Demo Mock Stream",
+  "status": "COMPLETED",
+  "created_at": "2026-06-30T02:59:59.602Z",
+  "updated_at": "2026-06-30T03:00:02.893Z",
+  "started_at": "2026-06-30T02:59:59.680Z",
+  "completed_at": "2026-06-30T03:00:03.694Z",
+  "return_code": 0,
+  "codex_prompt": "Generate a new UiPath XAML workflow candidate for inventory shortage handling. Do NOT modify existing Windows XAML files; prepare proposal artifact and draft PR handoff only.",
+  "command": "codex exec <proposal prompt> (demo mock stream)",
+  "current_activity": "Draft PR handoff ready",
+  "activity_summary": "Demo stream completed. Candidate artifacts are ready for human code review.",
+  "activity_events": [
+    {
+      "timestamp": "2026-06-30T02:59:59.602Z",
+      "stage": "approval",
+      "title": "Human approval captured",
+      "detail": "Reviewer clicked Approve and Start Codex CLI from the Proposal Inbox.",
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-30T02:59:59.685Z",
+      "stage": "context",
+      "title": "Loaded proposal evidence",
+      "detail": "Read Pattern Memory threshold evidence, latest Run Memory examples, business remarks, and agent reasoning summaries.",
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:00.488Z",
+      "stage": "plan",
+      "title": "Built implementation plan",
+      "detail": "Selected a UiPath workflow candidate path for human review; existing Windows XAML files remain untouched.",
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:01.290Z",
+      "stage": "edit",
+      "title": "Prepared local candidate changes",
+      "detail": "Generated a workflow proposal artifact and PR notes that describe selector-safe UiPath changes for review.",
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:02.091Z",
+      "stage": "verify",
+      "title": "Ran verification checklist",
+      "detail": "Checked guardrails: no API deployment, no trusted capability registration, no automatic approval, no Windows XAML overwrite.",
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:02.892Z",
+      "stage": "handoff",
+      "title": "Prepared draft PR handoff",
+      "detail": "Codex session finished. Reviewer can inspect generated files and promote the candidate through normal PR review.",
+      "status": "completed"
+    }
+  ],
+  "logs": [
+    {
+      "timestamp": "2026-06-30T02:59:59.602Z",
+      "line": "Human approved proposal for Codex CLI handoff. Session queued.",
+      "summary": "Human approved proposal for Codex CLI handoff. Session queued."
+    },
+    {
+      "timestamp": "2026-06-30T02:59:59.686Z",
+      "line": "memory.load proposal_id=PROP-XAML-DEMO-0001 source=run_memory+pattern_memory",
+      "summary": "memory.load proposal_id=PROP-XAML-DEMO-0001 source=run_memory+pattern_memory"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:00.489Z",
+      "line": "codex.plan proposal_type=XAML_WORKFLOW_PROPOSAL safety=no_auto_deploy,no_auto_xaml_modify",
+      "summary": "codex.plan proposal_type=XAML_WORKFLOW_PROPOSAL safety=no_auto_deploy,no_auto_xaml_modify"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:01.290Z",
+      "line": "files.prepare candidate_artifact=true draft_pr_notes=true",
+      "summary": "files.prepare candidate_artifact=true draft_pr_notes=true"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:02.092Z",
+      "line": "verify.guardrails api_deployed=false xaml_modified=false trusted_capability_registered=false",
+      "summary": "verify.guardrails api_deployed=false xaml_modified=false trusted_capability_registered=false"
+    },
+    {
+      "timestamp": "2026-06-30T03:00:02.893Z",
+      "line": "pr.handoff status=ready_for_human_review auto_merge=false",
+      "summary": "pr.handoff status=ready_for_human_review auto_merge=false"
+    }
+  ],
+  "draft_pr_created": false,
+  "draft_pr_handoff_ready": true,
+  "api_deployed": false,
+  "xaml_modified": false,
+  "trusted_capability_registered": false,
+  "last_raw_log_summary": "pr.handoff status=ready_for_human_review auto_merge=false"
+}

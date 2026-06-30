@@ -127,3 +127,22 @@ def record_inventory_shortage_gap() -> dict[str, Any]:
     }
     record_capability_gap("CASE-003", gap)
     return {"case_id": "CASE-003", **gap}
+
+
+def record_modernization_readiness(case_id: str, readiness: dict[str, Any]) -> None:
+    write_json(f"modernization_readiness_{case_id}.json", {"case_id": case_id, **readiness})
+
+
+def record_modernization_plan(case_id: str, plan: dict[str, Any]) -> None:
+    write_json(f"modernization_plan_{case_id}.json", {"case_id": case_id, **plan})
+
+
+def record_historical_patterns(patterns: list[dict[str, Any]]) -> None:
+    write_json("historical_patterns.json", patterns)
+
+
+def record_capability_evolution_decision(case_id: str, decision: dict[str, Any]) -> None:
+    write_json(
+        f"capability_evolution_decision_{case_id}.json",
+        {"case_id": case_id, **decision},
+    )

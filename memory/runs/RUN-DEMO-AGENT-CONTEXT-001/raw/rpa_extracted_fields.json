@@ -1,0 +1,20 @@
+{
+  "artifact_type": "rpa_extracted_fields",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "simulation_case_id": "SIM-DEMO-CTX-001",
+    "case_id": "CASE-DEMO-AGENT-CONTEXT",
+    "po_id": "PO-DEMO-CTX-001",
+    "amount": 18000,
+    "budget_limit": 10000,
+    "vendor_id": "V-203",
+    "scenario": "agent_context_budget_exception_demo",
+    "exception_reason": "Amount exceeds approved budget limit",
+    "raw_exception_text": "Amount exceeds approved budget limit",
+    "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+    "erp_status": "Exception",
+    "agent_context_policy": "fetch_enterprise_context_before_decision"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "case_id": "CASE-003",
+  "decision": "XAML_WORKFLOW_PROPOSAL",
+  "business_action": "request_inventory_review",
+  "recommended_change": "Create HandleInventoryShortageReview.xaml candidate",
+  "reason": "Repeated inventory shortage cases have no trusted workflow or API coverage.",
+  "requires_human_approval": true,
+  "coding_agent_allowed": "after_approval_only",
+  "status": "PROPOSAL_CREATED",
+  "rule_evaluation": {
+    "observed_count >= 5": true,
+    "business_value >= 0.75": false,
+    "field_stability >= 0.75": false,
+    "validation_pass_rate >= 0.8": false,
+    "validation_passed_now": false,
+    "human_approval_gate_exists": true,
+    "trusted_capability_exists": false,
+    "repeated_gap_count >= 3": true,
+    "selector_failure_count >= 3": false,
+    "no_api_modernization_required": false
+  },
+  "evidence": {
+    "process_signature": "request_inventory_review__inventory_shortage",
+    "evidence_run_ids": [],
+    "pattern_file": "memory/patterns/request_inventory_review__inventory_shortage.json",
+    "validation_file": null,
+    "repeated_gap_count": 9
+  },
+  "pattern_snapshot": {
+    "observed_count": 9,
+    "validation_pass_count": 0,
+    "validation_pass_rate": 0.0,
+    "field_stability": 0.55,
+    "business_value": 0.0,
+    "ui_fragility": 0.72,
+    "selector_failure_count": 0
+  },
+  "why_not": {
+    "API_MODERNIZATION_PROPOSAL": "Field stability or validation evidence is insufficient for API modernization; a new XAML workflow is more appropriate.",
+    "KEEP_RPA_MODE": "Repeated gap detected; keeping RPA mode without a workflow proposal would not close the coverage gap."
+  }
+}

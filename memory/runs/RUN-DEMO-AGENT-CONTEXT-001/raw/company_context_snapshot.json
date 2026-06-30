@@ -1,0 +1,37 @@
+{
+  "artifact_type": "company_context_snapshot",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "enterprise_context_source": "demo_injected_enterprise_context_snapshot",
+    "enterprise_context_mode": "injected_demo_snapshot_no_live_call",
+    "enterprise_context_provider": "seeded demo data, not live /company-context",
+    "company_context_endpoint": "demo seed artifact: memory/runs/RUN-DEMO-AGENT-CONTEXT-001/raw/company_context_snapshot.json",
+    "company": {
+      "name": "Demo Manufacturing Group",
+      "current_quarter": "Q4",
+      "strategic_goals": [
+        "protect strategic customer renewals",
+        "reduce uncontrolled procurement spend",
+        "avoid production stoppage for critical orders"
+      ],
+      "finance_policy": {
+        "budget_exception_threshold": 10000,
+        "requires_manager_approval_above_budget": true,
+        "strict_vendor_compliance": true
+      },
+      "sales_context": {
+        "strategic_accounts_at_risk": [
+          "ACME Retail",
+          "Northwind Energy"
+        ],
+        "quarter_end_revenue_pressure": true
+      },
+      "operations_context": {
+        "inventory_risk_tolerance": "low",
+        "substitute_part_review_required": true
+      }
+    }
+  }
+}

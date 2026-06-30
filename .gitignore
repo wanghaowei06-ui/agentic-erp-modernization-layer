@@ -13,3 +13,16 @@ run/
 .DS_Store
 .coverage
 htmlcov/
+.playwright-mcp/
+demo-state-backups/
+memory-data/
+proposal-inbox-after.png
+simulation-dashboard-after.png
+reasoning-agent/app/main_pre_refactor_*.py
+memory/runs/
+memory/cases/
+memory/patterns/
+memory/proposals/
+memory/codex_sessions/
+memory/data/capability_evolution_decision_CASE-SIM-*.json
+memory/data/capability_evolution_decision_CASE-TRACE-*.json

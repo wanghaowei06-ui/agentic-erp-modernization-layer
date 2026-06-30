@@ -1,0 +1,11 @@
+{
+  "artifact_type": "selected_erp_action",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "action_id": "CREATE_WEB_APPROVAL_TASK",
+    "button_selector_id": null,
+    "reason": "Budget exception needs manager approval; UiPath should not click an ERP approval button."
+  }
+}

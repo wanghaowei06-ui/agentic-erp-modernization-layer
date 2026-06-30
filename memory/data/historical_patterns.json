@@ -1,0 +1,47 @@
+[
+  {
+    "exception_type": "budget_exceeded",
+    "business_action": "request_purchase_order_approval",
+    "observed_count": 18,
+    "manual_handling_count": 15,
+    "rpa_success_count": 14,
+    "validation_pass_count": 12,
+    "field_stability": 0.92,
+    "business_value": 0.9,
+    "frequency": 0.86,
+    "ui_fragility": 0.68,
+    "recommended_evolution": "API_MODERNIZATION",
+    "trusted_capability_found": true,
+    "source": "demo_seeded_history"
+  },
+  {
+    "exception_type": "inventory_shortage",
+    "business_action": "request_inventory_review",
+    "observed_count": 9,
+    "repeated_gap_count": 9,
+    "trusted_capability_found": false,
+    "manual_handling_count": 9,
+    "field_stability": 0.55,
+    "ui_fragility": 0.72,
+    "recommended_evolution": "XAML_WORKFLOW_PROPOSAL",
+    "source": "demo_seeded_history"
+  },
+  {
+    "exception_type": "vendor_info_missing",
+    "business_action": "handle_vendor_info_missing",
+    "observed_count": 5,
+    "recommended_evolution": "WAIT_FOR_VENDOR_INFO",
+    "no_api_modernization_required": true,
+    "trusted_capability_found": false,
+    "source": "demo_seeded_history"
+  },
+  {
+    "exception_type": "selector_fragility",
+    "business_action": "read_purchase_order",
+    "observed_count": 4,
+    "selector_failure_count": 3,
+    "recommended_evolution": "XAML_IMPROVEMENT_PROPOSAL",
+    "trusted_capability_found": true,
+    "source": "demo_seeded_history"
+  }
+]

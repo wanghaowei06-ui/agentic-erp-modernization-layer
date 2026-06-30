@@ -36,7 +36,7 @@ def test_record_case_event_writes_memory_event(tmp_path):
     assert event.created_at.endswith("Z")
     assert event.correlation_id.startswith("corr_")
     assert event.payload == {"po_id": "PO-1001"}
-    assert (tmp_path / "events.jsonl").exists()
+    assert (tmp_path / "events.db").exists()
 
 
 def test_record_agent_decision_writes_triage_completed(tmp_path):
@@ -216,11 +216,200 @@ def test_memory_data_dir_is_created_automatically(tmp_path):
 
     assert nested_dir.exists()
     assert (nested_dir / "case_snapshots").exists()
-    assert (nested_dir / "events.jsonl").exists()
+    assert (nested_dir / "events.db").exists()
 
 
-def test_damaged_json_raises_clear_error(tmp_path):
-    (tmp_path / "events.jsonl").write_text("{not-json}\n", encoding="utf-8")
+def test_damaged_capability_json_raises_clear_error(tmp_path):
+    (tmp_path / "capabilities.json").write_text("{not-json}\n", encoding="utf-8")
 
-    with pytest.raises(AutomationMemoryJsonError, match="Invalid JSONL event"):
-        query_case_timeline("CASE-001", data_dir=tmp_path)
+    with pytest.raises(AutomationMemoryJsonError, match="Invalid JSON"):
+        query_capabilities(data_dir=tmp_path)
+
+
+def test_sqlite_backend_indexes_events_by_case_without_full_scan(tmp_path):
+    record_case_event(
+        "CASE-001",
+        MemoryEventType.CASE_CREATED,
+        {},
+        source_service="pytest",
+        data_dir=tmp_path,
+    )
+    record_case_event(
+        "CASE-002",
+        MemoryEventType.CASE_CREATED,
+        {},
+        source_service="pytest",
+        data_dir=tmp_path,
+    )
+    record_case_event(
+        "CASE-001",
+        MemoryEventType.VALIDATION_COMPLETED,
+        {},
+        source_service="pytest",
+        data_dir=tmp_path,
+    )
+
+    timeline = query_case_timeline("CASE-001", data_dir=tmp_path)
+    assert [event.case_id for event in timeline] == ["CASE-001", "CASE-001"]
+
+
+def test_export_events_jsonl_round_trips_sqlite_events(tmp_path):
+    from shared.automation_memory.json_repository import (
+        read_events_jsonl,
+    )
+    from shared.automation_memory.sqlite_store import export_events_jsonl
+
+    record_case_event(
+        "CASE-001",
+        MemoryEventType.CASE_CREATED,
+        {"po_id": "PO-1001"},
+        source_service="pytest",
+        data_dir=tmp_path,
+    )
+
+    exported = export_events_jsonl(data_dir=tmp_path)
+    assert exported.exists()
+    legacy = read_events_jsonl(data_dir=tmp_path)
+    assert len(legacy) == 1
+    assert legacy[0].case_id == "CASE-001"
+    assert legacy[0].payload == {"po_id": "PO-1001"}
+
+
+def test_migrate_from_jsonl_is_idempotent(tmp_path):
+    from shared.automation_memory.json_repository import read_events_jsonl
+    from shared.automation_memory.sqlite_store import (
+        migrate_from_jsonl,
+        select_all_events,
+    )
+
+    source = tmp_path / "events.jsonl"
+    source.write_text(
+        '{"event_id":"evt_a","case_id":"CASE-001","event_type":"CASE_CREATED",'
+        '"source_service":"legacy","schema_version":"1.0","created_at":"2026-01-01T00:00:00Z",'
+        '"correlation_id":"corr_a","payload":{"po_id":"PO-1001"}}\n',
+        encoding="utf-8",
+    )
+
+    migrated_first, _ = migrate_from_jsonl(data_dir=tmp_path)
+    assert migrated_first == 1
+    assert len(select_all_events(data_dir=tmp_path)) == 1
+
+    # Running again must not duplicate events.
+    migrated_second, _ = migrate_from_jsonl(data_dir=tmp_path)
+    assert migrated_second == 0
+    assert len(select_all_events(data_dir=tmp_path)) == 1
+    # Source JSONL is untouched by the library function (script renames it).
+    assert read_events_jsonl(data_dir=tmp_path)[0].event_id == "evt_a"
+
+
+def test_find_similar_cases_matches_exception_type_and_business_action(tmp_path):
+    from shared.automation_memory.repository import find_similar_cases
+
+    # Two inventory_shortage gaps for the same business action.
+    record_capability_gap(
+        "CASE-003",
+        {
+            "exception_type": "inventory_shortage",
+            "required_business_action": "request_inventory_review",
+            "coverage_status": "not_covered",
+        },
+        data_dir=tmp_path,
+    )
+    record_capability_gap(
+        "CASE-007",
+        {
+            "exception_type": "inventory_shortage",
+            "required_business_action": "request_inventory_review",
+            "coverage_status": "not_covered",
+        },
+        data_dir=tmp_path,
+    )
+    # A different exception type for the same business action.
+    record_capability_gap(
+        "CASE-008",
+        {
+            "exception_type": "vendor_info_missing",
+            "required_business_action": "request_inventory_review",
+            "coverage_status": "not_covered",
+        },
+        data_dir=tmp_path,
+    )
+    # A different business action entirely.
+    record_capability_gap(
+        "CASE-009",
+        {
+            "exception_type": "inventory_shortage",
+            "required_business_action": "request_purchase_order_approval",
+            "coverage_status": "not_covered",
+        },
+        data_dir=tmp_path,
+    )
+
+    similar = find_similar_cases(
+        "inventory_shortage",
+        "request_inventory_review",
+        data_dir=tmp_path,
+    )
+
+    assert len(similar) == 2
+    assert {event.case_id for event in similar} == {"CASE-003", "CASE-007"}
+
+
+def test_find_similar_cases_matches_legacy_nested_payload(tmp_path):
+    """Gap payloads written by validation-suite nest the original gap payload."""
+    from shared.automation_memory.repository import find_similar_cases
+
+    record_capability_gap(
+        "CASE-003",
+        {
+            "business_action": "resolve_inventory_shortage",
+            "gap_type": "missing_trusted_capability",
+            "legacy_gap_payload": {
+                "exception_type": "inventory_shortage",
+                "required_business_action": "request_inventory_review",
+            },
+        },
+        data_dir=tmp_path,
+    )
+
+    similar = find_similar_cases(
+        "inventory_shortage",
+        "request_inventory_review",
+        data_dir=tmp_path,
+    )
+    assert len(similar) == 1
+    assert similar[0].case_id == "CASE-003"
+
+
+def test_count_repeated_gaps_filters_by_exception_type(tmp_path):
+    from shared.automation_memory.repository import count_repeated_gaps
+
+    for case_id in ("CASE-003", "CASE-007"):
+        record_capability_gap(
+            case_id,
+            {
+                "exception_type": "inventory_shortage",
+                "required_business_action": "request_inventory_review",
+            },
+            data_dir=tmp_path,
+        )
+    record_capability_gap(
+        "CASE-008",
+        {
+            "exception_type": "vendor_info_missing",
+            "required_business_action": "request_inventory_review",
+        },
+        data_dir=tmp_path,
+    )
+
+    # Without gap_type filter -> all three gaps for the business action.
+    assert count_repeated_gaps("request_inventory_review", data_dir=tmp_path) == 3
+    # With gap_type filter -> only the two inventory_shortage gaps.
+    assert (
+        count_repeated_gaps(
+            "request_inventory_review",
+            gap_type="inventory_shortage",
+            data_dir=tmp_path,
+        )
+        == 2
+    )

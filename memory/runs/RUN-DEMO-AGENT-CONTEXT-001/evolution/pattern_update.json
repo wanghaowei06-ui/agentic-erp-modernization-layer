@@ -1,0 +1,9 @@
+{
+  "process_signature": "request_purchase_order_approval__budget_exceeded__waiting_for_human_approval__require_human_approval__approval_task_created_audit_log_created",
+  "observed_count_before": 0,
+  "observed_count_after": 1,
+  "threshold": 3,
+  "still_accumulating_evidence": true,
+  "proposal_created": false,
+  "note": "Single injected Agent Context demo run; proposal thresholds are shown separately in seeded proposals."
+}

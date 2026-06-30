@@ -1,0 +1,17 @@
+{
+  "artifact_type": "policy_gate",
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+  "updated_at": "2026-06-30T02:41:01.468Z",
+  "data": {
+    "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+    "execution_allowed": false,
+    "human_required": true,
+    "validation_required": true,
+    "policy_gate_reason": "Finance policy requires manager approval for PO amounts above budget; sales context marks ACME Retail renewal risk as strategically important.",
+    "blocked_actions": [
+      "AUTO_APPROVE_ERP_ORDER",
+      "SUBMIT_APPROVAL_REQUEST_WITHOUT_HUMAN_REVIEW"
+    ]
+  }
+}

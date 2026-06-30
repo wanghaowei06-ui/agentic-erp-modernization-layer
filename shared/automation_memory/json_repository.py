@@ -46,14 +46,23 @@ def _capabilities_path(data_dir: str | Path | None = None) -> Path:
     return ensure_memory_dir(data_dir) / CAPABILITIES_FILE
 
 
+# ---------------------------------------------------------------------------
+# Event store (SQLite-backed; JSONL retained only for export/migration)
+# ---------------------------------------------------------------------------
 def append_event(event: MemoryEvent, data_dir: str | Path | None = None) -> MemoryEvent:
-    path = _events_path(data_dir)
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(event.model_dump_json() + "\n")
-    return event
+    from .sqlite_store import insert_event
+
+    return insert_event(event, data_dir)
 
 
 def read_events(data_dir: str | Path | None = None) -> list[MemoryEvent]:
+    from .sqlite_store import select_all_events
+
+    return select_all_events(data_dir)
+
+
+def read_events_jsonl(data_dir: str | Path | None = None) -> list[MemoryEvent]:
+    """Read a legacy ``events.jsonl`` file (used by the migration script)."""
     path = _events_path(data_dir)
     if not path.exists():
         return []
@@ -73,6 +82,18 @@ def read_events(data_dir: str | Path | None = None) -> list[MemoryEvent]:
     return events
 
 
+def export_events_jsonl(
+    data_dir: str | Path | None = None,
+    target_path: str | Path | None = None,
+) -> Path:
+    from .sqlite_store import export_events_jsonl as _export
+
+    return _export(data_dir, target_path)
+
+
+# ---------------------------------------------------------------------------
+# Capability registry (JSON; small enough that full scan is not a concern)
+# ---------------------------------------------------------------------------
 def write_capabilities(
     capabilities: list[CapabilityRecord],
     data_dir: str | Path | None = None,
@@ -129,32 +150,38 @@ def find_capability(
     return None
 
 
+# ---------------------------------------------------------------------------
+# Event queries (SQLite-backed)
+# ---------------------------------------------------------------------------
 def query_case_timeline(
     case_id: str,
     data_dir: str | Path | None = None,
 ) -> list[MemoryEvent]:
-    events = [event for event in read_events(data_dir) if event.case_id == case_id]
-    return sorted(events, key=lambda event: event.created_at)
+    from .sqlite_store import select_events_by_case
+
+    return select_events_by_case(case_id, data_dir)
 
 
 def query_case_decisions(
     case_id: str,
     data_dir: str | Path | None = None,
 ) -> list[MemoryEvent]:
-    return [
-        event
-        for event in query_case_timeline(case_id, data_dir)
-        if MemoryEventType(str(event.event_type)) in AGENT_DECISION_EVENT_TYPES
-    ]
+    from .sqlite_store import select_decisions_by_case
+
+    return select_decisions_by_case(
+        case_id,
+        [str(item) for item in AGENT_DECISION_EVENT_TYPES],
+        data_dir,
+    )
 
 
 def query_gaps(data_dir: str | Path | None = None) -> list[MemoryEvent]:
-    events = read_events(data_dir)
-    return [
-        event
-        for event in events
-        if str(event.event_type) == MemoryEventType.CAPABILITY_GAP_RECORDED.value
-    ]
+    from .sqlite_store import select_events_by_type
+
+    return select_events_by_type(
+        MemoryEventType.CAPABILITY_GAP_RECORDED.value,
+        data_dir,
+    )
 
 
 def event_payload(event: MemoryEvent) -> dict[str, Any]:

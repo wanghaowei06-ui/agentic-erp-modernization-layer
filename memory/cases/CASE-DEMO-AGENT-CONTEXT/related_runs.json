@@ -1,0 +1,12 @@
+{
+  "case_id": "CASE-DEMO-AGENT-CONTEXT",
+  "runs": [
+    {
+      "run_id": "RUN-DEMO-AGENT-CONTEXT-001",
+      "started_at": "2026-06-30T02:41:01.468Z",
+      "status": "RUN_COMPLETED",
+      "completed_at": "2026-06-30T02:41:01.468Z",
+      "result": "WAITING_WEB_APPROVAL"
+    }
+  ]
+}
