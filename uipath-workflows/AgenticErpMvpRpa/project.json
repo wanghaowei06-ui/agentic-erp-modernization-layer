@@ -1,7 +1,7 @@
 ﻿{
     "name":  "AgenticErpMvpRpa",
     "projectId":  "c5405b68-d0cc-49fc-b4b4-a2b4af13f2ed",
-    "description":  "UiPath Hard MVP main workflow",
+    "description":  "RPA-first ERP Worker main workflow",
     "main":  "Main.xaml",
     "dependencies":  {
                          "UiPath.System.Activities":  "[26.6.0]",

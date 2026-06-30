@@ -1,0 +1,143 @@
+{
+  "case_id": "CASE-004",
+  "po_id": "PO-1004",
+  "scenario": null,
+  "exception_reason": null,
+  "business_remarks": "Requester says this order supports a renewal opportunity, but the business justification is incomplete.",
+  "agent_context_policy": "fetch_enterprise_context_before_decision",
+  "enterprise_context_source": "mock_enterprise_context",
+  "route_agent_mode": "real_llm_with_mock_enterprise_context",
+  "business_action": "manual_case_review",
+  "case_type": "ambiguous",
+  "precheck_result": "AMBIGUOUS",
+  "precheck_decision_source": "deterministic_rule",
+  "agent_required": true,
+  "triage_result": {
+    "case_id": "CASE-004",
+    "po_id": "PO-1004",
+    "detected_exception_type": "unknown_exception",
+    "risk_level": "unknown",
+    "confidence": 0.4,
+    "recommended_path": "manual_investigation",
+    "next_action": "manual_investigation",
+    "requires_human_approval": true,
+    "next_stage": "WAITING_MANUAL_INVESTIGATION",
+    "reasoning_summary": "Low confidence: the case state is ambiguous and does not match a supported deterministic route. Automatic execution is not allowed; human investigation is required before any capability reuse.",
+    "evidence": [
+      {
+        "field": "raw_exception_text",
+        "value": "Needs business attention before processing.",
+        "source": "legacy_erp_screen"
+      }
+    ],
+    "fallback": "manual_investigation",
+    "decision_source": "deterministic_rule",
+    "business_action": "manual_investigation",
+    "required_approval_type": "manual_review",
+    "recommended_next_stage": "WAITING_MANUAL_INVESTIGATION",
+    "capability_lookup_required": true,
+    "guardrail_status": "passed",
+    "memory_references": [
+      {
+        "type": "capability_lookup",
+        "business_action": "manual_investigation",
+        "capability_found": false,
+        "capability_id": null,
+        "execution_mode": null,
+        "endpoint": null,
+        "workflow_name": null,
+        "lookup_status": "completed"
+      }
+    ],
+    "correlation_id": "corr_93b19363a5794c4d93ae68c5c2c797e1",
+    "schema_version": "1.0"
+  },
+  "detected_exception_type": "unknown_exception",
+  "confidence": 0.4,
+  "final_route": "WAITING_MANUAL_INVESTIGATION",
+  "policy_decision": "REQUIRE_MANUAL_INVESTIGATION",
+  "next_stage": "WAITING_MANUAL_INVESTIGATION",
+  "capability_decision": "MANUAL_INVESTIGATION",
+  "human_required": true,
+  "execution_allowed": false,
+  "auto_modernization_allowed": false,
+  "recommended_uipath_workflow": "RouteProof_PO1004.xaml",
+  "dashboard_url": "http://localhost:8002/case-dashboard/CASE-004",
+  "portfolio_url": "http://localhost:8002/case-portfolio",
+  "reason": "Ambiguous case (confidence=0.4); low-confidence cases go to manual investigation. Capability decision is MANUAL_INVESTIGATION.",
+  "policy_gate": {
+    "case_id": "CASE-004",
+    "policy_decision": "REQUIRE_MANUAL_INVESTIGATION",
+    "execution_allowed": false,
+    "allowed_execution_mode": "NONE",
+    "human_required": true,
+    "validation_required": false,
+    "reason": "Low confidence or ambiguous business state requires manual investigation before any execution is permitted.",
+    "required_gates": [
+      "MANUAL_INVESTIGATION"
+    ],
+    "blocked_actions": [
+      "AUTO_EXECUTE_WITHOUT_INVESTIGATION",
+      "CAPABILITY_REUSE",
+      "API_MODERNIZATION"
+    ],
+    "audit_required": true
+  },
+  "agent_context_used": true,
+  "company_context_reference": {
+    "finance_policy_used": true,
+    "sales_context_used": true,
+    "operations_context_used": true
+  },
+  "company_context_snapshot": {
+    "enterprise_context_source": "mock_enterprise_context",
+    "enterprise_context_mode": "local_demo_snapshot",
+    "enterprise_context_provider": "reasoning-agent.company_context_payload",
+    "company": {
+      "name": "Demo Manufacturing Group",
+      "current_quarter": "Q4",
+      "strategic_goals": [
+        "protect strategic customer renewals",
+        "reduce uncontrolled procurement spend",
+        "avoid production stoppage for critical orders"
+      ],
+      "finance_policy": {
+        "budget_exception_threshold": 10000,
+        "requires_manager_approval_above_budget": true,
+        "strict_vendor_compliance": true
+      },
+      "sales_context": {
+        "strategic_accounts_at_risk": [
+          "ACME Retail",
+          "Northwind Energy"
+        ],
+        "quarter_end_revenue_pressure": true
+      },
+      "operations_context": {
+        "inventory_risk_tolerance": "low",
+        "substitute_part_review_required": true
+      }
+    }
+  },
+  "agent_reasoning_summary": "The order has low confidence (0.4) from triage due to ambiguous ERP status ('PendingReview') and incomplete business justification. Company context highlights a strategic renewal opportunity but the justification is incomplete, requiring manual investigation to verify renewal validity and ensure policy compliance.",
+  "llm_validation_proof": {
+    "agent_runtime": "langgraph",
+    "reasoning_mode": "llm_backed",
+    "llm_enabled": true,
+    "model": "deepseek-v4-flash",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_call_mode": "real",
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-v4-flash",
+    "llm_request_id": "route-90bab81094d8",
+    "llm_latency_ms": 6250,
+    "llm_invocation_verified": true
+  },
+  "recommended_erp_action": {
+    "action_id": "SEND_MANUAL_INVESTIGATION",
+    "button_selector_id": "ctl00_MainContent_btnSendManualInvestigation",
+    "reason": "Manual investigation is required before ERP execution."
+  }
+}

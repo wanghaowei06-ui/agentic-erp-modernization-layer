@@ -1,128 +1,93 @@
 # Demo Script
 
-This script is written for a judge or reviewer. It describes the actual Hard MVP runtime path.
+This script describes the current website-clickable demo path.
 
 ## 1. Start Services
-
-Run:
 
 ```bash
 ./scripts/dev-start.sh
 ```
 
-Confirm:
+Confirm health:
 
 - `http://localhost:8001/health`
 - `http://localhost:8002/health`
 - `http://localhost:8003/health`
 - `http://localhost:8004/health`
 
-## 2. Open Mock Legacy ERP
+## 2. Open ERP Work Queue
 
 Open:
 
-`http://localhost:8001`
+```text
+http://localhost:8002/erp/work-queue
+```
 
-UiPath opens the legacy ERP page and reads PO-1001 fields from the UI.
+Show the queue and then an order detail page. Point out business remarks and
+stable UiPath selectors.
 
-## 3. UiPath Reads PO-1001
-
-PO-1001 starts as an exception:
-
-- amount `18000`
-- budget limit `10000`
-- vendor `V-203`
-- status `Exception`
-- raw exception text `Amount exceeds approved budget limit`
-
-## 4. UiPath Calls Triage
-
-UiPath calls:
-
-`POST http://localhost:8002/triage`
-
-The reasoning-agent returns a deterministic structured decision:
-
-- `detected_exception_type=budget_exceeded`
-- `next_stage=WAITING_FOR_HUMAN_APPROVAL`
-- `business_action=request_purchase_order_approval`
-- `decision_source=deterministic_rule`
-
-The agent writes `TRIAGE_COMPLETED` to Automation Memory.
-
-## 5. Human Approval
-
-UiPath routes to Human Approval because this is a high-risk budget exception. The robot and agent do not approve the business action by themselves.
-
-## 6. RPA Write-Back
-
-UiPath performs RPA write-back through Mock ERP:
-
-`POST http://localhost:8001/purchase-orders/PO-1001/request-approval`
-
-Mock ERP updates the PO status and writes `RPA_WRITEBACK_COMPLETED` to Automation Memory.
-
-## 7. Validation
-
-UiPath calls:
-
-`POST http://localhost:8004/validate/request-purchase-order-approval`
-
-The validation-suite checks:
-
-- contract test
-- business rule test
-- RPA/API parity heuristic using cloned data
-
-It writes `VALIDATION_COMPLETED` and registers trusted capabilities after passed validation.
-
-## 8. API Mode Execution
-
-UiPath calls:
-
-`POST http://localhost:8003/api/purchase-orders/PO-1001-API/approval-request`
-
-The generated API returns `execution_mode=API` and writes `API_EXECUTION_COMPLETED`.
-
-## 9. Automation Memory Timeline
+## 3. Show Agent Context Trace
 
 Open:
 
-`http://localhost:8004/memory/cases/CASE-001/timeline`
+```text
+http://localhost:8002/demo/agent-context-trace
+```
 
-Show the judge these events:
+Narrate the trace from UiPath extraction through route-agent decision, company
+context, policy gate, recommended ERP action, and memory commit.
 
-- `TRIAGE_COMPLETED`
-- `RPA_WRITEBACK_COMPLETED`
-- `VALIDATION_COMPLETED`
-- `API_EXECUTION_COMPLETED`
-- `CAPABILITY_REGISTERED`
-
-## 10. Agent Decisions
+## 4. Show Single-Run Evidence
 
 Open:
 
-`http://localhost:8004/memory/decisions/CASE-001`
+```text
+http://localhost:8002/case-dashboard/CASE-DEMO-AGENT-CONTEXT?run_id=RUN-DEMO-AGENT-CONTEXT-001
+```
 
-This shows the structured triage decision recorded as governed memory.
+Show ERP fields, business remarks, company context used, agent decision, policy
+gate, UiPath action, memory commit, and pattern update.
 
-## 11. Capability Registry
-
-Open:
-
-`http://localhost:8004/memory/capabilities`
-
-Show trusted capability records such as:
-
-- `cap_api_request_po_approval_v1`
-- `cap_human_po_approval_v1`
-
-## 12. Capability Gap
-
-PO-1003 demonstrates a missing inventory workflow. UiPath calls triage for PO-1003 and receives `inventory_shortage`.
+## 5. Show Approval Inbox
 
 Open:
 
-`http://localhost:8004/memory/gaps`
+```text
+http://localhost:8002/approvals/inbox
+```
 
-Show `CAPABILITY_GAP_RECORDED`. This proves unsupported flows become governed proposals, not uncontrolled runtime automation.
+Show PO number, amount/budget, system message, business remarks, agent
+recommendation, company context snapshot, and approve/reject controls.
+
+## 6. Show Pattern Dashboard
+
+Open:
+
+```text
+http://localhost:8002/simulation/dashboard
+```
+
+Show Run Memory count, Pattern Memory, observed count / threshold, agent
+analysis summary, and proposal pipeline.
+
+## 7. Show Proposal Pipeline
+
+Open:
+
+```text
+http://localhost:8002/proposals/inbox
+```
+
+Show `API_MODERNIZATION_PROPOSAL` and `XAML_WORKFLOW_PROPOSAL`. Explain they
+come from repeated Pattern Memory evidence.
+
+## 8. Approve Proposal And Show Codex Handoff
+
+Click approval for a proposal, then show:
+
+```text
+http://localhost:8002/codex/sessions/CODEX-PROP-API-DEMO-0001-001
+```
+
+In mock mode this is a staged stream for video clarity. In real mode it attempts
+local Codex CLI after explicit human approval.

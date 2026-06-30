@@ -1,0 +1,42 @@
+{
+  "case_id": "CASE-001",
+  "po_id": "PO-1001",
+  "precheck_result": "CLEAR_EXCEPTION",
+  "agent_required": true,
+  "detected_exception_type": "budget_exceeded",
+  "final_route": "WAITING_FOR_HUMAN_APPROVAL",
+  "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+  "policy_gate": {
+    "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+    "execution_allowed": false,
+    "human_required": true,
+    "validation_required": true,
+    "required_gates": [
+      "BUSINESS_APPROVAL",
+      "VALIDATION_GATE"
+    ]
+  },
+  "agent_context_used": true,
+  "company_context_reference": {
+    "finance_policy_used": true,
+    "sales_context_used": true,
+    "operations_context_used": true
+  },
+  "agent_reasoning_summary": "Budget is exceeded. Finance policy requires manager approval above budget, while Q4 strategic-account impact in the buyer note makes this a business approval decision rather than an automatic rejection.",
+  "llm_validation_proof": {
+    "agent_runtime": "langgraph",
+    "reasoning_mode": "llm_backed",
+    "llm_enabled": true,
+    "llm_call_mode": "mock",
+    "llm_provider": "deepseek",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_invocation_verified": true
+  },
+  "recommended_erp_action": {
+    "action_id": "CREATE_WEB_APPROVAL_TASK",
+    "button_selector_id": null,
+    "reason": "No ERP approval click is recommended; create a web approval task through /approvals/create."
+  }
+}

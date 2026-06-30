@@ -26,7 +26,7 @@ Codex / Claude 只负责 Linux / 后端 / 测试 / 文档，不触碰 UiPath XAM
 
 ```
 You are coding the generated-api-facade service for the Agentic ERP
-Modernization Layer. This service simulates the API-mode execution path
+Modernization Layer. This service simulates the generated API facade candidate path
 after UiPath validates a candidate API.
 
 Hard requirements (PRD §11, §17, §22.2):

@@ -1,17 +1,36 @@
 # Migration Summary
 
-This repository contains a hackathon MVP for an Agentic ERP Modernization Layer. The Python services are support assets that UiPath can call during a UiPath-governed modernization case.
-
-The generated API facade is a modernization facade for one business action: `request_purchase_order_approval`. It does not replace UiPath orchestration, case lifecycle, approval, validation governance, or API-mode execution decisions.
+This repository demonstrates an Agentic ERP Modernization Layer around a
+UiPath-first ERP worker. It does not replace UiPath. It helps UiPath decide
+which ERP button to click, when a human approval task is required, and when
+repeated RPA patterns should become modernization proposals.
 
 ## Before
 
-The mock legacy ERP exposes the purchase order exception process only through a browser UI. UiPath RPA can scrape stable fields and click the approval request form.
+The ERP exception process is a browser-driven workflow. UiPath reads purchase
+order fields and clicks stable ERP controls.
+
+## Current Layer
+
+UiPath now calls `POST /case-intake/route` with ERP fields, system exception
+text, business remarks, and an agent context policy. Agent-required cases fetch
+mock enterprise context from `/company-context` and return:
+
+- `final_route`
+- `policy_gate`
+- `agent_reasoning_summary`
+- `llm_validation_proof`
+- `recommended_erp_action`
 
 ## Candidate Modernization
 
-After UiPath validates parity between a cloned RPA test case and a cloned API test case, the generated API facade can be considered as a trusted-tool candidate. UiPath remains responsible for registration approval and deciding when to switch a case from RPA execution to API execution.
+Modernization is evidence-driven. Run Memory records each UiPath run. Pattern
+Memory aggregates repeated runs by business action, exception type, route
+family, policy gate family, and side-effect signature. When threshold is
+reached, the system can create:
 
-## Demo Scope
+- `API_MODERNIZATION_PROPOSAL`
+- `XAML_WORKFLOW_PROPOSAL`
 
-This is not full ERP modernization and does not modify production ERP code. It demonstrates how a fragile UI action can be surrounded by validation, approval, and a narrow API facade candidate.
+The proposals still require human approval before Codex handoff. No deployment,
+trusted registration, or Windows XAML modification is automatic.

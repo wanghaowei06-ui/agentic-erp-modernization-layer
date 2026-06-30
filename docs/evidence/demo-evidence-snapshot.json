@@ -1,0 +1,389 @@
+{
+  "project": "Agentic ERP Modernization Layer",
+  "source": "static_fallback",
+  "source_detail": {
+    "real_run_memory_cases": 0,
+    "static_fallback_cases": 5,
+    "route_plans": "static_fallback (computed live from canonical demo payloads)",
+    "policy_gates": "static_fallback (computed live from route plans)",
+    "note": "Route plans and policy gates are computed live from the 5 canonical demo payloads. Case-level source marks whether a real run memory exists for that case_id."
+  },
+  "cases": [
+    {
+      "case_id": "CASE-000",
+      "po_id": "PO-1000",
+      "case_type": "normal",
+      "precheck_result": "NORMAL",
+      "detected_exception_type": "none",
+      "confidence": null,
+      "latest_run_id": null,
+      "run_memory_status": "missing",
+      "source": "static_fallback",
+      "recommended_workflow": "RouteProof_PO1000.xaml",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-000",
+      "policy_decision": "ALLOW_STANDARD_PROCESSING"
+    },
+    {
+      "case_id": "CASE-001",
+      "po_id": "PO-1001",
+      "case_type": "exception",
+      "precheck_result": "CLEAR_EXCEPTION",
+      "detected_exception_type": "budget_exceeded",
+      "confidence": 0.94,
+      "latest_run_id": null,
+      "run_memory_status": "missing",
+      "source": "static_fallback",
+      "recommended_workflow": "Main.xaml",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-001",
+      "policy_decision": "REQUIRE_HUMAN_APPROVAL"
+    },
+    {
+      "case_id": "CASE-002",
+      "po_id": "PO-1002",
+      "case_type": "exception",
+      "precheck_result": "CLEAR_EXCEPTION",
+      "detected_exception_type": "vendor_info_missing",
+      "confidence": 0.91,
+      "latest_run_id": null,
+      "run_memory_status": "missing",
+      "source": "static_fallback",
+      "recommended_workflow": "RouteProof_PO1002.xaml",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-002",
+      "policy_decision": "WAIT_FOR_BUSINESS_DATA"
+    },
+    {
+      "case_id": "CASE-003",
+      "po_id": "PO-1003",
+      "case_type": "exception",
+      "precheck_result": "CLEAR_EXCEPTION",
+      "detected_exception_type": "inventory_shortage",
+      "confidence": 0.88,
+      "latest_run_id": null,
+      "run_memory_status": "missing",
+      "source": "static_fallback",
+      "recommended_workflow": "RouteProof_PO1003.xaml",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-003",
+      "policy_decision": "REQUIRE_HUMAN_APPROVAL"
+    },
+    {
+      "case_id": "CASE-004",
+      "po_id": "PO-1004",
+      "case_type": "ambiguous",
+      "precheck_result": "AMBIGUOUS",
+      "detected_exception_type": "unknown_exception",
+      "confidence": 0.4,
+      "latest_run_id": null,
+      "run_memory_status": "missing",
+      "source": "static_fallback",
+      "recommended_workflow": "RouteProof_PO1004.xaml",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-004",
+      "policy_decision": "REQUIRE_MANUAL_INVESTIGATION"
+    }
+  ],
+  "routes": [
+    {
+      "case_id": "CASE-000",
+      "po_id": "PO-1000",
+      "precheck_result": "NORMAL",
+      "agent_required": false,
+      "final_route": "STANDARD_PROCESSING",
+      "next_stage": "STANDARD_PROCESSING",
+      "capability_decision": "NO_EVOLUTION_REQUIRED",
+      "human_required": false,
+      "execution_allowed": true,
+      "recommended_uipath_workflow": "RouteProof_PO1000.xaml"
+    },
+    {
+      "case_id": "CASE-001",
+      "po_id": "PO-1001",
+      "precheck_result": "CLEAR_EXCEPTION",
+      "agent_required": true,
+      "final_route": "WAITING_FOR_HUMAN_APPROVAL",
+      "next_stage": "WAITING_FOR_HUMAN_APPROVAL",
+      "capability_decision": "USE_TRUSTED_CAPABILITY",
+      "human_required": true,
+      "execution_allowed": false,
+      "recommended_uipath_workflow": "Main.xaml"
+    },
+    {
+      "case_id": "CASE-002",
+      "po_id": "PO-1002",
+      "precheck_result": "CLEAR_EXCEPTION",
+      "agent_required": true,
+      "final_route": "WAITING_VENDOR_INFO",
+      "next_stage": "WAITING_VENDOR_INFO",
+      "capability_decision": "WAIT_FOR_VENDOR_INFO",
+      "human_required": true,
+      "execution_allowed": false,
+      "recommended_uipath_workflow": "RouteProof_PO1002.xaml"
+    },
+    {
+      "case_id": "CASE-003",
+      "po_id": "PO-1003",
+      "precheck_result": "CLEAR_EXCEPTION",
+      "agent_required": true,
+      "final_route": "CAPABILITY_GAP_DETECTED",
+      "next_stage": "CAPABILITY_GAP_DETECTED",
+      "capability_decision": "XAML_WORKFLOW_PROPOSAL",
+      "human_required": true,
+      "execution_allowed": false,
+      "recommended_uipath_workflow": "RouteProof_PO1003.xaml"
+    },
+    {
+      "case_id": "CASE-004",
+      "po_id": "PO-1004",
+      "precheck_result": "AMBIGUOUS",
+      "agent_required": true,
+      "final_route": "WAITING_MANUAL_INVESTIGATION",
+      "next_stage": "WAITING_MANUAL_INVESTIGATION",
+      "capability_decision": "MANUAL_INVESTIGATION",
+      "human_required": true,
+      "execution_allowed": false,
+      "recommended_uipath_workflow": "RouteProof_PO1004.xaml"
+    }
+  ],
+  "policy_gates": [
+    {
+      "case_id": "CASE-000",
+      "policy_decision": "ALLOW_STANDARD_PROCESSING",
+      "execution_allowed": true,
+      "allowed_execution_mode": "STANDARD",
+      "human_required": false,
+      "validation_required": false,
+      "required_gates": [],
+      "blocked_actions": [],
+      "audit_required": false,
+      "reason": "Normal purchase order with no capability evolution needed; standard processing is allowed without additional gates."
+    },
+    {
+      "case_id": "CASE-001",
+      "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+      "execution_allowed": false,
+      "allowed_execution_mode": "RPA_OR_API_AFTER_APPROVAL",
+      "human_required": true,
+      "validation_required": true,
+      "required_gates": [
+        "BUSINESS_APPROVAL",
+        "VALIDATION_GATE"
+      ],
+      "blocked_actions": [
+        "AUTO_EXECUTE_WITHOUT_APPROVAL"
+      ],
+      "audit_required": true,
+      "reason": "High-risk budget exception requires business approval before execution."
+    },
+    {
+      "case_id": "CASE-002",
+      "policy_decision": "WAIT_FOR_BUSINESS_DATA",
+      "execution_allowed": false,
+      "allowed_execution_mode": "NONE",
+      "human_required": true,
+      "validation_required": false,
+      "required_gates": [
+        "BUSINESS_DATA_COMPLETION"
+      ],
+      "blocked_actions": [
+        "AUTO_EXECUTE_WITHOUT_DATA",
+        "CAPABILITY_REUSE"
+      ],
+      "audit_required": true,
+      "reason": "Vendor information is missing; execution must wait until business data is completed."
+    },
+    {
+      "case_id": "CASE-003",
+      "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+      "execution_allowed": false,
+      "allowed_execution_mode": "NONE",
+      "human_required": true,
+      "validation_required": false,
+      "required_gates": [
+        "CAPABILITY_REVIEW",
+        "PROPOSAL_APPROVAL"
+      ],
+      "blocked_actions": [
+        "AUTO_EXECUTE_WITHOUT_APPROVAL",
+        "AUTO_GENERATE_XAML",
+        "AUTO_DEPLOY_WORKFLOW"
+      ],
+      "audit_required": true,
+      "reason": "Capability gap detected; a XAML workflow proposal has been created but requires human review before any implementation."
+    },
+    {
+      "case_id": "CASE-004",
+      "policy_decision": "REQUIRE_MANUAL_INVESTIGATION",
+      "execution_allowed": false,
+      "allowed_execution_mode": "NONE",
+      "human_required": true,
+      "validation_required": false,
+      "required_gates": [
+        "MANUAL_INVESTIGATION"
+      ],
+      "blocked_actions": [
+        "AUTO_EXECUTE_WITHOUT_INVESTIGATION",
+        "CAPABILITY_REUSE",
+        "API_MODERNIZATION"
+      ],
+      "audit_required": true,
+      "reason": "Low confidence or ambiguous business state requires manual investigation before any execution is permitted."
+    }
+  ],
+  "capability_decisions": [
+    {
+      "case_id": "CASE-000",
+      "capability_decision": "NO_EVOLUTION_REQUIRED",
+      "business_action": "none",
+      "api_modernization_required": false,
+      "xaml_improvement_required": false,
+      "requires_human_review": false,
+      "proposal_only": false
+    },
+    {
+      "case_id": "CASE-001",
+      "capability_decision": "USE_TRUSTED_CAPABILITY",
+      "business_action": "budget_exceeded",
+      "api_modernization_required": false,
+      "xaml_improvement_required": false,
+      "requires_human_review": true,
+      "proposal_only": false
+    },
+    {
+      "case_id": "CASE-002",
+      "capability_decision": "WAIT_FOR_VENDOR_INFO",
+      "business_action": "vendor_info_missing",
+      "api_modernization_required": false,
+      "xaml_improvement_required": false,
+      "requires_human_review": true,
+      "proposal_only": false
+    },
+    {
+      "case_id": "CASE-003",
+      "capability_decision": "XAML_WORKFLOW_PROPOSAL",
+      "business_action": "inventory_shortage",
+      "api_modernization_required": false,
+      "xaml_improvement_required": true,
+      "requires_human_review": true,
+      "proposal_only": true
+    },
+    {
+      "case_id": "CASE-004",
+      "capability_decision": "MANUAL_INVESTIGATION",
+      "business_action": "unknown_exception",
+      "api_modernization_required": false,
+      "xaml_improvement_required": false,
+      "requires_human_review": true,
+      "proposal_only": false
+    }
+  ],
+  "dashboards": [
+    {
+      "case_id": "CASE-000",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-000",
+      "latest_run_id": null,
+      "run_memory_status": "missing"
+    },
+    {
+      "case_id": "CASE-001",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-001",
+      "latest_run_id": null,
+      "run_memory_status": "missing"
+    },
+    {
+      "case_id": "CASE-002",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-002",
+      "latest_run_id": null,
+      "run_memory_status": "missing"
+    },
+    {
+      "case_id": "CASE-003",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-003",
+      "latest_run_id": null,
+      "run_memory_status": "missing"
+    },
+    {
+      "case_id": "CASE-004",
+      "dashboard_url": "http://localhost:8002/case-dashboard/CASE-004",
+      "latest_run_id": null,
+      "run_memory_status": "missing"
+    }
+  ],
+  "governance": {
+    "human_approval_gate": "enabled for all exception/ambiguous cases",
+    "validation_gate": "required for budget_exceeded (CASE-001)",
+    "proposal_lifecycle": "PROPOSAL_CREATED -> HUMAN_REVIEW_REQUIRED (no auto-trust)",
+    "trusted_capability_registry": "not auto-registered; requires explicit approval",
+    "policy_gate_endpoints": [
+      "POST /policy-gate/evaluate",
+      "GET /policy-gate/lab"
+    ],
+    "auto_execution_allowed": "only for ALLOW_STANDARD_PROCESSING (CASE-000)"
+  },
+  "safety_boundaries": {
+    "no_auto_xaml_modification": true,
+    "no_auto_api_deployment": true,
+    "no_automatic_trusted_registration": true,
+    "proposal_requires_review": true,
+    "windows_xaml_unchanged": true,
+    "description": "The system never automatically modifies XAML files, deploys APIs, registers trusted capabilities, or promotes proposals to TRUSTED status. All proposals require human review. All exception/ambiguous cases require human approval before execution."
+  },
+  "recommended_demo_order": [
+    "1. GET /case-portfolio \u2014 overview of all 5 cases",
+    "2. GET /case-router-lab \u2014 route matrix (precheck \u2192 triage \u2192 decision)",
+    "3. GET /policy-gate/lab \u2014 governance decision matrix",
+    "4. POST /case-intake/route (PO-1000) \u2014 normal case, ALLOW_STANDARD_PROCESSING",
+    "5. POST /case-intake/route (PO-1001) \u2014 budget exception, REQUIRE_HUMAN_APPROVAL",
+    "6. POST /case-intake/route (PO-1004) \u2014 ambiguous case, REQUIRE_MANUAL_INVESTIGATION",
+    "7. GET /case-dashboard/CASE-001?run_id=RUN-... \u2014 real run memory audit",
+    "8. GET /demo/evidence-snapshot \u2014 full evidence export (JSON)",
+    "9. GET /demo/evidence-markdown \u2014 full evidence export (Markdown)"
+  ],
+  "simulation_summary": {
+    "pending": 3,
+    "in_progress": 2,
+    "completed": 0,
+    "failed": 0,
+    "total": 5,
+    "reset_at": null,
+    "completed_cases": []
+  },
+  "approvals_summary": {
+    "pending": 3,
+    "approved": 0,
+    "rejected": 0,
+    "total": 3,
+    "recent": [
+      {
+        "approval_id": "APR-20260630-003",
+        "case_id": "CASE-EVIDENCE-APPROVAL",
+        "po_id": "PO-1001",
+        "run_id": null,
+        "status": "PENDING",
+        "decision": null,
+        "approver": null,
+        "created_at": "2026-06-30T04:46:00.567Z",
+        "approved_at": null
+      },
+      {
+        "approval_id": "APR-20260630-002",
+        "case_id": "CASE-EVIDENCE-APPROVAL",
+        "po_id": "PO-1001",
+        "run_id": null,
+        "status": "PENDING",
+        "decision": null,
+        "approver": null,
+        "created_at": "2026-06-30T04:41:01.196Z",
+        "approved_at": null
+      },
+      {
+        "approval_id": "APR-20260630-001",
+        "case_id": "CASE-SIM-002",
+        "po_id": "PO-INJ-002",
+        "run_id": null,
+        "status": "PENDING",
+        "decision": null,
+        "approver": null,
+        "created_at": "2026-06-30T03:35:44.653Z",
+        "approved_at": null
+      }
+    ]
+  }
+}

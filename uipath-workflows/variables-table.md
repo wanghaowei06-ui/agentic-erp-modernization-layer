@@ -1,26 +1,31 @@
 # Variables Table
 
-| Variable name | Type | Default value | Purpose |
-| --- | --- | --- | --- |
-| `case_id` | String | `CASE-001` | UiPath-governed case identifier. |
-| `po_id` | String | `PO-1001` | Purchase order selected for the main demo path. |
-| `current_stage` | String | `CASE_INTAKE` | Current stage in the UiPath case flow. |
-| `amount` | Double | `0` | Amount scraped from the ERP UI. |
-| `budget_limit` | Double | `0` | Budget limit scraped from the ERP UI. |
-| `vendor_id` | String | `""` | Vendor ID scraped from the ERP UI. |
-| `vendor_info_complete` | Boolean | `False` | Vendor completeness flag scraped from the ERP UI. |
-| `inventory_available` | Boolean | `False` | Inventory availability flag scraped from the ERP UI. |
-| `erp_status` | String | `""` | ERP status scraped from the ERP UI. |
-| `raw_exception_text` | String | `""` | Raw exception text scraped from the ERP UI. |
-| `triage_result_json` | String | `""` | Raw JSON response from the triage service. |
-| `detected_exception_type` | String | `""` | Parsed routing key from triage output. |
-| `risk_level` | String | `""` | Parsed risk level from triage output. |
-| `requires_human_approval` | Boolean | `False` | Parsed approval requirement from triage output. |
-| `next_stage` | String | `""` | Parsed recommended next stage from triage output. |
-| `human_approval_status` | String | `pending` | Business approval result controlled by UiPath. |
-| `execution_mode` | String | `RPA` | Current execution mode selected by UiPath. |
-| `validation_status` | String | `not_started` | Validation gate status controlled by UiPath. |
-| `trusted_tool_status` | String | `not_registered` | Trusted-tool registration status controlled by UiPath. |
-| `validation_result_json` | String | `""` | Raw JSON response from the validation support service. |
-| `api_result_json` | String | `""` | Raw JSON response from the API facade candidate. |
-| `final_case_output_json` | String | `""` | Final case summary logged by UiPath. |
+These are the important logical variables in the current ERP Worker flow. The
+exact XAML variable names may differ; use `Main.xaml` as the source of truth.
+
+| Variable | Type | Purpose |
+| --- | --- | --- |
+| `case_id` | String | Business case identifier. |
+| `simulation_case_id` | String | Queue item identifier from the demo ERP work queue. |
+| `run_id` | String | Run Memory identifier returned by `/memory/runs/start`. |
+| `po_id` | String | Purchase order number. |
+| `amount` | Number/String | ERP amount extracted from the page. |
+| `budget_limit` | Number/String | ERP budget limit extracted from the page. |
+| `vendor_id` | String | ERP vendor ID. |
+| `vendor_info_complete` | Boolean/String | Vendor data completeness flag. |
+| `inventory_available` | Boolean/String | Inventory availability flag. |
+| `erp_status` | String | ERP order status. |
+| `raw_exception_text` | String | System message / exception reason. |
+| `business_remarks` | String | Buyer, manager, or operations remarks. |
+| `route_request_json` | String | Body for `/case-intake/route`. |
+| `route_response_json` | String | Raw response from `/case-intake/route`. |
+| `final_route` | String | Primary branch key returned by the route agent. |
+| `policy_decision` | String | Policy gate decision. |
+| `agent_context_used` | Boolean | Whether the agent used enterprise context. |
+| `company_context_reference` | Object/String | Finance/sales/operations context proof. |
+| `agent_reasoning_summary` | String | Human-readable route explanation. |
+| `llm_validation_proof` | Object/String | LLM/mock invocation and schema validation proof. |
+| `recommended_erp_action` | Object/String | Future-compatible ERP action recommendation. |
+| `approval_id` | String | Approval task ID when human approval is required. |
+| `selected_erp_action` | String | ERP button/action chosen by UiPath. |
+| `memory_commit_response_json` | String | Response from `/memory/runs/{run_id}/commit`. |

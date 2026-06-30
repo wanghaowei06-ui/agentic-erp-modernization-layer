@@ -3,188 +3,127 @@
 ## Runtime View
 
 ```text
-UiPath Orchestration Layer
-  -> Mock Legacy ERP on 8001
+UiPath RPA Worker (Main.xaml)
   -> reasoning-agent on 8002
+       - ERP work queue/detail UI
+       - /case-intake/route LangGraph agent path
+       - /company-context mock enterprise context
+       - approvals, dashboards, proposals, Codex handoff UI
+       - Run Memory / Pattern Memory APIs
+  -> Mock Legacy ERP support service on 8001
   -> generated-api-facade on 8003
   -> validation-suite on 8004
-  -> shared/automation_memory SQLite + JSON capability registry
+  -> shared Automation Memory / structured evidence files
 ```
 
 ## UiPath Layer
 
-UiPath is the orchestration, human approval, and execution governance layer.
+UiPath remains the execution and governance layer.
 
 Responsibilities:
 
-- open and read the legacy ERP UI
-- call reasoning-agent by HTTP
-- route by `detected_exception_type`
-- keep Human Approval in control
-- perform RPA write-back
-- call validation-suite
-- call generated-api-facade after validation
-- produce the final case output
+- open the ERP work queue at `http://localhost:8002/erp/work-queue`
+- extract purchase-order fields and business remarks from stable selectors
+- call the route agent over HTTP
+- branch by `final_route` and `policy_decision`
+- create human approval tasks when required
+- click only the recommended safe ERP action for non-approval routes
+- write Run Memory evidence and commit Pattern Memory
+- keep proposals and Codex handoff human-approved
+
+## Reasoning Agent
+
+The reasoning-agent is the main local demo service.
+
+Current behavior:
+
+- exposes the ERP work queue/detail pages used by UiPath
+- exposes `GET /company-context`
+- exposes `POST /case-intake/route`
+- uses deterministic precheck for normal cases
+- uses LangGraph-backed coded agent routing for agent-required cases
+- combines ERP fields, system exception text, business remarks, and mock
+  enterprise context
+- returns `final_route`, `policy_gate`, `agent_reasoning_summary`,
+  `llm_validation_proof`, and `recommended_erp_action`
+- records and visualizes Run Memory and Pattern Memory
+- generates modernization proposals only from accumulated pattern evidence
+- starts Codex handoff only after human proposal approval
+
+Important endpoints:
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/erp/work-queue` | UiPath-facing ERP work queue. |
+| `GET` | `/erp/work-queue/{id}` | ERP detail page with stable selectors. |
+| `GET` | `/company-context` | Mock enterprise context. |
+| `POST` | `/case-intake/route` | Current UiPath route agent endpoint. |
+| `POST` | `/approvals/create` | Create human approval task. |
+| `GET` | `/approvals/inbox` | Human approval inbox. |
+| `GET` | `/simulation/dashboard` | Pattern Memory dashboard. |
+| `GET` | `/proposals/inbox` | Threshold-triggered proposal inbox. |
+| `GET` | `/demo/agent-context-trace` | Read-only agent context trace. |
+
+`POST /triage` remains available for compatibility tests and older route proof
+workflows. It is not the current main UiPath demo entry point.
+
+## LangGraph Agent Runtime
+
+The coded agent service uses LangGraph:
+
+- `StateGraph` models the guarded decision path.
+- `MemorySaver` stores case-level agent checkpoints.
+- Structured Run Memory under `memory/runs/`, `memory/patterns/`, and
+  `memory/proposals/` remains the audit system of record.
 
 ## Mock Legacy ERP
 
-Mock Legacy ERP simulates a legacy enterprise ERP / WebForms-style UI.
+Mock Legacy ERP on port `8001` remains as a support service for legacy
+purchase-order behavior and API/RPA parity examples. The current business-facing
+ERP Worker demo page is served by reasoning-agent on port `8002`.
 
-Current role:
+## Validation Suite And API Facade
 
-- exposes PO pages for UiPath RPA
-- accepts RPA write-back through `POST /purchase-orders/{po_id}/request-approval`
-- writes `RPA_WRITEBACK_COMPLETED` to Automation Memory after successful write-back
+The validation suite and generated API facade are retained for the modernization
+story:
 
-## reasoning-agent
+- validation suite: `POST /validate/request-purchase-order-approval`
+- API facade: `POST /api/purchase-orders/{po_id}/approval-request`
 
-The Hard MVP reasoning-agent is a structured decision service.
+They demonstrate how a repeated RPA pattern can be validated before a future
+API modernization proposal becomes trusted. They do not auto-deploy or
+auto-register capabilities.
 
-Current behavior:
+## Memory And Proposals
 
-- default decision source: `deterministic_rule`
-- endpoint: `POST /triage`
-- emits decision object only
-- writes `TRIAGE_COMPLETED`
-- queries the capability registry before returning (`find_capability`) and
-  populates `memory_references` so callers can see whether a trusted capability
-  already covers the business action (PRD 22.1)
-- does not execute business actions
+Run Memory records:
 
-Endpoints:
+- ERP extracted fields
+- business remarks
+- company context snapshot/reference
+- route plan
+- agent reasoning summary
+- LLM validation proof
+- policy gate
+- selected ERP action
+- final branch result
 
-| Method | Path | Purpose |
-|---|---|---|
-| `POST` | `/triage` | Classify an ERP exception and recommend next stage |
-| `POST` | `/modernization/readiness` | Assess modernization readiness for a business action |
-| `POST` | `/modernization/plan` | Generate a modernization plan (Coding Agent input) |
-| `POST` | `/capability-evolution/evaluate` | Evaluate the Capability Evolution Loop trigger (PRD 18.2) |
+Pattern Memory groups by:
 
-Future options:
+```text
+business_action + exception_type + route_family + policy_gate_family + side_effects_signature
+```
 
-- `llm_structured`
-- `hybrid_guarded`
-- schema validation
-- deterministic guardrails
-- fail-closed fallback
+When observed count reaches the configured threshold, the system creates a
+proposal:
 
-## validation-suite
+- `API_MODERNIZATION_PROPOSAL`
+- `XAML_WORKFLOW_PROPOSAL`
 
-The validation-suite validates whether a candidate API path can be trusted for the demo action.
+All proposals are review-only until a human approves them.
 
-Current behavior:
+## Safety Boundary
 
-- contract test
-- business rule test
-- cloned-data RPA/API parity heuristic
-- writes `VALIDATION_COMPLETED`
-- registers trusted capabilities after passed validation
-- records human approvals via `POST /approvals` (PRD 11.4)
-- exposes read-only memory query APIs
-
-Endpoints:
-
-| Method | Path | Purpose | Auth |
-|---|---|---|---|
-| `POST` | `/validate/request-purchase-order-approval` | Run validation gate | API key (PRD 17.6) |
-| `POST` | `/approvals` | Record a human approval decision | API key (PRD 17.6) |
-| `POST` | `/capability-gaps/inventory-shortage` | Record a capability gap | API key (PRD 17.6) |
-| `GET` | `/memory/...` | Read-only memory queries | public |
-
-## generated-api-facade
-
-The generated API facade simulates the validated API-mode execution path.
-
-Current behavior:
-
-- endpoint: `POST /api/purchase-orders/{po_id}/approval-request`
-- returns `execution_mode=API`
-- writes `API_EXECUTION_COMPLETED`
-
-## Automation Memory Layer
-
-Automation Memory is the governed system of record.
-
-It stores:
-
-- case events
-- agent decisions
-- RPA execution traces
-- validation results
-- API execution traces
-- trusted capabilities
-- capability gaps
-- human approvals
-
-### Storage backend
-
-Current implementation:
-
-- module: `shared/automation_memory`
-- event store: SQLite at `memory-data/events.db` (replaces the former
-  `events.jsonl` full-scan file). Events are indexed on `case_id`,
-  `event_type` and `created_at` so timeline / decision / gap queries no longer
-  scan the whole table.
-- capability registry: `memory-data/capabilities.json` (small list, JSON is
-  sufficient)
-- repository-first API for future PostgreSQL migration
-
-The JSONL format is retained only as an **export** for audit and backup via
-`export_events_jsonl()`. A one-time migration script
-(`scripts/migrate_jsonl_to_sqlite.py`) loads any existing `events.jsonl` into
-SQLite; it is idempotent (`INSERT OR IGNORE` on `event_id`).
-
-### Memory write authorization (PRD 17.6)
-
-Privileged memory write tools must not be freely invoked by an LLM. The
-following functions are gated behind an API-key dependency
-(`shared/auth/api_key.py`):
-
-- `register_trusted_capability()`
-- `record_human_approval()`
-- `record_validation_result()`
-
-The dependency reads `MEMORY_WRITE_API_KEY` from the environment:
-
-- **unset** → dev/demo mode, writes are allowed (used by the test suite).
-- **set** → every write request must present a matching token via the
-  `X-API-Key` header or `Authorization: Bearer <token>`.
-- missing token → `401 Unauthorized`; wrong token → `403 Forbidden`.
-
-Token comparison uses `secrets.compare_digest` to avoid timing attacks.
-
-## Event Types
-
-Current implemented runtime events:
-
-- `TRIAGE_COMPLETED`
-- `CAPABILITY_LOOKUP_COMPLETED`
-- `RPA_WRITEBACK_COMPLETED`
-- `VALIDATION_COMPLETED`
-- `API_EXECUTION_COMPLETED`
-- `CAPABILITY_GAP_RECORDED`
-- `CAPABILITY_REGISTERED`
-- `HUMAN_APPROVAL_COMPLETED`
-- `READINESS_ASSESSED`
-
-## Capability Evolution Loop
-
-PRD 18.2 describes how the system accumulates new automation capabilities from
-repeated case patterns. The trigger lives in the reasoning-agent:
-
-1. A capability gap is recorded (e.g. `POST /capability-gaps/inventory-shortage`).
-2. `count_repeated_gaps(business_action)` returns the number of gap events for
-   the uncovered business action, backed by the SQLite `event_type` index.
-3. When the count reaches the configurable threshold
-   (`CAPABILITY_EVOLUTION_THRESHOLD`, default `3`), `run_plan_agent` is invoked
-   to draft a modernization proposal.
-4. The proposal is a recommendation only. Per PRD 18.5 it still requires human
-   review, validation, and registration before any new workflow/API/skill is
-   reused.
-
-See [capability-evolution-loop.md](capability-evolution-loop.md) for the full
-flow, interface definition, and examples.
-
-## Boundary
-
-The system does not automatically generate, approve, publish, or execute new XAML. Unsupported work is recorded as a capability gap for governed follow-up. The Capability Evolution Loop proposes capabilities; it never auto-deploys them.
+The system does not automatically approve, deploy APIs, register trusted
+capabilities, or modify Windows XAML. UiPath selectors are preserved, and
+modernization/XAML/API changes remain proposal or human-approved handoff steps.

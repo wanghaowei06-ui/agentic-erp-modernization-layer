@@ -1,6 +1,7 @@
 # UiPath Authoring Skill
 
-This document defines future implementation assistance for drafting UiPath workflow assets from a business action. It is not a runtime auto-deployment feature.
+This document defines future assistance for drafting UiPath workflow assets from
+a business action. It is not a runtime auto-deployment feature.
 
 ## Input Parameters
 
@@ -13,7 +14,8 @@ A future authoring request should include:
 - expected input fields
 - expected output fields
 - required human approval stage
-- validation endpoint
+- route endpoint and expected response fields
+- validation endpoint, if one exists
 - API endpoint, if one exists
 - exception handling requirements
 - selector evidence collected by a human or UiPath author
@@ -24,16 +26,16 @@ Generated drafts should separate concerns:
 
 - `Main.xaml` for high-level orchestration handoff points
 - extraction workflow for reading legacy ERP fields
-- triage HTTP workflow
+- route-agent HTTP workflow for `POST /case-intake/route`
 - human approval workflow
-- write-back workflow
-- validation HTTP workflow
-- API-mode execution workflow
+- ERP write-back workflow
+- validation HTTP workflow, when a modernization candidate needs parity checks
 - memory recording workflow
 
 ## Selector Records
 
-Selectors should be recorded as implementation evidence, not invented silently. Each selector note should include:
+Selectors should be recorded as implementation evidence, not invented silently.
+Each selector note should include:
 
 - screen URL
 - UI element purpose
@@ -46,15 +48,15 @@ Selectors should be recorded as implementation evidence, not invented silently. 
 
 HTTP activities should use explicit variables:
 
-- `triageRequestJson`
-- `triageResponseJson`
-- `detectedExceptionType`
-- `nextStage`
-- `validationRequestJson`
-- `validationResponseJson`
-- `apiRequestJson`
-- `apiResponseJson`
-- `executionMode`
+- `routeRequestJson`
+- `routeResponseJson`
+- `businessRemarksText`
+- `agentReasoningSummary`
+- `companyContextReference`
+- `llmValidationProof`
+- `recommendedErpAction`
+- `finalRoute`
+- `policyDecision`
 
 Do not rely on positional JSON parsing. Deserialize by field name.
 
@@ -69,7 +71,8 @@ Every HTTP call should handle:
 - `unknown_exception`
 - failed validation
 
-Failure routes should keep execution in RPA/manual mode unless governance approves another path.
+Failure routes should keep execution in RPA/manual mode unless governance
+approves another path.
 
 ## Human Approval
 
@@ -80,10 +83,14 @@ Human approval records should include:
 - reason
 - timestamp
 - source case ID
+- PO summary
+- business remarks
+- agent reasoning summary
+- company context snapshot or reference
 - before and after ERP status
-
-Human approval is mandatory for the PO-1001 budget-exceeded Hard MVP route.
 
 ## Boundary
 
-This skill can help draft implementation assets and review workflow structure. It does not mean the system can automatically generate, approve, publish, or run new XAML at runtime.
+This skill can help draft implementation assets and review workflow structure.
+It does not mean the system can automatically generate, approve, publish, or run
+new XAML at runtime.

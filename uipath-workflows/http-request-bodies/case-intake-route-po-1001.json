@@ -1,0 +1,13 @@
+{
+  "case_id": "CASE-001",
+  "po_id": "PO-1001",
+  "amount": 18000,
+  "budget_limit": 10000,
+  "vendor_id": "V-203",
+  "vendor_info_complete": true,
+  "inventory_available": true,
+  "erp_status": "Exception",
+  "raw_exception_text": "Amount exceeds approved budget limit",
+  "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+  "agent_context_policy": "fetch_enterprise_context_before_decision"
+}

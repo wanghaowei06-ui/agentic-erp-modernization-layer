@@ -66,7 +66,7 @@ def seed_case_001_artifacts() -> None:
         "missing_side_effects": [],
         "extra_side_effects": [],
         "parity_summary": (
-            "Hard MVP demo heuristic: cloned PO-1001-RPA and PO-1001-API start "
+            "Demo parity heuristic: cloned PO-1001-RPA and PO-1001-API start "
             "from identical seed data, then compare status and audit-log side "
             "effects."
         ),

@@ -2,46 +2,71 @@
 
 ## 0:00 - 0:30 Problem
 
-UiPath starts with a common enterprise problem: a critical ERP approval process is trapped behind fragile browser clicks. The goal is not to replace the ERP in one step. The goal is to let UiPath govern a modernization case that safely moves one validated business action from RPA execution toward API-mode execution.
+Legacy ERP work is still trapped behind browser queues, exception screens, and
+manual approval notes. The goal is not to replace UiPath. The goal is to let
+UiPath keep control while an agent explains when a case should stay in RPA,
+wait for business data, require approval, or become a modernization proposal.
 
-## 0:30 - 1:20 Dynamic Case Intake
+## 0:30 - 1:20 UiPath Opens A Realistic ERP Work Queue
 
-UiPath creates the modernization case for `CASE-001` and opens the mock legacy ERP in Chrome. UiPath RPA extracts PO-1001 fields from stable UI element IDs: amount, budget limit, vendor information, inventory availability, ERP status, and raw exception text.
+Show `http://localhost:8002/erp/work-queue`.
 
-The Python services are support assets only. UiPath remains the case owner and execution controller.
+UiPath opens `Main.xaml`, reads PO fields from stable selectors, and extracts
+business remarks such as buyer notes or operations notes. The visible ERP page
+looks like a business order screen; technical audit fields are tucked away but
+selectors are preserved.
 
-## 1:20 - 2:00 Agent Classification and Routing
+## 1:20 - 2:10 Agent Uses Enterprise Context
 
-UiPath calls the exception triage support service over HTTP. For PO-1001, the service returns `budget_exceeded`, `high` risk, and `WAITING_FOR_HUMAN_APPROVAL`.
+Show the call to `POST http://localhost:8002/case-intake/route`.
 
-UiPath routes the case using `detected_exception_type`, not the purchase order ID. To prove dynamic routing, UiPath also shows the PO-1002 route where the triage result is `vendor_info_missing` and human approval is not required.
+For PO-1001, the agent sees:
 
-For the enhanced route proof, UiPath also shows PO-1003 classified as `inventory_shortage`, which routes to `WAITING_INVENTORY_REVIEW`. This is a roadmap route proof, not full processing.
+- amount above budget
+- system exception reason
+- Q4 customer delivery business remarks
+- finance policy
+- strategic account context
+- operations constraints
 
-## 2:00 - 2:40 Human Approval and RPA Write-back
+The response shows `agent_context_used=true`, company context proof,
+`agent_reasoning_summary`, `llm_validation_proof`, and
+`recommended_erp_action`.
 
-UiPath handles the business approval step. After approval, UiPath returns to the legacy ERP UI and performs the write-back through browser automation: it fills the approval reason, enters the manager ID, and clicks the approval request button.
+## 2:10 - 3:00 UiPath Branches Safely
 
-The confirmation page shows `PENDING_MANAGER_APPROVAL`, `RPA`, and audit creation.
+Show each route:
 
-## 2:40 - 3:30 API Candidate and Validation
+- normal case -> standard processing
+- vendor info missing -> mark waiting vendor
+- inventory shortage -> flag capability gap
+- ambiguous case -> manual investigation
+- budget exceeded -> create web approval task instead of clicking ERP approval
 
-UiPath calls the validation support service before trusting the API facade. The validation gate shows contract test passed, business rule test passed, and RPA/API parity passed.
+Open `/approvals/inbox` and show the order summary, business remarks, agent
+reasoning, company context, and approve/reject controls.
 
-The parity check uses cloned reset test cases: `PO-1001-RPA` and `PO-1001-API`. UiPath does not compare the API result against a record already mutated by the RPA path.
+## 3:00 - 4:00 Memory Accumulates Evidence
 
-UiPath can also show a simulated failed validation branch. In that branch, the parity check fails, the trusted-tool candidate flag is false, and UiPath keeps execution mode as RPA while routing the case to IT review.
+Open `/case-dashboard/CASE-DEMO-AGENT-CONTEXT?run_id=RUN-DEMO-AGENT-CONTEXT-001`
+and `/simulation/dashboard`.
 
-## 3:30 - 4:20 API Mode Execution
+Show Run Memory, Pattern Memory, observed count, threshold, business remarks
+examples, company context used, and why the agent chose the route.
 
-After validation and trusted-tool registration approval, UiPath switches the approved case to API mode. UiPath calls the generated API facade candidate for `request_purchase_order_approval`.
+Explain that proposals are not buttons. They appear only after repeated cases
+are processed and Pattern Memory reaches the threshold.
 
-The response shows `PENDING_MANAGER_APPROVAL`, `audit_log_created = true`, and `execution_mode = API`.
+## 4:00 - 5:00 Proposal Approval And Codex Handoff
 
-The enhanced support pages now provide evidence views: Case Dashboard, Case Timeline, API Readiness Scorecard, and Tool Registry. These pages support screenshots and demo narration; they do not replace UiPath orchestration.
+Open `/proposals/inbox`.
 
-## 4:20 - 5:00 Impact and Roadmap
+Show both proposal families:
 
-UiPath has governed the full modernization journey: intake, extraction, triage, routing, human approval, RPA write-back, validation, trusted-tool approval, and API-mode execution.
+- `API_MODERNIZATION_PROPOSAL`
+- `XAML_WORKFLOW_PROPOSAL`
 
-The impact is a practical path from fragile ERP clicks to validated, human-approved API tools. The roadmap is to repeat this pattern for more high-frequency actions, raise validation coverage, and register trusted tools only when UiPath governance approves them.
+After a human approves a proposal, show the Codex session timeline. In mock
+mode it is a readable staged stream; in real mode it uses local Codex CLI.
+Neither mode auto-deploys APIs, auto-registers trusted capabilities, or
+auto-modifies Windows XAML.

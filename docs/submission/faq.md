@@ -1,41 +1,41 @@
 # FAQ
 
-## Why not direct API modernization?
+## Is UiPath still central?
 
-Because the starting point may be a legacy UI with no safe public business API. The MVP shows how UiPath can govern the transition from RPA evidence to a validated API candidate.
+Yes. UiPath opens the ERP work queue, extracts fields, calls the agent service,
+branches, creates approvals, clicks ERP actions, and commits memory.
 
-## Why RPA first?
+## What type of agent is used?
 
-RPA captures the current behavior safely through the UI and gives the modernization process evidence before API mode is trusted.
+A coded Python/LangGraph agent service. The UiPath workflow calls it over HTTP.
+This is not packaged as a UiPath Agent Builder agent.
 
-## Why UiPath as orchestrator?
+## Does the agent use enterprise context?
 
-UiPath owns robots, approvals, case lifecycle, governance, validation gates, and execution-mode decisions. The Python services are support assets only.
+Yes. Agent-required cases use mock enterprise context from `/company-context`,
+including finance policy, sales risk, and operations constraints.
 
-## What does the agent do?
+## Is every case an LLM decision?
 
-The reasoning support service uses LangGraph and an LLM to classify exceptions and return structured route recommendations. Deterministic rules validate the model output and block unsafe or invalid decisions.
+No. Normal cases are deterministic precheck decisions and are marked as such.
+Agent-required cases include `llm_validation_proof` showing mock or real call
+mode.
 
-## What does Codex do?
+## How are proposals triggered?
 
-Codex generated support services, fixtures, docs, scripts, and implementation aids. Codex does not run at UiPath runtime in this demo.
+By committed Run Memory and Pattern Memory threshold evidence. They are not
+created by an ERP button.
+
+## What happens after proposal approval?
+
+The Codex handoff session starts. In demo mode it shows a readable mock stream.
+In real mode it can call local Codex CLI. It still does not auto-deploy or
+auto-merge.
+
+## Does the project modify Windows XAML automatically?
+
+No. XAML/API modernization remains proposal or human-approved handoff work.
 
 ## Is this production ready?
 
-No. It is a hackathon MVP and local demo.
-
-## What is validated?
-
-The validation suite simulates contract checks, business rule checks, and RPA/API parity checks for `request_purchase_order_approval`.
-
-## What does parity mean?
-
-Parity means the RPA path and API candidate are compared on cloned/reset test cases for key business fields like status, audit log creation, and last action.
-
-## How do humans stay in control?
-
-UiPath pauses for human approval on high-risk routes and trusted-tool registration. If validation fails, API mode is not used.
-
-## What is the difference between RPA mode and API mode?
-
-RPA mode interacts with the legacy ERP through Chrome UI. API mode calls the validated API facade candidate after UiPath governance approves it.
+No. It is a local judging/demo build with mock ERP and mock enterprise context.

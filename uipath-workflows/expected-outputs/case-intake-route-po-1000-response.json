@@ -1,0 +1,32 @@
+{
+  "case_id": "CASE-000",
+  "po_id": "PO-1000",
+  "precheck_result": "NORMAL",
+  "precheck_decision_source": "deterministic_rule",
+  "agent_required": false,
+  "detected_exception_type": "none",
+  "final_route": "STANDARD_PROCESSING",
+  "policy_decision": "ALLOW_STANDARD_PROCESSING",
+  "capability_decision": "NO_EVOLUTION_REQUIRED",
+  "agent_context_used": false,
+  "company_context_reference": {
+    "finance_policy_used": false,
+    "sales_context_used": false,
+    "operations_context_used": false
+  },
+  "llm_validation_proof": {
+    "reasoning_mode": "deterministic_rule",
+    "llm_enabled": false,
+    "llm_call_mode": "not_invoked",
+    "llm_provider": "not_invoked",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "PRECHECK_ONLY",
+    "llm_invocation_verified": false
+  },
+  "recommended_erp_action": {
+    "action_id": "STANDARD_PROCESSING",
+    "button_selector_id": "ctl00_MainContent_btnMarkStandardProcessed",
+    "reason": "Order can continue through standard ERP purchase order processing."
+  }
+}

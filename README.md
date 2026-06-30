@@ -43,7 +43,7 @@ XAML.
 
 | Path | Purpose |
 | --- | --- |
-| `uipath-workflows/AgenticErpMvpRpa/` | UiPath Studio project entry files, including `Main.xaml`, `project.json`, and `entry-points.json`. |
+| `uipath-workflows/AgenticErpMvpRpa/` | UiPath Studio project files, including `Main.xaml`, route proof XAML entry points, `project.json`, and `entry-points.json`. |
 | `reasoning-agent/` | FastAPI coded agent service, enterprise context API, route decision API, ERP work queue UI, approvals, dashboards, proposal inbox, and Codex handoff UI. |
 | `mock-legacy-erp/` | Mock ERP support service and legacy purchase-order data. |
 | `generated-api-facade/` | Candidate API facade used to demonstrate an approved API-mode target. |

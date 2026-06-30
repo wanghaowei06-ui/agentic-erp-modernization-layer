@@ -7,5 +7,6 @@
   "vendor_info_complete": true,
   "inventory_available": true,
   "erp_status": "Normal",
-  "raw_exception_text": ""
+  "raw_exception_text": "",
+  "business_remarks": "Routine office purchase. No exception noted."
 }

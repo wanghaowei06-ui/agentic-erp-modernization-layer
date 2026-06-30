@@ -1,100 +1,122 @@
 # UiPath Implementation Guide
 
-UiPath is the main orchestration layer for this MVP. UiPath creates and governs the modernization case, drives RPA extraction from the legacy ERP UI, invokes support services, routes the case, handles human approval, governs validation and trusted-tool approval, and switches execution from RPA to API when approved.
+UiPath is the RPA-first orchestration layer. The current checked-in project is:
 
-## Variables
-
-- `case_id`
-- `po_id`
-- `current_stage`
-- `detected_exception_type`
-- `risk_level`
-- `requires_human_approval`
-- `human_approval_status`
-- `execution_mode`
-- `validation_status`
-- `trusted_tool_status`
-- `triage_result_json`
-- `validation_result_json`
-- `api_result_json`
-
-## Endpoints UiPath Should Call
-
-- Legacy ERP UI for RPA scraping and clicking: `http://localhost:8001/purchase-orders`
-- Triage support service: `POST http://localhost:8002/triage`
-- Validation support service: `POST http://localhost:8004/validate/request-purchase-order-approval`
-- API facade candidate after approval: `POST http://localhost:8003/api/purchase-orders/{po_id}/approval-request`
-- API facade OpenAPI document: `GET http://localhost:8003/openapi.yaml`
-
-## Suggested UiPath Stages
-
-1. Case Intake
-2. Legacy ERP Extraction
-3. Exception Triage
-4. Dynamic Routing
-5. Human Approval
-6. Legacy RPA Write-back
-7. Validation Gate
-8. Trusted Tool Approval
-9. API Mode Execution
-
-## RPA Extraction Fields
-
-On `http://localhost:8001/purchase-orders/{po_id}`, UiPath can scrape:
-
-- `po-id`
-- `amount`
-- `budget-limit`
-- `vendor-id`
-- `vendor-info-complete`
-- `inventory-available`
-- `erp-status`
-- `raw-exception-text`
-
-For RPA write-back, UiPath should populate and click:
-
-- `approval-reason-input`
-- `manager-id-input`
-- `request-approval-button`
-
-The confirmation page exposes:
-
-- `writeback-result`
-- `writeback-status`
-- `writeback-execution-mode`
-- `writeback-audit-created`
-
-## Expected Final Case JSON
-
-```json
-{
-  "case_id": "CASE-001",
-  "po_id": "PO-1001",
-  "current_stage": "API Mode Execution",
-  "detected_exception_type": "budget_exceeded",
-  "risk_level": "high",
-  "requires_human_approval": true,
-  "human_approval_status": "approved",
-  "execution_mode": "API",
-  "validation_status": "passed",
-  "trusted_tool_status": "approved",
-  "triage_result_json": {
-    "detected_exception_type": "budget_exceeded",
-    "recommended_path": "manager_approval_required",
-    "next_stage": "WAITING_FOR_HUMAN_APPROVAL"
-  },
-  "validation_result_json": {
-    "business_action": "request_purchase_order_approval",
-    "rpa_api_parity_check": "passed",
-    "trusted_tool_candidate": true,
-    "requires_registration_approval": true
-  },
-  "api_result_json": {
-    "po_id": "PO-1001",
-    "status": "PENDING_MANAGER_APPROVAL",
-    "audit_log_created": true,
-    "execution_mode": "API",
-    "source_case_id": "CASE-001"
-  }
-}
+```text
+uipath-workflows/AgenticErpMvpRpa/project.json
 ```
+
+The main workflow is:
+
+```text
+Main.xaml
+```
+
+## Current UiPath-Facing Endpoint
+
+UiPath should open:
+
+```text
+http://localhost:8002/erp/work-queue
+```
+
+This page preserves stable WebForms-style selectors and presents a realistic ERP
+order-processing view.
+
+## Current Route Endpoint
+
+UiPath should call:
+
+```text
+POST http://localhost:8002/case-intake/route
+```
+
+The request should include:
+
+- PO number
+- amount
+- budget limit
+- vendor ID
+- vendor and inventory flags
+- ERP status
+- system exception reason
+- `business_remarks`
+- `agent_context_policy=fetch_enterprise_context_before_decision`
+
+The response includes:
+
+- `final_route`
+- `policy_decision`
+- `policy_gate`
+- `agent_context_used`
+- `company_context_reference`
+- `agent_reasoning_summary`
+- `llm_validation_proof`
+- `recommended_erp_action`
+
+## Branch Mapping
+
+| `final_route` | UiPath behavior |
+| --- | --- |
+| `STANDARD_PROCESSING` | Click `ctl00_MainContent_btnMarkStandardProcessed`. |
+| `WAITING_VENDOR_INFO` | Click `ctl00_MainContent_btnMarkWaitingVendor`. |
+| `CAPABILITY_GAP_DETECTED` | Click `ctl00_MainContent_btnFlagCapabilityGap`. |
+| `WAITING_MANUAL_INVESTIGATION` | Click `ctl00_MainContent_btnSendManualInvestigation`. |
+| `WAITING_FOR_HUMAN_APPROVAL` | Create `/approvals/create`; do not click ERP approval submit. |
+
+`recommended_erp_action` is included as proof and future compatibility. Existing
+UiPath branch logic can continue to use `final_route` and `policy_decision`.
+
+## Stable Selectors
+
+See:
+
+```text
+uipath-workflows/selectors/mock-erp-element-ids.md
+```
+
+The important detail selector added for the enterprise scenario is:
+
+```text
+ctl00_MainContent_lblBusinessRemarks
+```
+
+## Human Approval
+
+Approval tasks should include:
+
+- PO summary
+- amount and budget
+- system message
+- business remarks
+- agent recommendation
+- company context snapshot/reference
+- policy gate reason
+
+Review tasks at:
+
+```text
+http://localhost:8002/approvals/inbox
+```
+
+## Memory And Proposals
+
+`Main.xaml` writes Run Memory and commits Pattern Memory. Proposal creation is
+threshold-based. Do not add a manual "create proposal" button to UiPath.
+
+Review:
+
+```text
+http://localhost:8002/simulation/dashboard
+http://localhost:8002/proposals/inbox
+```
+
+After a human approves a proposal, the Codex handoff page shows either a mock
+stream or real local Codex CLI mode depending on environment settings.
+
+## Legacy Compatibility
+
+`POST /triage` and the older `mock-legacy-erp` PO pages remain in the repo for
+compatibility, older route proof workflows, validation examples, and tests. The
+current RPA-first ERP Worker demo uses `/erp/work-queue` and
+`/case-intake/route`.

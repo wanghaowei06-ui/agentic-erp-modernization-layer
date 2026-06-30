@@ -2,32 +2,46 @@
 
 ## 0:00-0:30 Problem
 
-"Many ERP modernization projects fail because the starting point is not a clean API. It is a fragile browser workflow with exceptions, approvals, and undocumented business behavior. This demo shows a UiPath-governed path from fragile clicks to a validated API tool for one narrow business action."
+"Many ERP automations start in a browser queue, not with a clean API. The hard
+part is not clicking one button. The hard part is deciding safely when an order
+needs vendor data, human approval, manual investigation, or modernization."
 
 ## 0:30-1:00 Architecture
 
-"UiPath is the orchestration and governance layer. The Python services in this repo are support assets only: a mock ERP UI, a triage service, a validation suite, and an API facade candidate. UiPath drives the case lifecycle, robot actions, human approvals, validation gate, trusted-tool registration, and API-mode execution."
+"UiPath remains the RPA and execution layer. The Python services provide the ERP
+demo pages, a coded LangGraph route agent, memory, approvals, proposals, and
+evidence dashboards."
 
-## 1:00-1:45 Legacy ERP Extraction Through UiPath RPA
+## 1:00-1:45 ERP Extraction
 
-"UiPath opens the legacy ERP in Chrome and reads PO-1001 fields from stable HTML IDs. This simulates the realistic starting point: no public business API for the legacy action, so UiPath RPA extracts the evidence safely through the UI."
+"UiPath opens the ERP work queue and extracts normal business fields: PO number,
+amount, budget, vendor, ERP status, system message, and business remarks. The
+technical IDs still exist for selectors, but the page looks like a real ERP
+order screen."
 
-## 1:45-2:30 Agent Classification And Dynamic Routing
+## 1:45-2:30 Agent With Enterprise Context
 
-"UiPath sends the extracted fields to the triage support service. PO-1001 returns `budget_exceeded`, high risk, and a human approval stage. We also show PO-1002 as `vendor_info_missing` and PO-1003 as `inventory_shortage` to prove the route is based on detected exception type, not purchase order ID."
+"UiPath sends those fields to `/case-intake/route`. The agent fetches mock
+enterprise context and uses finance policy, sales pressure, operations policy,
+and buyer notes to return a route, policy gate, reasoning summary, LLM proof,
+and recommended ERP action."
 
-## 2:30-3:10 Human Approval And RPA Write-Back
+## 2:30-3:20 Governance
 
-"Because this is a high-risk budget exception, UiPath keeps a human in control. After approval, UiPath uses RPA to write back through the legacy ERP UI by filling the approval reason and manager ID, then clicking the approval request button."
+"For budget exceptions, UiPath creates a web approval task instead of clicking
+an approval button. For vendor issues it marks waiting vendor. For inventory
+shortage it flags a capability gap. For ambiguous cases it sends manual
+investigation."
 
-## 3:10-3:50 Validation And Parity Check
+## 3:20-4:10 Memory And Proposals
 
-"Before switching to API mode, UiPath calls the validation suite. The passed path shows contract, business rule, and RPA/API parity checks. The failed simulation shows what happens when parity fails: UiPath keeps execution mode as RPA and routes the case to IT review."
+"Each run commits structured memory. Pattern Memory groups repeated behavior and
+counts evidence toward a threshold. Once repeated budget or inventory patterns
+reach the threshold, the system creates API or XAML modernization proposals."
 
-## 3:50-4:25 Trusted Tool Registration And API Mode Execution
+## 4:10-5:00 Human-Approved Codex Handoff
 
-"After validation and trusted-tool approval, UiPath can execute the approved API facade candidate. The response shows the same business result with `execution_mode` set to `API`."
-
-## 4:25-5:00 Dashboard, Timeline, Scorecard, Registry, Roadmap
-
-"The enhanced MVP adds evidence views: a case dashboard, timeline, API readiness scorecard, and tool registry. These are not orchestration engines; they are demo evidence surfaces that make the UiPath-governed modernization lifecycle visible."
+"A proposal still does nothing by itself. A human opens the proposal inbox and
+approves the handoff. Then the Codex session page shows a readable execution
+timeline. Mock mode is used for recording; real CLI mode is available with an
+explicit switch."

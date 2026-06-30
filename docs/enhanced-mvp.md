@@ -1,43 +1,36 @@
-# Enhanced MVP
+# Current Demo Surfaces
 
-The Enhanced MVP adds local demo evidence surfaces around the original support services. These additions make the project look more like a UiPath-governed modernization case while keeping UiPath as the main orchestration, governance, approval, RPA, validation, trusted-tool registration, and API-mode execution layer.
-
-Python remains limited to callable support assets, UI evidence pages, fixtures, validation helpers, and local demo utilities.
+This document tracks the website-clickable surfaces used by the current
+RPA-first ERP Worker demo. Earlier "Enhanced MVP" pages have been folded into
+the main recording path on port `8002`.
 
 ## Implemented
 
-- Case Dashboard at `GET http://localhost:8001/case-dashboard`
-- Case Timeline at `GET http://localhost:8001/case-timeline/CASE-001`
-- Timeline JSON at `GET http://localhost:8001/api/demo/cases/CASE-001/timeline`
-- API Readiness Scorecard at `GET http://localhost:8001/api-readiness-scorecard`
-- Scorecard JSON at `GET http://localhost:8001/api/demo/api-readiness-scorecard`
-- Tool Registry at `GET http://localhost:8001/tool-registry`
-- Tool Registry JSON at `GET http://localhost:8001/api/demo/tool-registry`
-- Validation failed simulation with `{"simulate_failure": true}`
-- PO-1003 lightweight `inventory_shortage` route proof fixtures
-- Local demo reset endpoint at `POST http://localhost:8001/api/demo/reset`
-- Local demo reset script at `scripts/reset_demo_data.sh`
+- ERP Work Queue: `GET http://localhost:8002/erp/work-queue`
+- ERP Detail: `GET http://localhost:8002/erp/work-queue/{simulation_case_id}`
+- Enterprise Context: `GET http://localhost:8002/company-context`
+- Route Agent Contract: `POST http://localhost:8002/case-intake/route`
+- Agent Context Trace: `GET http://localhost:8002/demo/agent-context-trace`
+- Single Run Evidence: `GET http://localhost:8002/case-dashboard/{case_id}?run_id=...`
+- Approval Inbox: `GET http://localhost:8002/approvals/inbox`
+- Pattern Memory Dashboard: `GET http://localhost:8002/simulation/dashboard`
+- Proposal Inbox: `GET http://localhost:8002/proposals/inbox`
+- Codex Session Monitor: `GET http://localhost:8002/codex/sessions/{session_id}`
+- Evidence Snapshot: `GET http://localhost:8002/demo/evidence-snapshot`
 
-## Roadmap
+## Main Narrative
 
-- Full UiPath tenant setup and attended robot execution
-- Production-grade case persistence
-- Production ERP integration
-- Full trusted-tool registry service
-- Real approval task integration in UiPath Action Center or a tenant-specific equivalent
-- Broader validation coverage across more candidate business actions
+UiPath opens the ERP work queue, extracts order fields and business remarks, and
+calls the route agent. The agent-required path reads mock enterprise context,
+uses LangGraph/LLM-backed reasoning in configured real or mock mode, returns a
+policy gate and recommended ERP action, and writes evidence through Run Memory.
 
-## Readiness Score Note
+Pattern Memory aggregates repeated completed runs. Proposals appear only after
+the observed count reaches threshold. Proposal approval is the human-controlled
+handoff point for Codex.
 
-The readiness score for `request_purchase_order_approval` uses:
+## Legacy Support
 
-```text
-0.30 * frequency
-+ 0.30 * business_value
-+ 0.25 * field_stability
-+ 0.15 * ui_fragility
-```
-
-`risk_level` does not directly reduce the readiness score. UiPath uses risk to drive approval requirements and validation strictness.
-
-The weighted formula produces a rounded formula result of 85 from the demo factors. The page and JSON return the deterministic hackathon demo final score of 86 to stay aligned with the scorecard contract used in the UiPath evidence pack.
+Older support endpoints such as `/triage` and the mock legacy ERP PO pages on
+port `8001` remain for compatibility tests and historical evidence. They are
+not the primary recording path.

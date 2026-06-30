@@ -1,49 +1,66 @@
-# Mock ERP Element IDs
+# ERP Work Queue And Detail Selectors
 
-Use UiPath browser automation against the legacy-style ERP page. The page intentionally avoids obvious automation-only attributes such as `data-uipath`, `data-testid`, or `automation-id`.
+Use UiPath browser automation against the legacy-style ERP pages served by the
+reasoning-agent service.
 
-Prefer the legacy WebForms-style IDs below when reselecting elements in UiPath Studio.
+Current ERP entry point:
 
-| Recommended legacy ID | UiPath usage |
+```text
+http://localhost:8002/erp/work-queue
+```
+
+The pages intentionally keep WebForms-style IDs so existing UiPath selectors
+remain stable.
+
+## Work Queue
+
+| Selector ID | UiPath usage |
 | --- | --- |
-| `ctl00_MainContent_lblPoNumber` | Get Text; assign to `po_id`. |
-| `ctl00_MainContent_lblAmount` | Get Text; convert to number; assign to `amount`. |
-| `ctl00_MainContent_lblBudgetLimit` | Get Text; convert to number; assign to `budget_limit`. |
-| `ctl00_MainContent_lblVendorId` | Get Text; assign to `vendor_id`. Empty means missing vendor ID. |
-| `ctl00_MainContent_lblVendorInfoComplete` | Get Text; convert `true` or `false` to Boolean; assign to `vendor_info_complete`. |
-| `ctl00_MainContent_lblInventoryAvailable` | Get Text; convert `true` or `false` to Boolean; assign to `inventory_available`. |
-| `ctl00_MainContent_lblStatus` | Get Text; assign to `erp_status`. |
-| `ctl00_MainContent_lblExceptionReason` | Get Text; assign to `raw_exception_text`. |
-| `ctl00_MainContent_txtApprovalReason` | Type Into; enter the business approval reason during RPA write-back. |
-| `ctl00_MainContent_txtManagerId` | Type Into; enter manager ID such as `MGR-001`. |
-| `ctl00_MainContent_btnRequestApproval` | Click; submits the legacy ERP approval request form. |
-| `ctl00_MainContent_lblWritebackStatus` | Get Text; verify `PENDING_MANAGER_APPROVAL` after write-back. |
-| `ctl00_MainContent_lblExecutionMode` | Get Text; verify `RPA` on the write-back result page. |
-| `ctl00_MainContent_lblAuditCreated` | Get Text; verify `true` on the write-back result page. |
+| `ctl00_MainContent_btnOpenFirstPending` | Open the first pending queue item. |
+| `ctl00_MainContent_lblQueueEmptyMessage` | Detect an empty work queue. |
+| `ctl00_MainContent_grdPoWorkQueue` | Read or verify the PO work queue table. |
 
-Compatibility IDs retained for older workflow templates:
+## Business Fields On Detail Page
 
-| Compatibility ID | UiPath usage |
+| Selector ID | UiPath usage |
 | --- | --- |
-| `po-id` | Get Text; assign to `po_id`. |
-| `amount` | Get Text; convert to number; assign to `amount`. |
-| `budget-limit` | Get Text; convert to number; assign to `budget_limit`. |
-| `vendor-id` | Get Text; assign to `vendor_id`. |
-| `vendor-info-complete` | Get Text; convert to Boolean. |
-| `inventory-available` | Get Text; convert to Boolean. |
-| `erp-status` | Get Text; assign to `erp_status`. |
-| `raw-exception-text` | Get Text; assign to `raw_exception_text`. |
-| `approval-reason-input` | Compatibility marker for the approval reason field. |
-| `manager-id-input` | Compatibility marker for the manager ID field. |
-| `request-approval-button` | Compatibility marker for the submit action. |
-| `writeback-result` | Get Text; confirms the write-back result page loaded. |
-| `writeback-status` | Get Text; verify `PENDING_MANAGER_APPROVAL`. |
-| `writeback-execution-mode` | Get Text; verify `RPA`. |
-| `writeback-audit-created` | Get Text; verify `true`. |
+| `ctl00_MainContent_lblCaseId` | Get case ID. |
+| `ctl00_MainContent_lblPoNumber` | Get PO number. |
+| `ctl00_MainContent_lblAmount` | Get amount. |
+| `ctl00_MainContent_lblBudgetLimit` | Get budget limit. |
+| `ctl00_MainContent_lblVendorId` | Get vendor ID. |
+| `ctl00_MainContent_lblExceptionReason` | Get system message / exception reason. |
+| `ctl00_MainContent_lblBusinessRemarks` | Get buyer, manager, or operations notes. |
+| `ctl00_MainContent_lblErpStatus` | Get ERP status. |
+| `ctl00_MainContent_lblSimulationStatus` | Get queue item status. |
 
-Recommended selector strategy:
+## ERP Action Buttons
 
-- Use UiPath's browser automation recorder to select each element once.
-- Prefer selectors that include the legacy-style HTML `id` attribute.
-- Avoid selectors based on row position, nearby text, or visual coordinates.
-- Reopen `http://localhost:8001/purchase-orders/PO-1001` before selecting detail page fields.
+| Selector ID | UiPath usage |
+| --- | --- |
+| `ctl00_MainContent_btnMarkStandardProcessed` | Standard processing route. |
+| `ctl00_MainContent_btnMarkWaitingVendor` | Waiting for vendor information route. |
+| `ctl00_MainContent_btnFlagCapabilityGap` | Capability gap route. |
+| `ctl00_MainContent_btnSendManualInvestigation` | Manual investigation route. |
+| `ctl00_MainContent_btnSubmitApprovalRequest` | Legacy selector retained; current human approval path should create `/approvals/create` instead of clicking this for agent-gated approval. |
+
+## Technical Audit Selectors
+
+These selectors are retained for RPA compatibility and audit evidence. They
+should not be the first business-facing content in the demo.
+
+| Selector ID |
+| --- |
+| `ctl00_MainContent_lblSimulationCaseId` |
+| `ctl00_MainContent_lblScenario` |
+| `ctl00_MainContent_lblRunId` |
+| `ctl00_MainContent_lblFinalRoute` |
+| `ctl00_MainContent_lblPolicyDecision` |
+| `ctl00_MainContent_lblLastAction` |
+
+## Selector Strategy
+
+- Prefer selectors that include the stable HTML `id` attribute.
+- Avoid row position, nearby text, or visual coordinates.
+- Reopen `/erp/work-queue` before reselection.
+- Do not rebind `Main.xaml` unless a human intentionally changes the workflow.

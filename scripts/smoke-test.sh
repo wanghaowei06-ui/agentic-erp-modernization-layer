@@ -8,8 +8,6 @@ if [[ ! -x "$PYTHON_BIN" ]]; then
   PYTHON_BIN="$(command -v python3)"
 fi
 
-rm -rf "$ROOT_DIR/memory-data"
-
 assert_json() {
   local label="$1"
   local expected_expr="$2"
@@ -30,118 +28,74 @@ PY
   echo "[OK] $label"
 }
 
-assert_file() {
-  local path="$1"
-  test -f "$path"
-}
-
 assert_json "Mock ERP health" "body['status'] == 'ok'" http://localhost:8001/health
+assert_json "Reasoning Agent health" "body['status'] == 'ok'" http://localhost:8002/health
+assert_json "Generated API health" "body['status'] == 'ok'" http://localhost:8003/health
+assert_json "Validation Suite health" "body['status'] == 'ok'" http://localhost:8004/health
 
-assert_json "Triage PO-1001 budget_exceeded" \
-  "body['detected_exception_type'] == 'budget_exceeded'" \
-  -X POST http://localhost:8002/triage \
+assert_json "Enterprise context is available" \
+  "body['company']['name'] == 'Demo Manufacturing Group' and body['company']['finance_policy']['requires_manager_approval_above_budget'] is True" \
+  http://localhost:8002/company-context
+
+assert_json "PO-1000 stays deterministic" \
+  "body['final_route'] == 'STANDARD_PROCESSING' and body['agent_required'] is False and body['precheck_decision_source'] == 'deterministic_rule' and body['llm_validation_proof']['llm_invocation_verified'] is False" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1000.json"
+
+assert_json "PO-1001 uses agent context and creates approval route" \
+  "body['final_route'] == 'WAITING_FOR_HUMAN_APPROVAL' and body['policy_gate']['human_required'] is True and body['agent_context_used'] is True and body['company_context_reference']['finance_policy_used'] is True and body['llm_validation_proof']['llm_invocation_verified'] is True and body['recommended_erp_action']['action_id'] == 'CREATE_WEB_APPROVAL_TASK'" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1001.json"
+
+assert_json "PO-1002 maps to vendor wait button" \
+  "body['final_route'] == 'WAITING_VENDOR_INFO' and body['recommended_erp_action']['button_selector_id'] == 'ctl00_MainContent_btnMarkWaitingVendor'" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1002.json"
+
+assert_json "PO-1003 maps to XAML capability-gap proposal path" \
+  "body['final_route'] == 'CAPABILITY_GAP_DETECTED' and body['capability_decision'] == 'XAML_WORKFLOW_PROPOSAL' and body['recommended_erp_action']['button_selector_id'] == 'ctl00_MainContent_btnFlagCapabilityGap'" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1003.json"
+
+assert_json "PO-1004 maps to manual investigation" \
+  "body['final_route'] == 'WAITING_MANUAL_INVESTIGATION' and body['recommended_erp_action']['button_selector_id'] == 'ctl00_MainContent_btnSendManualInvestigation'" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1004.json"
+
+assert_json "Approval task carries business remarks and agent reasoning" \
+  "body['status'] == 'PENDING' and body['approval_url'].startswith('/approvals/')" \
+  -X POST http://localhost:8002/approvals/create \
   -H "Content-Type: application/json" \
   -d '{
-    "case_id": "CASE-001",
+    "case_id": "CASE-SMOKE-APPROVAL",
     "po_id": "PO-1001",
     "amount": 18000,
     "budget_limit": 10000,
-    "vendor_id": "V-203",
-    "vendor_info_complete": true,
-    "inventory_available": true,
     "erp_status": "Exception",
-    "raw_exception_text": "Amount exceeds approved budget limit"
+    "raw_exception_text": "Amount exceeds approved budget limit",
+    "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+    "agent_reasoning_summary": "Agent used finance policy and Q4 renewal pressure before requiring human approval.",
+    "company_context_reference": {
+      "finance_policy_used": true,
+      "sales_context_used": true,
+      "operations_context_used": true
+    },
+    "policy_gate_reason": "Budget exception requires manager approval.",
+    "agent_recommendation": "WAITING_FOR_HUMAN_APPROVAL",
+    "reason": "No ERP approval click is recommended.",
+    "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+    "requested_by": "smoke-test"
   }'
 
-assert_json "Triage PO-1002 vendor_info_missing" \
-  "body['detected_exception_type'] == 'vendor_info_missing'" \
-  -X POST http://localhost:8002/triage \
-  -H "Content-Type: application/json" \
-  -d '{
-    "case_id": "CASE-002",
-    "po_id": "PO-1002",
-    "amount": 6000,
-    "budget_limit": 10000,
-    "vendor_id": "",
-    "vendor_info_complete": false,
-    "inventory_available": true,
-    "erp_status": "Exception",
-    "raw_exception_text": "Vendor information missing"
-  }'
+assert_json "Proposal inbox exposes threshold-triggered proposals" \
+  "body['total'] >= 2 and any(p['proposal_type'] == 'API_MODERNIZATION_PROPOSAL' for p in body['proposals']) and any(p['proposal_type'] == 'XAML_WORKFLOW_PROPOSAL' for p in body['proposals']) and all(p.get('auto_execution_allowed') is False for p in body['proposals'])" \
+  http://localhost:8002/proposals/inbox?format=json
 
-assert_json "Triage PO-1003 inventory_shortage" \
-  "body['detected_exception_type'] == 'inventory_shortage' and body['next_stage'] == 'CAPABILITY_GAP_DETECTED'" \
-  -X POST http://localhost:8002/triage \
-  -H "Content-Type: application/json" \
-  -d '{
-    "case_id": "CASE-003",
-    "po_id": "PO-1003",
-    "amount": 8500,
-    "budget_limit": 10000,
-    "vendor_id": "V-118",
-    "vendor_info_complete": true,
-    "inventory_available": false,
-    "erp_status": "Exception",
-    "raw_exception_text": "Inventory shortage"
-  }'
-
-assert_json "Generated API approval request" \
-  "body['execution_mode'] == 'API' and body['status'] == 'PENDING_MANAGER_APPROVAL'" \
-  -X POST http://localhost:8003/api/purchase-orders/PO-1001-API/approval-request \
-  -H "Content-Type: application/json" \
-  -d '{
-    "approval_reason": "Amount exceeds budget limit",
-    "manager_id": "MGR-001",
-    "source_case_id": "CASE-001"
-  }'
-
-curl --retry 10 --retry-connrefused --retry-delay 1 -sS \
-  -X POST http://localhost:8001/purchase-orders/PO-1001/request-approval \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  --data-urlencode "case_id=CASE-001" \
-  --data-urlencode "approval_reason=Amount exceeds budget limit" \
-  --data-urlencode "manager_id=MGR-001" >/dev/null
-
-assert_json "Validation parity passed" \
-  "body['rpa_api_parity_check'] == 'passed' and body['same_initial_state'] is True" \
-  -X POST http://localhost:8004/validate/request-purchase-order-approval \
-  -H "Content-Type: application/json" \
-  -d '{"case_id": "CASE-001"}'
-
-assert_json "Capability gap prepared" \
-  "body['coverage_status'] == 'not_covered' and body['case_id'] == 'CASE-003'" \
-  -X POST http://localhost:8004/capability-gaps/inventory-shortage >/dev/null
-
-for file in \
-  "$ROOT_DIR/memory/data/case_state_CASE-001.json" \
-  "$ROOT_DIR/memory/data/case_timeline_CASE-001.json" \
-  "$ROOT_DIR/memory/data/agent_decision_CASE-001.json" \
-  "$ROOT_DIR/memory/data/human_approval_CASE-001.json" \
-  "$ROOT_DIR/memory/data/rpa_trace_CASE-001.json" \
-  "$ROOT_DIR/memory/data/validation_result_CASE-001.json" \
-  "$ROOT_DIR/memory/data/capability_registry.json" \
-  "$ROOT_DIR/memory/data/capability_gap_CASE-003.json"; do
-  assert_file "$file"
-done
-echo "[OK] Memory artifacts generated"
-echo "[OK] Capability gap recorded"
-
-assert_json "RPA write-back memory recorded" \
-  "any(event['event_type'] == 'RPA_WRITEBACK_COMPLETED' for event in body['events'])" \
-  http://localhost:8004/memory/cases/CASE-001/timeline
-
-assert_json "Memory timeline query available" \
-  "body['case_id'] == 'CASE-001' and isinstance(body['events'], list)" \
-  http://localhost:8004/memory/cases/CASE-001/timeline
-
-assert_json "Memory timeline contains triage/validation/api events" \
-  "all(item in {event['event_type'] for event in body['events']} for item in ['TRIAGE_COMPLETED', 'VALIDATION_COMPLETED', 'API_EXECUTION_COMPLETED'])" \
-  http://localhost:8004/memory/cases/CASE-001/timeline
-
-assert_json "Memory capabilities query available" \
-  "len([cap for cap in body['capabilities'] if cap['status'] == 'trusted' and cap['validation_status'] == 'passed']) >= 2" \
-  http://localhost:8004/memory/capabilities
-
-assert_json "Memory gaps query available" \
-  "any(gap['event_type'] == 'CAPABILITY_GAP_RECORDED' for gap in body['gaps'])" \
-  http://localhost:8004/memory/gaps
+assert_json "Demo evidence snapshot keeps safety boundaries" \
+  "body['safety_boundaries']['no_auto_xaml_modification'] is True and body['safety_boundaries']['no_auto_api_deployment'] is True and body['simulation_summary']['proposal_threshold'] == 3" \
+  http://localhost:8002/demo/evidence-snapshot

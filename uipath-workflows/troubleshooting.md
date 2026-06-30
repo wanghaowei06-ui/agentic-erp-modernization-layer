@@ -1,70 +1,75 @@
 # Troubleshooting
 
-## Windows cannot access WSL2 localhost
+## Windows Cannot Access WSL Localhost
 
-- Confirm the services are running in WSL2 with `./scripts/start_all.sh`.
-- Confirm the services bind to `0.0.0.0` with `ss -ltnp | rg ':800[0-3]'`.
-- Try opening `http://localhost:8001/health` in Windows Chrome.
-- If localhost forwarding is unavailable, get the WSL2 IP with `hostname -I` and try `http://<wsl-ip>:8000`.
+- Confirm services are running with `./scripts/dev-start.sh`.
+- Open `http://localhost:8002/health` in Windows Chrome.
+- If localhost forwarding is unavailable, get the WSL IP with `hostname -I` and
+  use `http://<wsl-ip>:8002`.
 
-## UiPath cannot scrape fields
+## UiPath Cannot Open The Work Queue
 
-- Open `http://localhost:8001/purchase-orders/PO-1001` manually in Chrome.
-- Confirm the HTML IDs in `selectors/mock-erp-element-ids.md`.
-- Re-pick the element in UiPath Studio and prefer selectors using the `id` attribute.
-- Avoid coordinate-based selectors.
+- Open `http://localhost:8002/erp/work-queue` manually in Chrome.
+- Confirm the reasoning-agent service is running on port `8002`.
+- Confirm selectors in `selectors/mock-erp-element-ids.md`.
+- Re-pick elements by stable `id` if the browser extension lost its target.
 
-## HTTP Request fails
+## Route Agent Call Fails
 
-- Check service health endpoints:
-  - `http://localhost:8001/health`
-  - `http://localhost:8002/health`
-  - `http://localhost:8003/health`
-- Verify the UiPath HTTP Request method is `POST`.
-- Verify the body is valid JSON and the `Content-Type` header is `application/json`.
-- Run `./scripts/smoke_test.sh` from WSL2.
+- Current endpoint: `POST http://localhost:8002/case-intake/route`.
+- Set `Content-Type` to `application/json`.
+- Include `business_remarks` and
+  `agent_context_policy=fetch_enterprise_context_before_decision` for
+  agent-required cases.
+- Check `http-request-bodies/case-intake-route-po-1001.json` for a known-good
+  body.
 
-## JSON parse fails
+## JSON Parse Fails
 
-- Log the raw HTTP response body before deserialization.
-- Confirm UiPath is deserializing object JSON, not array JSON.
-- Confirm variable names match the response keys exactly, such as `detected_exception_type` and `requires_human_approval`.
+- Log the raw route response before parsing.
+- Use `final_route` and `policy_decision` for current branch logic.
+- Use `recommended_erp_action` as additive evidence; do not make old workflows
+  depend on it until intentionally updated.
 
-## Chrome extension issue
+## Human Approval Is Expected But ERP Button Is Not Clicked
 
-- Confirm the UiPath browser extension is installed and enabled for Chrome.
-- Restart Chrome after installing the extension.
-- In UiPath Studio, re-open the browser automation activity and re-indicate the target element.
+That is current behavior for `WAITING_FOR_HUMAN_APPROVAL`. UiPath should create
+a web approval task through `/approvals/create` and show it in:
 
-## Port already in use
-
-- Check listeners with `ss -ltnp | rg ':800[0-3]'`.
-- Stop stale processes using the PIDs in `run/*.pid`.
-- Restart with `./scripts/start_all.sh`.
-
-## Services not running
-
-- Run `ps -ef | rg 'uvicorn app.main:app'`.
-- Inspect logs under `run/`.
-- Reinstall dependencies if needed:
-
-```bash
-source .venv/bin/activate
-pip install -r requirements.txt
+```text
+http://localhost:8002/approvals/inbox
 ```
 
-## RPA write-back form not found
+## Proposals Do Not Appear
 
-- Confirm the browser is on `http://localhost:8001/purchase-orders/PO-1001`.
-- Confirm the form contains:
-  - `approval-reason-input`
-  - `manager-id-input`
-  - `request-approval-button`
-- If the confirmation page is already open, navigate back to the PO detail page.
+Proposals are not created by clicking ERP action buttons. They appear only when
+committed Run Memory updates Pattern Memory and the observed count reaches the
+threshold. Check:
 
-## API mode returns wrong output
+```text
+http://localhost:8002/simulation/dashboard
+http://localhost:8002/proposals/inbox
+```
 
-- Confirm the request URL is `http://localhost:8003/api/purchase-orders/PO-1001/approval-request`.
-- Confirm the JSON body includes `approval_reason`, `manager_id`, and `source_case_id`.
-- Confirm the expected response contains `execution_mode = API`.
-- Restart the API facade if demo state needs a clean reset.
+Default threshold is `3`, configurable through `PROPOSAL_THRESHOLD`.
+
+## Codex Session Looks Like A Mock Stream
+
+That is controlled by environment:
+
+- `CODEX_CLI_DEMO_MODE=mock` or `CODEX_CLI_EXECUTION_MODE=mock` shows a staged
+  demo stream.
+- `CODEX_CLI_EXECUTION_MODE=real` attempts real local `codex exec` after human
+  proposal approval.
+
+## Project Opens With Missing XAML
+
+The repository should include every entry point referenced by
+`AgenticErpMvpRpa/project.json`:
+
+- `Main.xaml`
+- `RouteProof_PO1002.xaml`
+- `RouteProof_PO1003.xaml`
+
+If UiPath Studio reports another missing file, check whether `project.json` was
+changed locally in Windows and copy the referenced workflow intentionally.

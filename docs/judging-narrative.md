@@ -2,44 +2,64 @@
 
 ## What Problem Does This Solve?
 
-Enterprise ERP exceptions often live in fragile UI workflows. Teams want APIs, but they cannot safely jump from RPA clicks to API execution without proving business equivalence, approval boundaries, and auditability.
-
-## Why Not Jump Directly From RPA To API?
-
-The UI workflow may hide side effects: status updates, approval task creation, audit logs, notifications, and budget review flags. The API path must be validated against the RPA-observed behavior before it can be trusted.
-
-## Why Use RPA First?
-
-RPA discovers the current legacy behavior. In this MVP, UiPath reads PO-1001, routes the case, and performs write-back before the generated API candidate is validated.
+Enterprise ERP exception work often starts in browser-based queues, not clean
+APIs. Business staff and robots need order fields, system messages, and buyer
+notes, while modernization teams need evidence before replacing RPA with APIs or
+new workflows.
 
 ## What Is UiPath's Role?
 
-UiPath remains the orchestration, human approval, and execution governance layer. It owns the case flow, RPA steps, human approval, validation call, API-mode call, and final output.
+UiPath remains the RPA-first orchestration and execution layer. It opens the ERP
+work queue, extracts fields, calls the route agent, creates approval tasks,
+clicks safe ERP action buttons, writes Run Memory, and keeps humans in control.
 
 ## What Is The Agent's Role?
 
-The agent is a structured decision service. In the Hard MVP it uses deterministic triage for stable governance. It emits a decision object and records `TRIAGE_COMPLETED`; it does not execute business actions.
+The coded LangGraph agent receives ERP fields, system exception text, business
+remarks, and mock enterprise context. It returns:
 
-## What Is Memory's Role?
+- `final_route`
+- `policy_gate`
+- `agent_reasoning_summary`
+- `company_context_reference`
+- `llm_validation_proof`
+- `recommended_erp_action`
 
-Automation Memory is a governed system of record, not chat memory. It records decisions, RPA write-back, validation, API execution, trusted capabilities, and capability gaps.
+Normal cases are deterministic precheck decisions. Agent-required cases show
+whether real or mock LLM mode was used.
 
-## Why Capability Registry?
+## Why Enterprise Context?
 
-The registry records which capabilities are trusted after validation and approval evidence. This supports safe reuse instead of ad hoc calls to unverified APIs or workflows.
+The agent decision is not just a deterministic amount check. For example,
+PO-1001 combines a budget exception with Q4 customer delivery risk, finance
+policy, and strategic account pressure. That is why the demo shows the context
+signals used and the reasoning summary.
 
-## Why Capability Gap?
+## Why Memory?
 
-When PO-1003 hits `inventory_shortage`, the system records `CAPABILITY_GAP_RECORDED`. It does not let a model invent a runtime workflow. The gap becomes a governed proposal for future implementation.
+Run Memory is the per-run evidence trail. Pattern Memory aggregates repeated
+business signatures. This is what makes proposals evidence-driven instead of
+button-driven.
 
-## Why Deterministic Triage In Hard MVP?
+## Why Proposal Thresholds?
 
-Hard MVP uses deterministic structured triage for stability and repeatability. This is a governance choice: the demo proves the UiPath-controlled lifecycle and Automation Memory trail without relying on an external model key.
+The system should not modernize a workflow after a single exception. It waits
+until repeated committed runs reach the threshold, then creates either:
 
-## How Can Enhanced Mode Use LLMs?
+- `API_MODERNIZATION_PROPOSAL`
+- `XAML_WORKFLOW_PROPOSAL`
 
-Enhanced Mode can add LLM structured triage with schema validation, deterministic guardrails, and fail-closed fallback. The output contract should remain compatible with UiPath and Automation Memory.
+The proposal remains review-only until a human approves it.
+
+## Why Codex Handoff?
+
+After human approval, the proposal can start a Codex handoff session. The UI
+shows a readable timeline. Demo mock mode is available for recording; real local
+Codex CLI mode remains behind an explicit environment switch.
 
 ## Core Claim
 
-The project demonstrates a safe path from RPA-observed legacy workflows to validated trusted API capabilities, while keeping UiPath and humans in control.
+This project demonstrates a safe, auditable modernization loop where UiPath
+continues to operate the ERP process, the agent adds enterprise context and
+reasoning, memory accumulates evidence, and modernization begins only after a
+human approves a proposal.

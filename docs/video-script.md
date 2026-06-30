@@ -1,100 +1,86 @@
 # Video Script
 
-Target length: 2 to 3 minutes.
+Target length: 3 to 5 minutes.
 
-## 1. Problem, 20 Seconds
+## 1. Problem
 
-Legacy ERP processes are hard to modernize safely. The business rules and side effects are often hidden in old UI workflows, approval steps, and exception screens.
+Legacy ERP work is not usually a clean API. It is a queue, an exception reason,
+buyer notes, approvals, and fragile browser actions. The demo shows how UiPath
+can keep running that process while an agent helps decide and document when
+modernization is justified.
 
-Directly replacing RPA with an API can be risky if we do not know whether the API reproduces the same business outcome.
+## 2. ERP Work Queue
 
-## 2. Solution, 30 Seconds
-
-This project shows a UiPath-governed path from RPA-observed workflow to validated API capability.
-
-UiPath orchestrates RPA, human approval, validation, and trusted API execution. The agent layer provides stable structured decisions. Automation Memory records the important decisions, validations, executions, capabilities, and gaps as governed evidence.
-
-The Hard MVP uses deterministic structured triage for stable governance. LLM structured triage is a future Enhanced Mode option, not a requirement for this demo.
-
-## 3. Demo, 70-100 Seconds
-
-Open Mock Legacy ERP at:
+Open:
 
 ```text
-http://localhost:8001
+http://localhost:8002/erp/work-queue
 ```
 
-Show PO-1001 with a budget exception.
+Show the ERP detail page. The main area is business-facing: PO number, amount,
+budget, vendor, ERP status, system message, and business remarks. Technical
+audit fields are still present for selector compatibility but are not the main
+business view.
 
-Run the UiPath Hard MVP flow. UiPath reads the legacy ERP fields and calls:
+## 3. Agent Context Trace
+
+Open:
 
 ```text
-POST http://localhost:8002/triage
+http://localhost:8002/demo/agent-context-trace
 ```
 
-Show the triage result:
-
-- `detected_exception_type=budget_exceeded`
-- `requires_human_approval=true`
-- `next_stage=WAITING_FOR_HUMAN_APPROVAL`
-
-Explain that the triage service also writes `TRIAGE_COMPLETED` to Automation Memory.
-
-Show the human approval and RPA write-back path. The legacy ERP writes `RPA_WRITEBACK_COMPLETED`.
-
-Call validation:
+Explain that UiPath calls:
 
 ```text
-POST http://localhost:8004/validate/request-purchase-order-approval
+POST http://localhost:8002/case-intake/route
 ```
 
 Show:
 
-- `contract_test=passed`
-- `business_rule_test=passed`
-- `rpa_api_parity_check=passed`
+- `business_remarks`
+- `agent_context_policy`
+- company context used
+- `agent_reasoning_summary`
+- `llm_validation_proof`
+- `recommended_erp_action`
 
-Call the generated API facade:
+## 4. UiPath Branching
 
-```text
-POST http://localhost:8003/api/purchase-orders/PO-1001-API/approval-request
-```
+Show route examples:
 
-Show `execution_mode=API`.
+- PO-1000: deterministic standard processing.
+- PO-1001: budget exception, enterprise context, human approval.
+- PO-1002: missing vendor data, wait for vendor info.
+- PO-1003: inventory shortage, capability gap.
+- PO-1004: ambiguous justification, manual investigation.
 
-Open the Automation Memory timeline:
+## 5. Memory And Proposal Trigger
 
-```text
-http://localhost:8004/memory/cases/CASE-001/timeline
-```
-
-Show:
-
-- `TRIAGE_COMPLETED`
-- `RPA_WRITEBACK_COMPLETED`
-- `VALIDATION_COMPLETED`
-- `API_EXECUTION_COMPLETED`
-
-Open capabilities:
+Open:
 
 ```text
-http://localhost:8004/memory/capabilities
+http://localhost:8002/simulation/dashboard
 ```
 
-Show trusted API and human task capabilities.
+Show Run Memory count, Pattern Memory, observed count, threshold, agent analysis
+summary, and proposal pipeline. Explain that proposals are triggered by
+accumulated memory, not by a manual proposal button.
 
-Open gaps:
+## 6. Human Approval And Codex
+
+Open:
 
 ```text
-http://localhost:8004/memory/gaps
+http://localhost:8002/proposals/inbox
 ```
 
-Show CASE-003 / PO-1003 inventory shortage as a capability gap instead of uncontrolled automation.
+Approve a proposal. Show the Codex session timeline:
 
-## 4. Why It Matters, 20 Seconds
+```text
+http://localhost:8002/codex/sessions/CODEX-PROP-API-DEMO-0001-001
+```
 
-The system creates a governed migration path from fragile RPA to API modernization. Humans stay in control, and every important automation decision and execution step is auditable.
-
-## 5. Roadmap, 10 Seconds
-
-Enhanced Mode can add LLM structured triage with schema validation, guardrails, and fail-closed fallback. The Hard MVP baseline stays stable even without an LLM API key.
+Explain the safety boundary: human approval starts the handoff, but there is no
+automatic deployment, trusted capability registration, or Windows XAML
+modification.

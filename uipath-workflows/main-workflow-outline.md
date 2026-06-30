@@ -1,158 +1,117 @@
 # Main Workflow Outline
 
-This is a precise UiPath workflow outline. It is not Python orchestration. UiPath must remain the main orchestration and governance layer.
+This outline describes the current `AgenticErpMvpRpa/Main.xaml` behavior at a
+review level. The checked-in XAML is the source of truth.
 
-## Sequence: Initialize Case
+## 1. Start Worker Loop
 
-1. Assign `case_id = "CASE-001"`.
-2. Assign `po_id = "PO-1001"`.
-3. Assign `current_stage = "CASE_INTAKE"`.
-4. Assign `execution_mode = "RPA"`.
-5. Assign `human_approval_status = "pending"`.
-6. Assign `validation_status = "not_started"`.
-7. Assign `trusted_tool_status = "not_registered"`.
-8. Log message: `Case Intake started for CASE-001 / PO-1001`.
+1. Send robot heartbeat to `http://localhost:8002/robot/heartbeat`.
+2. Check `/approvals/approved-pending-writeback` for approved work that needs
+   ERP write-back.
+3. Open `http://localhost:8002/erp/work-queue`.
+4. Claim or open a pending simulation work item.
 
-## Sequence: Legacy ERP Extraction
+## 2. Extract ERP Order Fields
 
-1. Use Browser or Open Browser: `http://localhost:8001/purchase-orders/PO-1001`.
-2. Get Text from stable ID `po-id`; assign to `po_id`.
-3. Get Text from stable ID `amount`; convert to number and assign to `amount`.
-4. Get Text from stable ID `budget-limit`; convert to number and assign to `budget_limit`.
-5. Get Text from stable ID `vendor-id`; assign to `vendor_id`.
-6. Get Text from stable ID `vendor-info-complete`; convert to Boolean and assign to `vendor_info_complete`.
-7. Get Text from stable ID `inventory-available`; convert to Boolean and assign to `inventory_available`.
-8. Get Text from stable ID `erp-status`; assign to `erp_status`.
-9. Get Text from stable ID `raw-exception-text`; assign to `raw_exception_text`.
-10. Assign `current_stage = "LEGACY_ERP_EXTRACTION_COMPLETE"`.
+Use stable selectors on the ERP detail page:
 
-## Sequence: Exception Triage
+- `ctl00_MainContent_lblCaseId`
+- `ctl00_MainContent_lblPoNumber`
+- `ctl00_MainContent_lblAmount`
+- `ctl00_MainContent_lblBudgetLimit`
+- `ctl00_MainContent_lblVendorId`
+- `ctl00_MainContent_lblExceptionReason`
+- `ctl00_MainContent_lblBusinessRemarks`
+- `ctl00_MainContent_lblErpStatus`
 
-1. Build request body from the extracted values.
-2. HTTP Request:
-   - Method: `POST`
-   - URL: `http://localhost:8002/triage`
-   - Body: JSON matching `http-request-bodies/triage-po-1001.json`
-3. Assign response body to `triage_result_json`.
-4. Deserialize JSON.
-5. Assign parsed values:
-   - `detected_exception_type`
-   - `risk_level`
-   - `requires_human_approval`
-   - `next_stage`
-6. Assign `current_stage = "EXCEPTION_TRIAGE_COMPLETE"`.
+Technical audit selectors such as simulation case ID, scenario, run ID, final
+route, policy decision, and last action remain available for UiPath
+compatibility but are not the primary business fields.
 
-## Flow Switch: Dynamic Routing
+## 3. Start Run Memory
 
-Use a Flow Switch or equivalent conditional activity on `detected_exception_type`.
+Call:
 
-The router must use `detected_exception_type`, not `po_id`.
+```text
+POST http://localhost:8002/memory/runs/start
+```
 
-### Branch: `budget_exceeded`
+Record raw ERP extracted fields, including `business_remarks`.
 
-1. Assign `current_stage = "WAITING_FOR_HUMAN_APPROVAL"`.
-2. Create or display a business human approval task.
-3. If approved, assign `human_approval_status = "approved"`.
-4. Continue to Legacy RPA Write-back.
+## 4. Route With Agent Context
 
-### Branch: `vendor_info_missing`
+Call:
 
-1. Assign `current_stage = "WAITING_VENDOR_INFO"`.
-2. Log or show the lightweight PO-1002 route proof.
-3. Do not use PO ID as the routing condition.
-4. Continue only if the demo script intentionally returns to PO-1001.
+```text
+POST http://localhost:8002/case-intake/route
+```
 
-### Branch: `inventory_shortage`
+The request should include:
 
-1. Assign `current_stage = "WAITING_INVENTORY_REVIEW"`.
-2. Show PO-1003 lightweight route proof using `http-request-bodies/triage-po-1003.json`.
-3. Create or display an inventory review task placeholder.
-4. Treat this as roadmap evidence, not full processing.
+- ERP order fields
+- `raw_exception_text`
+- `business_remarks`
+- `agent_context_policy=fetch_enterprise_context_before_decision`
 
-### Branch: `unknown_exception`
+The response includes:
 
-1. Assign `current_stage = "WAITING_MANUAL_INVESTIGATION"`.
-2. Create or display a manual investigation task placeholder.
+- `final_route`
+- `policy_decision`
+- `policy_gate`
+- `agent_context_used`
+- `company_context_reference`
+- `agent_reasoning_summary`
+- `llm_validation_proof`
+- `recommended_erp_action`
 
-## Sequence: Legacy RPA Write-back
+`recommended_erp_action` is additive and future-compatible. The existing UiPath
+branch logic still routes by `final_route` / `policy_decision`.
 
-1. Use the existing browser session on PO-1001 detail page.
-2. Type into `approval-reason-input`: `Amount exceeds budget limit`.
-3. Type into `manager-id-input`: `MGR-001`.
-4. Click `request-approval-button`.
-5. Get Text from `writeback-status`; verify `PENDING_MANAGER_APPROVAL`.
-6. Get Text from `writeback-execution-mode`; verify `RPA`.
-7. Get Text from `writeback-audit-created`; verify `true`.
-8. Assign `current_stage = "LEGACY_RPA_WRITEBACK_COMPLETE"`.
+## 5. Branching
 
-## Sequence: Validation Gate
+| Route | UiPath action |
+| --- | --- |
+| `STANDARD_PROCESSING` | Click `ctl00_MainContent_btnMarkStandardProcessed`. |
+| `WAITING_VENDOR_INFO` | Click `ctl00_MainContent_btnMarkWaitingVendor`. |
+| `CAPABILITY_GAP_DETECTED` | Click `ctl00_MainContent_btnFlagCapabilityGap`. |
+| `WAITING_MANUAL_INVESTIGATION` | Click `ctl00_MainContent_btnSendManualInvestigation`. |
+| `WAITING_FOR_HUMAN_APPROVAL` | Create a web approval task through `/approvals/create`; do not click ERP approval submit. |
 
-1. HTTP Request:
-   - Method: `POST`
-   - URL: `http://localhost:8004/validate/request-purchase-order-approval`
-   - Body: `{}` or an empty JSON object.
-2. Assign response body to `validation_result_json`.
-3. Deserialize JSON.
-4. Verify:
-   - `contract_test = "passed"`
-   - `business_rule_test = "passed"`
-   - `rpa_api_parity_check = "passed"`
-   - `trusted_tool_candidate = true`
-5. Assign `validation_status = "passed"`.
-6. Assign `current_stage = "VALIDATION_GATE_PASSED"`.
+## 6. Human Approval
 
-### Optional Validation Failure Demo
+Approval tasks should include:
 
-1. HTTP Request:
-   - Method: `POST`
-   - URL: `http://localhost:8004/validate/request-purchase-order-approval`
-   - Body: `{"simulate_failure": true}`
-2. Verify `rpa_api_parity_check = "failed"`.
-3. Verify `trusted_tool_candidate = false`.
-4. Keep `execution_mode = "RPA"`.
-5. Create an IT review or fix task in UiPath.
-6. Do not register the API facade as a trusted tool in this failed branch.
+- order summary
+- business remarks
+- agent reasoning summary
+- company context reference or snapshot
+- policy gate reason
 
-## Sequence: Trusted Tool Approval
+Review them at:
 
-1. Create or display trusted tool registration approval.
-2. If approved, assign `trusted_tool_status = "registered"`.
-3. Assign `current_stage = "TRUSTED_TOOL_REGISTERED"`.
+```text
+http://localhost:8002/approvals/inbox
+```
 
-## Sequence: API Mode Execution
+## 7. Commit Memory
 
-1. HTTP Request:
-   - Method: `POST`
-   - URL: `http://localhost:8003/api/purchase-orders/PO-1001/approval-request`
-   - Body: JSON matching `http-request-bodies/api-mode-request.json`
-2. Assign response body to `api_result_json`.
-3. Deserialize JSON.
-4. Verify `execution_mode = "API"`.
-5. Assign `execution_mode = "API"`.
-6. Assign `current_stage = "API_MODE_EXECUTED"`.
+Complete and commit the run through:
 
-## Sequence: Build Final Case JSON
+```text
+POST http://localhost:8002/memory/runs/{run_id}/complete
+POST http://localhost:8002/memory/runs/{run_id}/commit
+```
 
-1. Build `final_case_output_json` with:
-   - `case_id`
-   - `po_id`
-   - `current_stage`
-   - `detected_exception_type`
-   - `risk_level`
-   - `human_approval_status`
-   - `validation_status`
-   - `trusted_tool_status`
-   - `execution_mode`
-2. Log final output.
-3. Display or save final output for the demo evidence.
+Run commit updates Pattern Memory. Proposal creation is threshold-based and
+comes from repeated committed patterns, not from a button in the ERP page.
 
-## Sequence: Enhanced Evidence Screens
+## 8. Evidence Pages
 
-UiPath or the demo operator can open these local support pages for screenshots:
+Open these pages during review:
 
-- `http://localhost:8001/case-dashboard`
-- `http://localhost:8001/case-timeline/CASE-001`
-- `http://localhost:8001/api-readiness-scorecard`
-- `http://localhost:8001/tool-registry`
-
-These pages are evidence views only. UiPath remains the case orchestration and governance layer.
+- `http://localhost:8002/demo/agent-context-trace`
+- `http://localhost:8002/case-dashboard/CASE-DEMO-AGENT-CONTEXT?run_id=RUN-DEMO-AGENT-CONTEXT-001`
+- `http://localhost:8002/simulation/dashboard`
+- `http://localhost:8002/approvals/inbox`
+- `http://localhost:8002/proposals/inbox`
+- `http://localhost:8002/codex/sessions/CODEX-PROP-API-DEMO-0001-001`

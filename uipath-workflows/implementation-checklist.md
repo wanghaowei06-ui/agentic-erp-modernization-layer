@@ -1,24 +1,39 @@
 # Implementation Checklist
 
-Use this checklist inside UiPath Studio while building the demo workflow.
+Use this checklist when opening or reviewing the UiPath Studio project.
 
-- [ ] Create a UiPath project or process for the modernization case demo.
-- [ ] Add required packages and activities, including browser automation, HTTP Request, JSON deserialization, logging, and any approval/task activities used by the tenant.
-- [ ] Create all variables from `variables-table.md`.
-- [ ] Add browser automation for PO-1001 at `http://localhost:8001/purchase-orders/PO-1001`.
-- [ ] Extract fields from stable HTML IDs on the mock ERP detail page.
-- [ ] Build the triage JSON body from extracted fields.
-- [ ] Call the triage service with `POST http://localhost:8002/triage`.
-- [ ] Parse `triage_result_json`.
-- [ ] Route by `detected_exception_type`.
-- [ ] Implement the `budget_exceeded` route for PO-1001.
-- [ ] Show the PO-1002 lightweight route proof using `vendor_info_missing`.
-- [ ] Add a business human approval step for routes that require approval.
-- [ ] Perform RPA write-back through the legacy ERP UI approval form.
-- [ ] Call the validation service with `POST http://localhost:8004/validate/request-purchase-order-approval`.
-- [ ] Parse `validation_result_json` and set `validation_status`.
-- [ ] Add a trusted tool registration approval placeholder or task.
-- [ ] Call the API facade with `POST http://localhost:8003/api/purchase-orders/PO-1001/approval-request`.
-- [ ] Parse `api_result_json` and set `execution_mode` to `API`.
-- [ ] Build and log `final_case_output_json`.
-- [ ] Capture screenshots for the demo: ERP screen, triage output, routing decision, human approval, validation passed, API mode response, final case output.
+- [ ] Open `uipath-workflows/AgenticErpMvpRpa/project.json`.
+- [ ] Confirm `Main.xaml` is the main workflow.
+- [ ] Confirm `RouteProof_PO1002.xaml` and `RouteProof_PO1003.xaml` are present
+      because they are declared entry points.
+- [ ] Start backend services with `./scripts/dev-start.sh`.
+- [ ] Open `http://localhost:8002/erp/work-queue`.
+- [ ] Confirm the queue selectors exist:
+      `ctl00_MainContent_btnOpenFirstPending`,
+      `ctl00_MainContent_lblQueueEmptyMessage`,
+      `ctl00_MainContent_grdPoWorkQueue`.
+- [ ] Confirm the detail page selectors exist, including
+      `ctl00_MainContent_lblBusinessRemarks`.
+- [ ] Extract ERP order fields: PO number, amount, budget limit, vendor ID,
+      ERP status, exception reason, business remarks.
+- [ ] Build the route request body with `business_remarks` and
+      `agent_context_policy=fetch_enterprise_context_before_decision`.
+- [ ] Call `POST http://localhost:8002/case-intake/route`.
+- [ ] Parse `final_route`, `policy_decision`, `agent_context_used`,
+      `company_context_reference`, `agent_reasoning_summary`,
+      `llm_validation_proof`, and `recommended_erp_action`.
+- [ ] For `WAITING_FOR_HUMAN_APPROVAL`, create `/approvals/create`; do not click
+      an ERP approval submit button.
+- [ ] For `WAITING_VENDOR_INFO`, click
+      `ctl00_MainContent_btnMarkWaitingVendor`.
+- [ ] For `CAPABILITY_GAP_DETECTED`, click
+      `ctl00_MainContent_btnFlagCapabilityGap`.
+- [ ] For `WAITING_MANUAL_INVESTIGATION`, click
+      `ctl00_MainContent_btnSendManualInvestigation`.
+- [ ] For `STANDARD_PROCESSING`, click
+      `ctl00_MainContent_btnMarkStandardProcessed`.
+- [ ] Write Run Memory artifacts and commit the run.
+- [ ] Show `/case-dashboard/{case_id}?run_id=...`,
+      `/simulation/dashboard`, `/approvals/inbox`, and `/proposals/inbox`.
+- [ ] Verify proposals appear only after Pattern Memory reaches threshold.
+- [ ] Verify proposal approval starts Codex handoff only after a human click.

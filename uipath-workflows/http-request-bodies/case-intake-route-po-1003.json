@@ -1,0 +1,13 @@
+{
+  "case_id": "CASE-003",
+  "po_id": "PO-1003",
+  "amount": 8500,
+  "budget_limit": 10000,
+  "vendor_id": "V-118",
+  "vendor_info_complete": true,
+  "inventory_available": false,
+  "erp_status": "Exception",
+  "raw_exception_text": "Inventory shortage",
+  "business_remarks": "Operations note: substitute parts may be available but require supply chain review.",
+  "agent_context_policy": "fetch_enterprise_context_before_decision"
+}

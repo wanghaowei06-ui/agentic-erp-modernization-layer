@@ -10,7 +10,7 @@
   ],
   "latest_run_id": "RUN-DEMO-XAML-SEED-003",
   "case_id": "CASE-DEMO-XAML-PROPOSAL",
-  "status": "CODEX_CLI_RUNNING",
+  "status": "PROPOSAL_CREATED",
   "proposal_status": "PROPOSAL_CREATED",
   "observed_count": 3,
   "threshold": 3,
@@ -19,7 +19,7 @@
   "coding_agent_allowed": "after_approval_only",
   "auto_execution_allowed": false,
   "created_at": "2026-06-30T02:41:01.468Z",
-  "updated_at": "2026-06-30T02:59:59.602Z",
+  "updated_at": "2026-06-30T02:41:01.468Z",
   "evidence_run_ids": [
     "RUN-DEMO-XAML-SEED-001",
     "RUN-DEMO-XAML-SEED-002",
@@ -38,16 +38,14 @@
       "stage": "PROPOSAL_CREATED",
       "timestamp": "2026-06-30T02:41:01.468Z",
       "actor": "demo_seed",
-      "note": "Seeded for recording; no live accumulation required."
+      "note": "Seeded for recording from thresholded Pattern Memory evidence."
     },
     {
-      "stage": "CODEX_CLI_STARTED_BY_HUMAN",
-      "timestamp": "2026-06-30T02:59:59.602Z",
-      "actor": "human_reviewer",
-      "note": "Human approved the proposal and started local Codex CLI. No API deployment, Windows XAML modification, trusted registration, or auto-merge is automatic."
+      "stage": "HUMAN_REVIEW_REQUIRED",
+      "timestamp": "2026-06-30T02:41:01.468Z",
+      "actor": "uipath_governance",
+      "note": "Proposal awaits human approval before Codex CLI handoff."
     }
   ],
-  "codex_prompt": "Generate a new UiPath XAML workflow candidate for inventory shortage handling. Do NOT modify existing Windows XAML files; prepare proposal artifact and draft PR handoff only.",
-  "codex_session_id": "CODEX-PROP-XAML-DEMO-0001-001",
-  "codex_session_url": "/codex/sessions/CODEX-PROP-XAML-DEMO-0001-001"
+  "codex_prompt": "Generate a new UiPath XAML workflow candidate for inventory shortage handling. Do NOT modify existing Windows XAML files; prepare proposal artifact and draft PR handoff only."
 }

@@ -1,0 +1,30 @@
+{
+  "enterprise_context_source": "mock_enterprise_context",
+  "enterprise_context_mode": "local_demo_snapshot",
+  "enterprise_context_provider": "reasoning-agent.company_context_payload",
+  "company": {
+    "name": "Demo Manufacturing Group",
+    "current_quarter": "Q4",
+    "strategic_goals": [
+      "protect strategic customer renewals",
+      "reduce uncontrolled procurement spend",
+      "avoid production stoppage for critical orders"
+    ],
+    "finance_policy": {
+      "budget_exception_threshold": 10000,
+      "requires_manager_approval_above_budget": true,
+      "strict_vendor_compliance": true
+    },
+    "sales_context": {
+      "strategic_accounts_at_risk": [
+        "ACME Retail",
+        "Northwind Energy"
+      ],
+      "quarter_end_revenue_pressure": true
+    },
+    "operations_context": {
+      "inventory_risk_tolerance": "low",
+      "substitute_part_review_required": true
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "case_id": "CASE-002",
+  "po_id": "PO-1002",
+  "scenario": null,
+  "exception_reason": null,
+  "business_remarks": "Buyer left a note: vendor tax profile was requested last week but is not yet attached.",
+  "agent_context_policy": "fetch_enterprise_context_before_decision",
+  "enterprise_context_source": "mock_enterprise_context",
+  "route_agent_mode": "real_llm_with_mock_enterprise_context",
+  "business_action": "handle_vendor_info_missing",
+  "case_type": "exception",
+  "precheck_result": "CLEAR_EXCEPTION",
+  "precheck_decision_source": "deterministic_rule",
+  "agent_required": true,
+  "triage_result": {
+    "case_id": "CASE-002",
+    "po_id": "PO-1002",
+    "detected_exception_type": "vendor_info_missing",
+    "risk_level": "medium",
+    "confidence": 0.91,
+    "recommended_path": "vendor_information_request",
+    "next_action": "request_vendor_information",
+    "requires_human_approval": false,
+    "next_stage": "WAITING_VENDOR_INFO",
+    "reasoning_summary": "Vendor information is missing or incomplete for the purchase order.",
+    "evidence": [
+      {
+        "field": "vendor_id",
+        "value": null,
+        "source": "legacy_erp_screen"
+      },
+      {
+        "field": "vendor_info_complete",
+        "value": false,
+        "source": "legacy_erp_screen"
+      }
+    ],
+    "fallback": "manual_investigation",
+    "decision_source": "deterministic_rule",
+    "business_action": "collect_vendor_information",
+    "required_approval_type": "data_owner_review",
+    "recommended_next_stage": "WAITING_VENDOR_INFO",
+    "capability_lookup_required": true,
+    "guardrail_status": "passed",
+    "memory_references": [
+      {
+        "type": "capability_lookup",
+        "business_action": "collect_vendor_information",
+        "capability_found": false,
+        "capability_id": null,
+        "execution_mode": null,
+        "endpoint": null,
+        "workflow_name": null,
+        "lookup_status": "completed"
+      }
+    ],
+    "correlation_id": "corr_840d0bbb1f8747e4b56d70f1d24aba2c",
+    "schema_version": "1.0"
+  },
+  "detected_exception_type": "vendor_info_missing",
+  "confidence": 0.91,
+  "final_route": "WAITING_VENDOR_INFO",
+  "policy_decision": "WAIT_FOR_BUSINESS_DATA",
+  "next_stage": "WAITING_VENDOR_INFO",
+  "capability_decision": "WAIT_FOR_VENDOR_INFO",
+  "human_required": true,
+  "execution_allowed": false,
+  "auto_modernization_allowed": false,
+  "recommended_uipath_workflow": "RouteProof_PO1002.xaml",
+  "dashboard_url": "http://localhost:8002/case-dashboard/CASE-002",
+  "portfolio_url": "http://localhost:8002/case-portfolio",
+  "reason": "Deterministic exception (vendor_info_missing) routes to WAITING_VENDOR_INFO; capability decision is WAIT_FOR_VENDOR_INFO.",
+  "policy_gate": {
+    "case_id": "CASE-002",
+    "policy_decision": "WAIT_FOR_BUSINESS_DATA",
+    "execution_allowed": false,
+    "allowed_execution_mode": "NONE",
+    "human_required": true,
+    "validation_required": false,
+    "reason": "Vendor information is missing; execution must wait until business data is completed.",
+    "required_gates": [
+      "BUSINESS_DATA_COMPLETION"
+    ],
+    "blocked_actions": [
+      "AUTO_EXECUTE_WITHOUT_DATA",
+      "CAPABILITY_REUSE"
+    ],
+    "audit_required": true
+  },
+  "agent_context_used": true,
+  "company_context_reference": {
+    "finance_policy_used": true,
+    "sales_context_used": true,
+    "operations_context_used": true
+  },
+  "company_context_snapshot": {
+    "enterprise_context_source": "mock_enterprise_context",
+    "enterprise_context_mode": "local_demo_snapshot",
+    "enterprise_context_provider": "reasoning-agent.company_context_payload",
+    "company": {
+      "name": "Demo Manufacturing Group",
+      "current_quarter": "Q4",
+      "strategic_goals": [
+        "protect strategic customer renewals",
+        "reduce uncontrolled procurement spend",
+        "avoid production stoppage for critical orders"
+      ],
+      "finance_policy": {
+        "budget_exception_threshold": 10000,
+        "requires_manager_approval_above_budget": true,
+        "strict_vendor_compliance": true
+      },
+      "sales_context": {
+        "strategic_accounts_at_risk": [
+          "ACME Retail",
+          "Northwind Energy"
+        ],
+        "quarter_end_revenue_pressure": true
+      },
+      "operations_context": {
+        "inventory_risk_tolerance": "low",
+        "substitute_part_review_required": true
+      }
+    }
+  },
+  "agent_reasoning_summary": "The purchase order has an exception due to missing vendor information (vendor_info_complete=false). The triage agent recommended requesting vendor information, and the business remarks confirm that the vendor tax profile was requested but not yet attached. The company's strict vendor compliance policy necessitates complete vendor data before processing. The amount ($6,000) is within the budget limit ($10,000), and inventory is available, so no budget or inventory concerns. The capability lookup for collecting vendor information did not find an existing capability, but the process can proceed by waiting for manual data collection. Hence, the order is routed to wait for vendor information.",
+  "llm_validation_proof": {
+    "agent_runtime": "langgraph",
+    "reasoning_mode": "llm_backed",
+    "llm_enabled": true,
+    "model": "deepseek-v4-flash",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_call_mode": "real",
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-v4-flash",
+    "llm_request_id": "route-284e8587b73e",
+    "llm_latency_ms": 7908,
+    "llm_invocation_verified": true
+  },
+  "recommended_erp_action": {
+    "action_id": "MARK_WAITING_VENDOR",
+    "button_selector_id": "ctl00_MainContent_btnMarkWaitingVendor",
+    "reason": "Vendor compliance data is missing."
+  }
+}

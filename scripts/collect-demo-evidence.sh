@@ -10,7 +10,6 @@ if [[ ! -x "$PYTHON_BIN" ]]; then
 fi
 
 mkdir -p "$OUT_DIR"
-rm -rf "$ROOT_DIR/memory-data"
 
 save_json() {
   local label="$1"
@@ -61,75 +60,76 @@ save_json "Mock ERP health" "health-8001.json" http://localhost:8001/health
 save_json "Reasoning Agent health" "health-8002.json" http://localhost:8002/health
 save_json "Generated API health" "health-8003.json" http://localhost:8003/health
 save_json "Validation Suite health" "health-8004.json" http://localhost:8004/health
-assert_saved_json "Health checks returned ok" "health-8001.json" "body['status'] == 'ok'"
+assert_saved_json "Health checks returned ok" "health-8002.json" "body['status'] == 'ok'"
 
-save_json "Triage PO-1001" "triage-po-1001.json" \
-  -X POST http://localhost:8002/triage \
+save_json "Enterprise context" "company-context.json" http://localhost:8002/company-context
+assert_saved_json "Enterprise context includes finance, sales, operations" "company-context.json" \
+  "body['company']['finance_policy']['requires_manager_approval_above_budget'] is True and body['company']['sales_context']['quarter_end_revenue_pressure'] is True and body['company']['operations_context']['inventory_risk_tolerance'] == 'low'"
+
+save_json "Route PO-1000 deterministic" "case-intake-route-po-1000.json" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1000.json"
+assert_saved_json "PO-1000 is deterministic" "case-intake-route-po-1000.json" \
+  "body['agent_required'] is False and body['precheck_decision_source'] == 'deterministic_rule'"
+
+save_json "Route PO-1001 with enterprise context" "case-intake-route-po-1001.json" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1001.json"
+assert_saved_json "PO-1001 uses agent context and proof" "case-intake-route-po-1001.json" \
+  "body['agent_context_used'] is True and body['company_context_reference']['finance_policy_used'] is True and body['llm_validation_proof']['llm_invocation_verified'] is True and body['recommended_erp_action']['action_id'] == 'CREATE_WEB_APPROVAL_TASK'"
+
+save_json "Route PO-1002 vendor wait" "case-intake-route-po-1002.json" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1002.json"
+save_json "Route PO-1003 capability gap" "case-intake-route-po-1003.json" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1003.json"
+save_json "Route PO-1004 manual investigation" "case-intake-route-po-1004.json" \
+  -X POST http://localhost:8002/case-intake/route \
+  -H "Content-Type: application/json" \
+  -d @"$ROOT_DIR/uipath-workflows/http-request-bodies/case-intake-route-po-1004.json"
+assert_saved_json "PO-1003 remains XAML workflow proposal candidate" "case-intake-route-po-1003.json" \
+  "body['capability_decision'] == 'XAML_WORKFLOW_PROPOSAL'"
+
+save_json "Approval task with agent reasoning" "approval-task-created.json" \
+  -X POST http://localhost:8002/approvals/create \
   -H "Content-Type: application/json" \
   -d '{
-    "case_id": "CASE-001",
+    "case_id": "CASE-EVIDENCE-APPROVAL",
     "po_id": "PO-1001",
     "amount": 18000,
     "budget_limit": 10000,
-    "vendor_id": "V-203",
-    "vendor_info_complete": true,
-    "inventory_available": true,
     "erp_status": "Exception",
-    "raw_exception_text": "Amount exceeds approved budget limit"
+    "raw_exception_text": "Amount exceeds approved budget limit",
+    "business_remarks": "Q4 customer delivery is at risk. Finance asks whether this should be approved due to strategic account impact.",
+    "agent_reasoning_summary": "Agent used finance policy and Q4 renewal pressure before requiring human approval.",
+    "company_context_reference": {
+      "finance_policy_used": true,
+      "sales_context_used": true,
+      "operations_context_used": true
+    },
+    "policy_gate_reason": "Budget exception requires manager approval.",
+    "agent_recommendation": "WAITING_FOR_HUMAN_APPROVAL",
+    "reason": "No ERP approval click is recommended.",
+    "policy_decision": "REQUIRE_HUMAN_APPROVAL",
+    "requested_by": "evidence-pack"
   }'
-assert_saved_json "Triage PO-1001 is budget_exceeded" "triage-po-1001.json" \
-  "body['detected_exception_type'] == 'budget_exceeded'"
+assert_saved_json "Approval task was created" "approval-task-created.json" \
+  "body['status'] == 'PENDING' and body['approval_url'].startswith('/approvals/')"
 
-curl --retry 10 --retry-connrefused --retry-delay 1 -sS \
-  -X POST http://localhost:8001/purchase-orders/PO-1001/request-approval \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  --data-urlencode "case_id=CASE-001" \
-  --data-urlencode "approval_reason=Amount exceeds budget limit" \
-  --data-urlencode "manager_id=MGR-001" \
-  >"$OUT_DIR/rpa-writeback-po-1001.html"
-echo "[OK] RPA write-back HTML"
+save_json "Proposal inbox" "proposals-inbox.json" http://localhost:8002/proposals/inbox?format=json
+assert_saved_json "Proposal inbox has API and XAML proposals" "proposals-inbox.json" \
+  "body['total'] >= 2 and any(p['proposal_type'] == 'API_MODERNIZATION_PROPOSAL' for p in body['proposals']) and any(p['proposal_type'] == 'XAML_WORKFLOW_PROPOSAL' for p in body['proposals'])"
 
-save_json "Generated API approval" "generated-api-approval.json" \
-  -X POST http://localhost:8003/api/purchase-orders/PO-1001-API/approval-request \
-  -H "Content-Type: application/json" \
-  -d '{
-    "approval_reason": "Amount exceeds budget limit",
-    "manager_id": "MGR-001",
-    "source_case_id": "CASE-001"
-  }'
-assert_saved_json "Generated API executed in API mode" "generated-api-approval.json" \
-  "body['execution_mode'] == 'API' and body['status'] == 'PENDING_MANAGER_APPROVAL'"
+save_json "Demo evidence snapshot" "demo-evidence-snapshot.json" http://localhost:8002/demo/evidence-snapshot
+assert_saved_json "Evidence snapshot includes safety boundaries" "demo-evidence-snapshot.json" \
+  "body['safety_boundaries']['no_auto_xaml_modification'] is True and body['safety_boundaries']['no_auto_api_deployment'] is True"
 
-save_json "Validation result" "validation-result.json" \
-  -X POST http://localhost:8004/validate/request-purchase-order-approval \
-  -H "Content-Type: application/json" \
-  -d '{"case_id": "CASE-001"}'
-assert_saved_json "Validation wrote passed result" "validation-result.json" \
-  "body['rpa_api_parity_check'] == 'passed' and body['same_initial_state'] is True"
-
-save_json "Capability gap" "capability-gap-case-003.json" \
-  -X POST http://localhost:8004/capability-gaps/inventory-shortage
-assert_saved_json "Capability gap recorded for CASE-003" "capability-gap-case-003.json" \
-  "body['case_id'] == 'CASE-003' and body['coverage_status'] == 'not_covered'"
-
-save_json "Memory case summary" "memory-case-001.json" \
-  http://localhost:8004/memory/cases/CASE-001
-save_json "Memory timeline" "memory-timeline-case-001.json" \
-  http://localhost:8004/memory/cases/CASE-001/timeline
-assert_saved_json "Memory timeline contains triage/writeback/validation/api" "memory-timeline-case-001.json" \
-  "all(item in {event['event_type'] for event in body['events']} for item in ['TRIAGE_COMPLETED', 'RPA_WRITEBACK_COMPLETED', 'VALIDATION_COMPLETED', 'API_EXECUTION_COMPLETED'])"
-save_json "Memory decisions" "memory-decisions-case-001.json" \
-  http://localhost:8004/memory/decisions/CASE-001
-assert_saved_json "Memory decisions include triage" "memory-decisions-case-001.json" \
-  "any(event['event_type'] == 'TRIAGE_COMPLETED' for event in body['events'])"
-save_json "Memory capabilities" "memory-capabilities.json" \
-  http://localhost:8004/memory/capabilities
-assert_saved_json "Memory capabilities include trusted entries" "memory-capabilities.json" \
-  "len([cap for cap in body['capabilities'] if cap['status'] == 'trusted' and cap['validation_status'] == 'passed']) >= 2"
-save_json "Memory gaps" "memory-gaps.json" \
-  http://localhost:8004/memory/gaps
-assert_saved_json "Memory gaps include capability gap event" "memory-gaps.json" \
-  "any(gap['event_type'] == 'CAPABILITY_GAP_RECORDED' for gap in body['gaps'])"
+save_json "Simulation state" "simulation-state.json" http://localhost:8002/simulation/state
 
 COMMIT_SHA="$(git -C "$ROOT_DIR" rev-parse --short HEAD 2>/dev/null || echo "unknown")"
 COMMIT_STATUS="$(git -C "$ROOT_DIR" status --short 2>/dev/null || true)"
@@ -154,33 +154,35 @@ evidence_files = sorted(
 manifest = {
     "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     "commit_sha": commit_sha,
-    "release_candidate": "hard-mvp-automation-memory-rc1",
+    "demo_track": "rpa_first_erp_worker_enterprise_context",
     "service_ports": {
         "mock_legacy_erp": 8001,
         "reasoning_agent": 8002,
         "generated_api_facade": 8003,
-        "validation_suite": 8004,
+        "validation_suite": 8004
     },
-    "smoke_test_status": "passed_by_latest_smoke_test_required",
-    "pytest_summary": "run make demo-check or individual pytest commands before submission",
-    "demo_case_id": "CASE-001",
-    "primary_po_id": "PO-1001",
-    "capability_gap_case_id": "CASE-003",
-    "capability_gap_po_id": "PO-1003",
-    "memory_events_expected": [
-        "TRIAGE_COMPLETED",
-        "RPA_WRITEBACK_COMPLETED",
-        "VALIDATION_COMPLETED",
-        "API_EXECUTION_COMPLETED",
+    "primary_entry_points": [
+        "GET http://localhost:8002/erp/work-queue",
+        "GET http://localhost:8002/company-context",
+        "POST http://localhost:8002/case-intake/route",
+        "GET http://localhost:8002/simulation/dashboard",
+        "GET http://localhost:8002/proposals/inbox"
     ],
-    "memory_query_urls": [
-        "http://localhost:8004/memory/cases/CASE-001",
-        "http://localhost:8004/memory/cases/CASE-001/timeline",
-        "http://localhost:8004/memory/decisions/CASE-001",
-        "http://localhost:8004/memory/capabilities",
-        "http://localhost:8004/memory/gaps",
+    "canonical_cases": [
+        "PO-1000 standard deterministic path",
+        "PO-1001 budget exception with enterprise context and web approval",
+        "PO-1002 vendor data wait",
+        "PO-1003 inventory shortage capability gap / XAML proposal candidate",
+        "PO-1004 ambiguous manual investigation"
     ],
-    "evidence_files": evidence_files,
+    "proposal_threshold": 3,
+    "safety_boundaries": [
+        "no automatic Codex call before human proposal approval",
+        "no automatic API deployment",
+        "no automatic trusted capability registration",
+        "no automatic Windows XAML modification"
+    ],
+    "evidence_files": evidence_files
 }
 
 with open(out_dir / "manifest.json", "w", encoding="utf-8") as handle:

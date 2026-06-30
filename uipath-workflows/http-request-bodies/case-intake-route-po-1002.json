@@ -1,0 +1,13 @@
+{
+  "case_id": "CASE-002",
+  "po_id": "PO-1002",
+  "amount": 6000,
+  "budget_limit": 10000,
+  "vendor_id": null,
+  "vendor_info_complete": false,
+  "inventory_available": true,
+  "erp_status": "Exception",
+  "raw_exception_text": "Vendor information missing",
+  "business_remarks": "Buyer left a note: vendor tax profile was requested last week but is not yet attached.",
+  "agent_context_policy": "fetch_enterprise_context_before_decision"
+}

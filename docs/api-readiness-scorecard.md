@@ -1,6 +1,10 @@
 # API Readiness Scorecard
 
-This deterministic demo score estimates whether the `request_purchase_order_approval` action is a good candidate for a validated API facade.
+The API readiness score is now supporting evidence for proposal review, not the
+main trigger by itself. The current trigger is repeated Run Memory reaching the
+Pattern Memory threshold.
+
+For the seeded CAPEX budget exception proposal, the readiness factors are:
 
 | Factor | Score |
 | --- | ---: |
@@ -10,8 +14,7 @@ This deterministic demo score estimates whether the `request_purchase_order_appr
 | ui_fragility | 0.76 |
 | final score | 86 |
 
-The score supports the demo decision to validate this action as a trusted-tool candidate. It is not a production readiness assessment.
-
-`risk_level` from the triage service controls approvals and validation strictness in the UiPath-governed case. It does not control the readiness score.
-
-The enhanced scorecard also exposes the weighted formula. The deterministic demo final score remains 86 for consistency with the evidence pack.
+The score helps reviewers understand why a repeated approval process could be a
+good API modernization candidate. It is not a production readiness assessment,
+and it does not bypass human approval, validation, deployment review, or trusted
+capability registration.

@@ -1,47 +1,46 @@
-# Enhanced Demo Element IDs
+# Demo Evidence Page IDs And URLs
 
-These IDs support UiPath screenshots and demo evidence capture. They do not imply Python owns case orchestration.
+These pages support screenshots and review. They do not replace UiPath
+orchestration.
+
+## Primary Pages
+
+- ERP Work Queue: `http://localhost:8002/erp/work-queue`
+- Agent Context Trace: `http://localhost:8002/demo/agent-context-trace`
+- Pattern Memory Dashboard: `http://localhost:8002/simulation/dashboard`
+- Approval Inbox: `http://localhost:8002/approvals/inbox`
+- Proposal Inbox: `http://localhost:8002/proposals/inbox`
+- Company Context API: `http://localhost:8002/company-context`
 
 ## Case Dashboard
 
-- `case-dashboard`
-- `case-001-card`
-- `case-001-stage`
-- `case-001-execution-mode`
-- `case-001-validation-status`
-- `case-001-trusted-tool-status`
-- `case-002-card`
-- `case-003-card`
+Use:
 
-## Case Timeline
+```text
+http://localhost:8002/case-dashboard/CASE-DEMO-AGENT-CONTEXT?run_id=RUN-DEMO-AGENT-CONTEXT-001
+```
 
-- `case-timeline`
-- `timeline-case-created`
-- `timeline-rpa-extracted`
-- `timeline-agent-classified`
-- `timeline-human-approved`
-- `timeline-rpa-writeback`
-- `timeline-validation-passed`
-- `timeline-tool-registered`
-- `timeline-api-mode-executed`
+The page shows:
 
-## API Readiness Scorecard
+- ERP order fields
+- business remarks
+- company context used
+- agent decision
+- policy gate
+- UiPath RPA action
+- memory commit
+- pattern update
 
-- `api-readiness-scorecard`
-- `readiness-final-score`
-- `readiness-frequency`
-- `readiness-business-value`
-- `readiness-field-stability`
-- `readiness-ui-fragility`
-- `readiness-risk-level`
-- `readiness-parity-status`
+## Proposal / Codex Evidence
 
-## Tool Registry
+Use:
 
-- `tool-registry`
-- `tool-request-po-approval`
-- `tool-request-po-approval-status`
-- `tool-request-po-approval-validation`
-- `tool-request-po-approval-registration`
-- `tool-vendor-info-status`
-- `tool-inventory-status`
+```text
+http://localhost:8002/proposals/inbox
+http://localhost:8002/codex/sessions/CODEX-PROP-API-DEMO-0001-001
+http://localhost:8002/codex/sessions/CODEX-PROP-XAML-DEMO-0001-001
+```
+
+The Codex session page can show either a demo mock stream or real local Codex
+CLI mode, depending on environment settings. It starts only after a human
+approves a proposal.

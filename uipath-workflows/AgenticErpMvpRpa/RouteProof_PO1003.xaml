@@ -1,0 +1,1865 @@
+﻿<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:uwah="clr-namespace:UiPath.Web.Activities.Http;assembly=UiPath.Web.Activities" xmlns:uwahm="clr-namespace:UiPath.Web.Activities.Http.Models;assembly=UiPath.Web.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Models</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Platform.ObjectLibrary</x:String>
+      <x:String>UiPath.Platform.SyncObjects</x:String>
+      <x:String>UiPath.UIAutomationNext.Activities.Models</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Linq.Expressions</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>UiPath.Web.Activities.Http.Models</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPath.Platform.ResourceHandling</x:String>
+      <x:String>UiPath.Web.Activities.Http</x:String>
+      <x:String>UiPath.Sdk.Activities</x:String>
+      <x:String>UiPath.Sdk.Activities.DependencyInjection.Contracts</x:String>
+      <x:String>UiPath.Sdk.Activities.DependencyInjection</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Drawing.Common</AssemblyReference>
+      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.CodeDom</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Forms</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Net.HttpListener</AssemblyReference>
+      <AssemblyReference>System.Net.WebProxy</AssemblyReference>
+      <AssemblyReference>System.Net.NameResolution</AssemblyReference>
+      <AssemblyReference>System.Net.WebHeaderCollection</AssemblyReference>
+      <AssemblyReference>System.Net.WebClient</AssemblyReference>
+      <AssemblyReference>System.Net.Requests</AssemblyReference>
+      <AssemblyReference>System.Net.ServicePoint</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Linq.Async</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="639.6,3278.4" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="routeMessage" />
+      <Variable x:TypeArguments="x:String" Name="caseTimelineLog" />
+      <Variable x:TypeArguments="x:String" Name="finalTimelineLog" />
+      <Variable x:TypeArguments="x:String" Name="finalValidationTimelineLog" />
+      <Variable x:TypeArguments="x:String" Name="finalCaseDecision" />
+      <Variable x:TypeArguments="x:String" Name="finalIssue7TimelineLog" />
+      <Variable x:TypeArguments="x:String" Name="finalIssue7Decision" />
+      <Variable x:TypeArguments="x:String" Name="apiModeMessage" />
+      <Variable x:TypeArguments="x:String" Name="apiModeExecutionStatus" />
+      <Variable x:TypeArguments="x:String" Name="apiModeResponseJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="apiModeHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="apiModeRequestJson" />
+      <Variable x:TypeArguments="x:String" Name="toolRegistrationResponseJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="toolRegistrationHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="toolRegistrationRequestJson" />
+      <Variable x:TypeArguments="x:String" Name="toolRegistrationMessage" />
+      <Variable x:TypeArguments="x:String" Name="toolRegistrationStatus" />
+      <Variable x:TypeArguments="x:String" Name="toolRegistrationDecision" />
+      <Variable x:TypeArguments="x:Boolean" Name="toolRegistrationApprovalRequired" />
+      <Variable x:TypeArguments="x:String" Name="validationMessage" />
+      <Variable x:TypeArguments="x:String" Name="validationStatus" />
+      <Variable x:TypeArguments="x:Boolean" Name="validationPassed" />
+      <Variable x:TypeArguments="x:String" Name="validationResponseJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="validationHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="validationRequestJson" />
+      <Variable x:TypeArguments="x:String" Name="capabilityGapProposalRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="capabilityGapProposalHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="capabilityGapProposalResponseJson" />
+      <Variable x:TypeArguments="x:String" Name="capabilityGapProposalMessage" />
+      <Variable x:TypeArguments="x:String" Name="capabilityEvolutionRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="capabilityEvolutionHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="capabilityEvolutionResponseJson" />
+      <Variable x:TypeArguments="x:String" Name="capabilityEvolutionDecision" />
+      <Variable x:TypeArguments="x:String" Name="capabilityEvolutionMessage" />
+      <Variable x:TypeArguments="x:String" Name="modernizationReadinessRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="modernizationReadinessHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="modernizationReadinessResponseJson" />
+      <Variable x:TypeArguments="x:String" Name="modernizationPlanRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="modernizationPlanHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="modernizationPlanResponseJson" />
+      <Variable x:TypeArguments="x:Boolean" Name="readinessLlmGatePassed" />
+      <Variable x:TypeArguments="x:Boolean" Name="planLlmGatePassed" />
+      <Variable x:TypeArguments="x:Boolean" Name="allAgentLlmGatesPassed" />
+      <Variable x:TypeArguments="x:String" Name="agentLlmGateMessage" />
+      <Variable x:TypeArguments="x:String" Name="memoryWriteApiKey" />
+      <Variable x:TypeArguments="x:String" Name="postWriteBackStatusText" />
+      <Variable x:TypeArguments="x:String" Name="writeBackMessage" />
+      <Variable x:TypeArguments="x:String" Name="writeBackStatus" />
+      <Variable x:TypeArguments="x:Boolean" Name="writeBackRequired" />
+      <Variable x:TypeArguments="x:String" Name="approvalMessage" />
+      <Variable x:TypeArguments="x:String" Name="approvalStatus" />
+      <Variable x:TypeArguments="x:String" Name="approvalDecision" />
+      <Variable x:TypeArguments="x:String" Name="approvalWebhookRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="approvalWebhookHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="approvalWebhookResponseJson" />
+      <Variable x:TypeArguments="x:Boolean" Name="humanApprovalRequired" />
+      <Variable x:TypeArguments="x:String" Name="nextStage" />
+      <Variable x:TypeArguments="x:String" Name="detectedExceptionType" />
+      <Variable x:TypeArguments="x:String" Name="triageResponseJson" />
+      <Variable x:TypeArguments="x:String" Name="triageRequestJson" />
+      <Variable x:TypeArguments="x:String" Name="poId" />
+      <Variable x:TypeArguments="x:String" Name="amountText" />
+      <Variable x:TypeArguments="x:String" Name="budgetLimitText" />
+      <Variable x:TypeArguments="x:String" Name="statusText" />
+      <Variable x:TypeArguments="x:String" Name="exceptionText" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="triageHttpResult" />
+          <Variable x:TypeArguments="x:String" Name="currentRunId" />
+      <Variable x:TypeArguments="x:String" Name="memoryRunStartRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="memoryRunStartHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="memoryRunStartResponseJson" />
+      <Variable x:TypeArguments="x:String" Name="memoryEventRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="memoryEventHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="memoryArtifactRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="memoryArtifactHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="memoryCompleteRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="memoryCompleteHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="memoryCommitRequestJson" />
+      <Variable x:TypeArguments="uwahm:HttpResponseSummary" Name="memoryCommitHttpResult" />
+      <Variable x:TypeArguments="x:String" Name="memoryCommitResponseJson" />
+      <Variable x:TypeArguments="x:String" Name="memoryCommitStatus" />
+      <Variable x:TypeArguments="x:String" Name="memoryCommitDecision" />
+      <Variable x:TypeArguments="x:String" Name="runDashboardUrl" /></Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign DisplayName="Load memory write API key" sap2010:WorkflowViewState.IdRef="Assign_120">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryWriteApiKey]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[Environment.GetEnvironmentVariable("MEMORY_WRITE_API_KEY")]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Sequence DisplayName="Run Memory - Start">
+    <Assign DisplayName="Build memory run start request">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryRunStartRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""po_id"":""PO-1003"",""workflow_name"":""RouteProof_PO1003.xaml"",""source"":""uipath"",""demo_mode"":true}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Start run memory" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="http://localhost:8002/memory/runs/start" Result="[memoryRunStartHttpResult]" TextPayload="[memoryRunStartRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Read memory run start response">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryRunStartResponseJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(memoryRunStartHttpResult Is Nothing, "", memoryRunStartHttpResult.TextContent)]</InArgument>
+      </Assign.Value>
+    </Assign>    <Assign DisplayName="Parse current run id">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[currentRunId]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(memoryRunStartResponseJson.Contains("run_id"), System.Text.RegularExpressions.Regex.Match(memoryRunStartResponseJson, """run_id""\s*:\s*""([^""]+)""").Groups(1).Value, "")]</InArgument>
+      </Assign.Value>
+    </Assign>    <Assign DisplayName="Set run dashboard URL">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[runDashboardUrl]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(System.String.IsNullOrWhiteSpace(currentRunId), "http://localhost:8002/case-dashboard/CASE-003", "http://localhost:8002/case-dashboard/CASE-003?run_id=" + currentRunId)]</InArgument>
+      </Assign.Value>
+    </Assign>    <Assign DisplayName="Default memory commit status">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitStatus]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["SKIPPED"]</InArgument>
+      </Assign.Value>
+    </Assign>    <Assign DisplayName="Default memory commit decision">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitDecision]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["not_committed"]</InArgument>
+      </Assign.Value>
+    </Assign>    </Sequence>    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome Mock Legacy ERP" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="555.2,1068.8" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" ScopeGuid="3a708253-c8c3-4758-a39e-c2a760ffbaa5" Version="V2">
+      <uix:NApplicationCard.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Execute" sap:VirtualizedContainerService.HintSize="484.8,865.6" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="variable1" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <uix:NGetText DisplayName="Get Text PO Number" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,142.4" sap2010:WorkflowViewState.IdRef="NGetText_1" ScopeIdentifier="3a708253-c8c3-4758-a39e-c2a760ffbaa5" TextString="[poId]" Version="V5">
+              <uix:NGetText.Target>
+                <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003" DesignTimeRectangle="568, 384, 57, 23" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='ctl00_MainContent_lblPoNumber' tag='SPAN' /&gt;" Guid="123fb13e-4b8e-4a5b-87a6-ffd4696b91a2" InformativeScreenshot="5362b14a5b23caaaba439d8e058a1aac.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="Selector" Version="V6" />
+              </uix:NGetText.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NGetText>
+            <uix:NGetText DisplayName="Get Text Amount" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,142.4" sap2010:WorkflowViewState.IdRef="NGetText_2" ScopeIdentifier="3a708253-c8c3-4758-a39e-c2a760ffbaa5" TextString="[amountText]" Version="V5">
+              <uix:NGetText.Target>
+                <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003" DesignTimeRectangle="568, 423, 41, 23" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='ctl00_MainContent_lblAmount' tag='SPAN' /&gt;" Guid="04e30ce3-8762-462e-9c4b-104281f68b1a" InformativeScreenshot="50f00a13c95839775328ae2d2604049b.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="Selector" Version="V6" />
+              </uix:NGetText.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NGetText>
+            <uix:NGetText DisplayName="Get Text Budget Limit" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,56.8" sap2010:WorkflowViewState.IdRef="NGetText_3" ScopeIdentifier="3a708253-c8c3-4758-a39e-c2a760ffbaa5" TextString="[budgetLimitText]" Version="V5">
+              <uix:NGetText.Target>
+                <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003" DesignTimeRectangle="1340, 423, 41, 23" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='ctl00_MainContent_lblBudgetLimit' tag='SPAN' /&gt;" Guid="5e557478-333c-4530-8b87-92db958738e0" InformativeScreenshot="b737bfc3df69fb725eafc67a4bd64afd.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="Selector" Version="V6" />
+              </uix:NGetText.Target>
+            </uix:NGetText>
+            <uix:NGetText DisplayName="Get Text ERP Status" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,142.4" sap2010:WorkflowViewState.IdRef="NGetText_4" ScopeIdentifier="3a708253-c8c3-4758-a39e-c2a760ffbaa5" TextString="[statusText]" Version="V5">
+              <uix:NGetText.Target>
+                <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003" DesignTimeRectangle="1340, 384, 74, 23" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='ctl00_MainContent_lblStatus' tag='SPAN' /&gt;" Guid="333c6ea4-94c4-4757-9e49-73203f6e1e73" InformativeScreenshot="a121af70bdc5ac2d18b281af44b7a660.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="Selector" Version="V6" />
+              </uix:NGetText.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NGetText>
+            <uix:NGetText DisplayName="Get Text Exception Reason" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="451.2,142.4" sap2010:WorkflowViewState.IdRef="NGetText_5" ScopeIdentifier="3a708253-c8c3-4758-a39e-c2a760ffbaa5" TextString="[exceptionText]" Version="V5">
+              <uix:NGetText.Target>
+                <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003" DesignTimeRectangle="568, 674, 503, 87" ElementType="InputBox" ElementVisibilityArgument="Interactive" FuzzySelectorArgument="&lt;webctrl aria-label='approval request form' tag='TABLE' matching:aria-label='fuzzy' fuzzylevel:aria-label='0.0' /&gt;&lt;webctrl name='approval_reason' type='' tag='TEXTAREA' class='' aaname='Approval Reason' matching:name='fuzzy' fuzzylevel:name='0.0' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' /&gt;" Guid="3bd95c18-8711-4655-ba58-0f3b44a5f54a" InformativeScreenshot="73ec1c3168bf335eba6573615f067241.jpg" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="FuzzySelector" Version="V6">
+                  <uix:TargetAnchorable.Anchors>
+                    <scg:List x:TypeArguments="uix:ITarget" Capacity="4">
+                      <uix:Target DesignTimeRectangle="337, 674, 213, 20" ElementType="Text" FuzzySelectorArgument="&lt;webctrl aria-label='approval request form' tag='TABLE' matching:aria-label='fuzzy' fuzzylevel:aria-label='0.0' /&gt;&lt;webctrl type='' tag='LABEL' class='' aaname='Approval Reason' matching:class='fuzzy' fuzzylevel:class='0.0' matching:aaname='fuzzy' fuzzylevel:aaname='0.0' check:innerText='Approval Reason' /&gt;" Guid="4719c3e3-cf5d-4ef3-8907-eb9896c96a71" SearchSteps="FuzzySelector" />
+                    </scg:List>
+                  </uix:TargetAnchorable.Anchors>
+                </uix:TargetAnchorable>
+              </uix:NGetText.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NGetText>
+            <If Condition="[poId.Trim = &quot;PO-1003&quot;]" DisplayName="Validate PO-1003 page" sap:VirtualizedContainerService.HintSize="451.2,179.2" sap2010:WorkflowViewState.IdRef="If_6">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If.Then>
+                <Sequence DisplayName="PO-1003 triage and route" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Assign" sap:VirtualizedContainerService.HintSize="416,174.4" sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[triageRequestJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["{""case_id"":""" + If(poId.Trim = "PO-1003", "CASE-003", "CASE-003") + """,""po_id"":""" + poId.Trim + """,""amount"":" + amountText.Trim + ",""budget_limit"":" + budgetLimitText.Trim + ",""vendor_id"":""" + If(poId.Trim = "PO-1003", "V-204", "V-203") + """,""vendor_info_complete"":true,""inventory_available"":" + If(poId.Trim = "PO-1003", "false", "true") + ",""erp_status"":""" + statusText.Trim + """,""raw_exception_text"":""" + exceptionText.Trim + """}"]</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                    <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="HTTP Request Triage Agent" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" FormDataParts="[New List (Of FormDataPart) From _&#xA;{&#xA;&#x9;New FileFormDataPart(),&#xA;&#x9;New BinaryFormDataPart(),&#xA;&#x9;New TextFormDataPart()&#xA;}]" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" sap:VirtualizedContainerService.HintSize="416,432.8" sap2010:WorkflowViewState.IdRef="NetHttpRequest_1" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8002/triage" Result="[triageHttpResult]" RetryCount="3" RetryPolicyType="Basic" RetryStatusCodes="[New List (Of System.Net.HttpStatusCode) From _&#xA;{&#xA;&#x9;System.Net.HttpStatusCode.RequestTimeout,&#xA;&#x9;System.Net.HttpStatusCode.TooManyRequests,&#xA;&#x9;System.Net.HttpStatusCode.InternalServerError,&#xA;&#x9;System.Net.HttpStatusCode.BadGateway,&#xA;&#x9;System.Net.HttpStatusCode.ServiceUnavailable,&#xA;&#x9;System.Net.HttpStatusCode.GatewayTimeout&#xA;}]" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[triageRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+                    <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                      <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                        <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="10000" />
+                      </InArgument>
+                    </uwah:NetHttpRequest.TimeoutInMiliseconds>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </uwah:NetHttpRequest>
+                  <Assign DisplayName="Assign" sap:VirtualizedContainerService.HintSize="416,165.6" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[triageResponseJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[triageHttpResult.TextContent]</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                  <If Condition="[triageResponseJson.Contains(&quot;detected_exception_type&quot;) AndAlso triageResponseJson.Contains(&quot;budget_exceeded&quot;)]" DisplayName="If budget_exceeded" sap2010:WorkflowViewState.IdRef="If_1">
+                    <If.Then>
+                      <Sequence DisplayName="Budget exceeded route" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                        <Assign DisplayName="Set detected exception type" sap2010:WorkflowViewState.IdRef="Assign_3">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[detectedExceptionType]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["budget_exceeded"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set next stage" sap2010:WorkflowViewState.IdRef="Assign_4">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[nextStage]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["WAITING_FOR_HUMAN_APPROVAL"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set route message" sap2010:WorkflowViewState.IdRef="Assign_5">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[routeMessage]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Route selected: budget_exceeded -&gt; WAITING_FOR_HUMAN_APPROVAL"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <If Condition="[triageResponseJson.Contains(&quot;detected_exception_type&quot;) AndAlso triageResponseJson.Contains(&quot;vendor_info_missing&quot;)]" DisplayName="If vendor_info_missing" sap2010:WorkflowViewState.IdRef="If_2">
+                        <If.Then>
+                          <Sequence DisplayName="Vendor info missing route" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                            <Assign DisplayName="Set detected exception type" sap2010:WorkflowViewState.IdRef="Assign_6">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[detectedExceptionType]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["vendor_info_missing"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set next stage" sap2010:WorkflowViewState.IdRef="Assign_7">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[nextStage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["WAITING_VENDOR_INFO"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set route message" sap2010:WorkflowViewState.IdRef="Assign_8">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[routeMessage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Route selected: vendor_info_missing -&gt; WAITING_VENDOR_INFO"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <If Condition="[triageResponseJson.Contains(&quot;detected_exception_type&quot;) AndAlso triageResponseJson.Contains(&quot;inventory_shortage&quot;)]" DisplayName="If inventory_shortage" sap2010:WorkflowViewState.IdRef="If_130">
+                            <If.Then>
+                              <Sequence DisplayName="Capability gap route" sap2010:WorkflowViewState.IdRef="Sequence_130">
+                                <Assign DisplayName="Set detected exception type inventory shortage" sap2010:WorkflowViewState.IdRef="Assign_130">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[detectedExceptionType]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["inventory_shortage"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set next stage capability gap" sap2010:WorkflowViewState.IdRef="Assign_131">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[nextStage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["CAPABILITY_GAP_DETECTED"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Build capability evolution request PO1003" sap2010:WorkflowViewState.IdRef="Assign_230">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[capabilityEvolutionRequestJson]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""po_id"":""PO-1003"",""exception_type"":""inventory_shortage"",""business_action"":""request_inventory_review""}"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Capability Evolution Evaluate PO1003" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_230" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8002/capability-evolution/decision" Result="[capabilityEvolutionHttpResult]" RetryCount="1" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[capabilityEvolutionRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+                                  <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                                    <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                                      <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="15000" />
+                                    </InArgument>
+                                  </uwah:NetHttpRequest.TimeoutInMiliseconds>
+                                </uwah:NetHttpRequest>
+                                <If Condition="[capabilityEvolutionHttpResult IsNot Nothing]" DisplayName="If capability evolution PO1003 returned response" sap2010:WorkflowViewState.IdRef="If_230">
+                                  <If.Then>
+                                    <Assign DisplayName="Read capability evolution PO1003 response" sap2010:WorkflowViewState.IdRef="Assign_231">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[capabilityEvolutionResponseJson]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[capabilityEvolutionHttpResult.TextContent]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </If.Then>
+                                  <If.Else>
+                                    <Assign DisplayName="Set empty capability evolution PO1003 response" sap2010:WorkflowViewState.IdRef="Assign_232">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[capabilityEvolutionResponseJson]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </If.Else>
+                                </If>
+                                <Assign DisplayName="Set capability evolution PO1003 decision" sap2010:WorkflowViewState.IdRef="Assign_233">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[capabilityEvolutionDecision]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[If(String.IsNullOrWhiteSpace(capabilityEvolutionResponseJson), "XAML_WORKFLOW_PROPOSAL", If(capabilityEvolutionResponseJson.Contains("XAML_WORKFLOW_PROPOSAL"), "XAML_WORKFLOW_PROPOSAL", If(capabilityEvolutionResponseJson.Contains("KEEP_RPA_MODE"), "KEEP_RPA_MODE", If(capabilityEvolutionResponseJson.Contains("MANUAL_INVESTIGATION"), "MANUAL_INVESTIGATION", "XAML_WORKFLOW_PROPOSAL"))))]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set capability evolution PO1003 message" sap2010:WorkflowViewState.IdRef="Assign_234">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[capabilityEvolutionMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[If(String.IsNullOrWhiteSpace(capabilityEvolutionResponseJson), "Capability Evolution endpoint unavailable; showing XAML workflow proposal fallback.", "Capability Evolution Decision: " + capabilityEvolutionDecision)]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Build capability gap proposal request" sap2010:WorkflowViewState.IdRef="Assign_132">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[capabilityGapProposalRequestJson]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""po_id"":""" + poId.Trim + """,""detected_exception_type"":""inventory_shortage"",""required_business_action"":""request_inventory_review"",""available_capabilities"":[""request_purchase_order_approval""]}"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Capability Gap Proposal Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_130" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8002/capability-gap/proposal" Result="[capabilityGapProposalHttpResult]" RetryCount="3" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[capabilityGapProposalRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+                                  <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                                    <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                                      <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="60000" />
+                                    </InArgument>
+                                  </uwah:NetHttpRequest.TimeoutInMiliseconds>
+                                </uwah:NetHttpRequest>
+                                <If Condition="[capabilityGapProposalHttpResult IsNot Nothing]" DisplayName="If capability gap proposal returned response" sap2010:WorkflowViewState.IdRef="If_131">
+                                  <If.Then>
+                                    <Assign DisplayName="Read capability gap proposal response" sap2010:WorkflowViewState.IdRef="Assign_133">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[capabilityGapProposalResponseJson]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">[capabilityGapProposalHttpResult.TextContent]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </If.Then>
+                                </If>
+                                <Assign DisplayName="Set capability gap proposal message" sap2010:WorkflowViewState.IdRef="Assign_134">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[capabilityGapProposalMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["Capability Gap Proposal Result:" + vbCrLf + capabilityGapProposalResponseJson]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set route message capability gap" sap2010:WorkflowViewState.IdRef="Assign_135">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[routeMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["Route selected: inventory_shortage -&gt; CAPABILITY_GAP_DETECTED" + vbCrLf + "No trusted workflow/API found; capability gap proposal required." + vbCrLf + capabilityGapProposalMessage]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                          <Sequence DisplayName="Unknown exception route" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                            <Assign DisplayName="Set detected exception type" sap2010:WorkflowViewState.IdRef="Assign_9">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[detectedExceptionType]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["unknown_exception"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set next stage" sap2010:WorkflowViewState.IdRef="Assign_10">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[nextStage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["WAITING_MANUAL_INVESTIGATION"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set route message" sap2010:WorkflowViewState.IdRef="Assign_11">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[routeMessage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["Route selected: unknown_exception -&gt; WAITING_MANUAL_INVESTIGATION"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                            </If.Else>
+                          </If>
+                        </If.Else>
+                      </If>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Stop non-PO-1003 data" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Set detected exception type mismatch" sap2010:WorkflowViewState.IdRef="Assign_23">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[detectedExceptionType]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["po_id_mismatch"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set next stage stopped" sap2010:WorkflowViewState.IdRef="Assign_24">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[nextStage]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["STOPPED_BEFORE_TRIAGE"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Clear triage response" sap2010:WorkflowViewState.IdRef="Assign_25">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[triageResponseJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set route blocked message" sap2010:WorkflowViewState.IdRef="Assign_26">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[routeMessage]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Route blocked: Main expected PO-1003 but extracted " + poId + ". Open http://localhost:8001/purchase-orders/PO-1003 and rerun."]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </uix:NApplicationCard.Body>
+      <uix:NApplicationCard.OCREngine>
+        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+          <ActivityFunc.Argument>
+            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+          </ActivityFunc.Argument>
+        </ActivityFunc>
+      </uix:NApplicationCard.OCREngine>
+      <uix:NApplicationCard.TargetApp>
+        <uix:TargetApp Area="-9, -9, 1938, 1038" BrowserType="Chrome" IconBase64="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" InformativeScreenshot="c421b582580921e151fd1bac59bd1890.jpg" Selector="&lt;html app='chrome.exe' title='Mock Legacy ERP' /&gt;" Url="http://localhost:8001/purchase-orders/PO-1003" Version="V3">
+          <uix:TargetApp.Arguments>
+            <InArgument x:TypeArguments="x:String" />
+          </uix:TargetApp.Arguments>
+          <uix:TargetApp.WorkingDirectory>
+            <InArgument x:TypeArguments="x:String" />
+          </uix:TargetApp.WorkingDirectory>
+        </uix:TargetApp>
+      </uix:NApplicationCard.TargetApp>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </uix:NApplicationCard>
+    <Assign DisplayName="Set human approval required" sap:VirtualizedContainerService.HintSize="555.2,56.8" sap2010:WorkflowViewState.IdRef="Assign_12">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[humanApprovalRequired]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If Condition="[humanApprovalRequired]" DisplayName="If human approval required" sap:VirtualizedContainerService.HintSize="555.2,2129.6" sap2010:WorkflowViewState.IdRef="If_3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <If.Then>
+        <Sequence DisplayName="Business Human Approval" sap:VirtualizedContainerService.HintSize="553.6,1887.2" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Business Human Approval Input" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Label="[&quot;Case ID: CASE-003&quot; + vbCrLf + &quot;PO ID: &quot; + poId + vbCrLf + &quot;Amount: &quot; + amountText + vbCrLf + &quot;Budget Limit: &quot; + budgetLimitText + vbCrLf + &quot;Status: &quot; + statusText + vbCrLf + &quot;Exception: &quot; + exceptionText + vbCrLf + &quot;detected_exception_type: &quot; + detectedExceptionType + vbCrLf + &quot;next_stage: &quot; + nextStage + vbCrLf + &quot;instruction: type APPROVE or REJECT&quot;]" Title="Business Human Approval - PO Budget Exception" TopMost="False">
+            <ui:InputDialog.Result>
+              <OutArgument x:TypeArguments="x:String">[approvalDecision]</OutArgument>
+            </ui:InputDialog.Result>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:InputDialog>
+          <Assign DisplayName="Normalize approval decision" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="Assign_13">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[approvalDecision]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[approvalDecision.Trim.ToUpperInvariant]</InArgument>
+            </Assign.Value>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Assign>
+          <If Condition="[approvalDecision = &quot;APPROVE&quot;]" DisplayName="If approved" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="If_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence DisplayName="Approved path" sap:VirtualizedContainerService.HintSize="449.6,221.6" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign DisplayName="Set approval status approved" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="Assign_14">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[approvalStatus]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["APPROVED"]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <Assign DisplayName="Set approval message approved" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="Assign_15">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[approvalMessage]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["Human Approval Result: APPROVED" + vbCrLf + "Next stage: RPA_WRITE_BACK_TO_LEGACY_ERP"]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <Assign DisplayName="Set approval timeline approved" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="Assign_16">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[caseTimelineLog]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; Ready for RPA Write-back"]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <If Condition="[approvalDecision = &quot;REJECT&quot;]" DisplayName="If rejected" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="If_5">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Sequence DisplayName="Rejected path" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Set approval status rejected" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="Assign_17">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[approvalStatus]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["REJECTED"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Set approval message rejected" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="Assign_18">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[approvalMessage]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["Human Approval Result: REJECTED" + vbCrLf + "Case stopped before ERP write-back."]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Set approval timeline rejected" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="Assign_19">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[caseTimelineLog]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Rejected -&gt; Case stopped"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence DisplayName="Invalid decision path" sap:VirtualizedContainerService.HintSize="449.6,24.8" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Set approval status invalid" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="Assign_20">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[approvalStatus]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["INVALID_DECISION"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Set approval message invalid" sap:VirtualizedContainerService.HintSize="416,56.8" sap2010:WorkflowViewState.IdRef="Assign_21">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[approvalMessage]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["Invalid approval decision. Please enter APPROVE or REJECT."]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign DisplayName="Set approval timeline invalid" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="Assign_22">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[caseTimelineLog]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Invalid decision"]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </If.Else>
+              </If>
+            </If.Else>
+          </If>
+          <If Condition="[approvalStatus = &quot;APPROVED&quot; OrElse approvalStatus = &quot;REJECTED&quot;]" DisplayName="If record human approval memory" sap2010:WorkflowViewState.IdRef="If_110">
+            <If.Then>
+              <Sequence DisplayName="Record Human Approval in Automation Memory" sap2010:WorkflowViewState.IdRef="Sequence_110">
+                <Assign DisplayName="Build human approval webhook request" sap2010:WorkflowViewState.IdRef="Assign_110">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[approvalWebhookRequestJson]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""approval_type"":""business_approval"",""decision"":""" + If(approvalStatus = "APPROVED", "approved", "rejected") + """,""approved_by"":""demo.manager"",""comment"":""" + If(approvalStatus = "APPROVED", "Approved for demonstration after budget exception review.", "Rejected by business approver.") + """}"]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Human Approval Memory Webhook" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_110" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8004/approvals" Result="[approvalWebhookHttpResult]" RetryCount="3" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[approvalWebhookRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+                  <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                    <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                      <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="30000" />
+                    </InArgument>
+                  </uwah:NetHttpRequest.TimeoutInMiliseconds>
+                </uwah:NetHttpRequest>
+                <If Condition="[approvalWebhookHttpResult IsNot Nothing]" DisplayName="If human approval webhook returned response" sap2010:WorkflowViewState.IdRef="If_111">
+                  <If.Then>
+                    <Assign DisplayName="Read human approval webhook response" sap2010:WorkflowViewState.IdRef="Assign_111">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[approvalWebhookResponseJson]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[approvalWebhookHttpResult.TextContent]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </If.Then>
+                </If>
+              </Sequence>
+            </If.Then>
+          </If>
+          <Assign DisplayName="Set write-back required" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="Assign_27">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[writeBackRequired]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">[approvalStatus = "APPROVED"]</InArgument>
+            </Assign.Value>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </Assign>
+          <If Condition="[writeBackRequired]" DisplayName="If write-back required" sap:VirtualizedContainerService.HintSize="520,1372.8" sap2010:WorkflowViewState.IdRef="If_7">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence DisplayName="RPA Write-back to Legacy ERP UI" sap:VirtualizedContainerService.HintSize="518.4,1209.6" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Write-back starting message" sap:VirtualizedContainerService.HintSize="484.8,56.8" sap2010:WorkflowViewState.IdRef="MessageBox_4" Text="[&quot;Human approval is APPROVED. Starting RPA write-back to Legacy ERP UI for PO-1003.&quot;]" />
+                <Sequence DisplayName="MANUAL_SELECTOR_REQUIRED_Click_WriteBack_Button" sap:VirtualizedContainerService.HintSize="484.8,451.2" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Manual write-back selector required" sap:VirtualizedContainerService.HintSize="451.2,56.8" sap2010:WorkflowViewState.IdRef="MessageBox_5" Text="[&quot;Manual selector required: add a UiPath Browser Automation Click here for the legacy ERP write-back button, such as Approve / Mark Approved / Process / Update Status.&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:MessageBox>
+                  <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome Mock Legacy ERP" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="451.2,302.4" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" ScopeGuid="8b020725-0763-4469-b127-9d80b4777d5d" Version="V2">
+                    <uix:NApplicationCard.Body>
+                      <ActivityAction x:TypeArguments="x:Object">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Execute" sap:VirtualizedContainerService.HintSize="449.6,108" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uix:NClick ActivateBefore="True" ClickType="Single" DelayAfter="1" DisplayName="Click Request Approval" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="NClick_1" InteractionMode="SameAsCard" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="8b020725-0763-4469-b127-9d80b4777d5d" Version="V5">
+                            <uix:NClick.Target>
+                              <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003" DesignTimeRectangle="327, 905, 165, 35" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='ctl00_MainContent_btnRequestApproval' tag='BUTTON' /&gt;" Guid="5ed30263-b70e-4d19-85c8-ac2e94f26581" InformativeScreenshot="8052e10ab870f70f653a9b3ca86cc3d0.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="Selector" Version="V6" />
+                            </uix:NClick.Target>
+                          </uix:NClick>
+                        </Sequence>
+                      </ActivityAction>
+                    </uix:NApplicationCard.Body>
+                    <uix:NApplicationCard.OCREngine>
+                      <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+                        <ActivityFunc.Argument>
+                          <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                        </ActivityFunc.Argument>
+                      </ActivityFunc>
+                    </uix:NApplicationCard.OCREngine>
+                    <uix:NApplicationCard.TargetApp>
+                      <uix:TargetApp Area="-9, -9, 1938, 1038" BrowserType="Chrome" ContentHash="b10cSejCDEKAJb23nh1OMg" IconBase64="iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAA9lSURBVGhDvZcHVFTntsdHRcUKYqEIOBSlDlVURIamVBWiiQGVknjvTUzU5KWsZ1TEvEhiDYgKSrFEktyrRtREY6IwwICKjVgSS1BQECszQDSWGb/91t6ncGYgpqy89631X/+993fOnN/+zncOB5nsbxgDTHqYJ1pZpH00yi5rq8Kp5NR4r/q6YB/tnfDRcCc8AOqUvtqTgZ71JX4uqo9G2mVFDTVPsDXtJe/fradZlKlDysfmyr3FQ6ZcOjRsRjtqx5DJFzPNlSVRpg7JeIzx9f6WgdCv2Vm+VeIzSiWAci6Jw4Sc0+0wf1JT8Fg45xbDKqySnlVazYLn6bBl4qP5A/yzLbqbWhoz/KWB4O/LbTJ+DvbW3AnzZwQW6mfoCB7GubSGqvNXsiqbxE6gv6dvh81om9DbNt6Y50+N9+XWGT+LW0NY0Q44qoX4MWGlb4X4sVshvpQ3h/jDBY8oqLSa2Qnuj6rCciZL6ee5pJtM1s2Y7bkD92vpaI9aXE0SAhq5AEoe6g+3Qv144TH+cNk3tBNQV6qw7GhQGksV28fxFWPG3xwzLIekXpngrRUBQ/0IqANUCssrxA+aUUpf1qz0YVdHT+BW3ia5A8yaB7KZbQArQkvrGPPCvNQy6WlAL6tJxqydxnsjrDIEWAFMWF2E49yH8xBunuCVPqw5xJd3PzjtPBUqhs2E0t7xUDE0CSqtZ0P5oBlQMSwJVP2nG64w30BZv2k0j9CqgS+CasB0EjVuORMyzZR7jXkNxrv2VhnS1RVguJXlY6Uv5TeDeWCMlb4kmlP6wvXxo6FiaCKo7VPh8tubQT0iDVTmL8Fxn3lQJX8FrrxXSM0JDeEKY35xXi5UO/8DyvpPg3MvfwLnZ6+G8zNXgsrsRajgn4fB3ftYG3PTmGE5OLWZoCTbgc85UB6Qdw7aBxvh4gneTPCfFGE8VBLUr9wFmorzcMxnHmjKz8HpyMXQevIKHPedD0fdX6Pmyvq/AGei0mn+cI84gtWoL8CZ6HS4+3UNVI/8B5QPTYIKq5kQ32fk68bs9MBeDFRoCDDYhyEEgkpXlYP24UE5bxJiasIHmoI51YyIZ3jbcYUPySKg2uWfULd4Ozy83AR3vqqGR80tcHffcdKZmHT4TjYJmgoOQW1cBpwMeQ8uv5MPj27chebtR6DtTB3c+6YGLr6ZC2UDpsMai/BDxvyymrHu9QariEAY80BSpzjIiwmwoiagvMnVw5NoG/z4ahZczyqhu3H7P5Vw3H8BVFjPAk3lefJyi5fpGbmQspZAr2YU0916qmmHGzn74ZjXG6CtugDHPN8AtcMrdEcPDnup1QD+HTvLDHEVjcANARFOImzCqNbIe6VVEt3yKqc50LjpIFyal0dAzZ+VQnNxGbSfqYOb2w7DrS/L4eIbG+FU+ELaau1nr8FRr7lwI2cf/HKuHm7vrIRHjXfh9q4qOBO1BFQDp8Nhq6THInyvIX3lq/8rtGM1g7xYY5AX14AI1BHjHLmg8QrWFB0EbUV58PjMSdA13wQclXYp9FYpH5wIR0wmQ7XzHDgR+A6cn7UKLr6+AS6kruV89mo4ppgLR3pOgabCQ9CYewBqxi+gO9K4+SA9I5rys3BM8Qb9Jj7oBndA/rrfNuW2BDgTGyCuniEgDxzkxUuIveHWi9EE3dWowa2CDzG+Oaxmwb0DJ+CHhI+gvfYqNOYdgKbC78gfXG6i5s7O+BjaTv0M15Z/CacjFsG5pJXw4HIj3N6lpjtwp+QoPR94B4qHTrnErf7gvnK/L6aB/xfTYO7ySBHsxniFETSnG4ICPZk2eyU8a283gG7WMvjmhydQoHoMB2JXQeXwZDjcLQ7qMoppNfEVikAHZEHwnSwSDsiC4c7uKjipfB/KLWbQmwbfOgiPr96GT/eAWp4GmopzUIX7n/+Dhl+x1ICF0j7N5/N45vt5Avh9/gIcfGksD6hg5OMFKQga4+uBnqy1MNcA/OvaJ/D6tgcQkNEKY5a1kb87bQ+oBs2A477z4MGlRlDbpULNmLfh0c37cGP9Pnoubqz/Gh7f0tAWOjttOdw/dBqa8r+Fc0kr4Md/roNfG+7A7Z1qei7u7j8O1zL/TX9L4vvyr1HXzLBan+J4hvDYSMqqaA6Wh74+DqEVcF1QoAI02SskK/4MXtvKgY9e1goBy1phNMYZrRC74BK9YfAtgq/Jsj4JcNz7TWhYvRvOTs+Ecy+vgLMvfgxX/+cLesVW2qbQHcM30veyaNoueBewhqt/1PVfUOX0Kt0B6x795LR9vHdMZd7F8cy3OAF8ihMAfcNrQez6OA92PdCTgDFu4POmhEgmbBuEn5LVLgKj/Jd2CPP80cuhfPDL9ElA3zNDk6iRsr4vdMg0gftLTJpJwOrhyeJ5+Ncczysfwvn5qZPBvF93c9lAf8t4nx3xYKygoqnwo1LBGsYiODbhCegNY93ZL9/sFVf/X1t+Af+lWolawT+jFfwktZj5F6HMJlX8GOM+1pINPtIQWPpNVGEp+eiz5j7sBKltk+Dhfm9IiTFLk9nM9Mjy/mwqcIonxwa8PpvCVswPFqHrx3pA/TgPaHohUoTfX/uEQLsW14SguTMOGn5tPudzuat5aXxzeRDojrrC2gXDsmVOCwNVXtungmL7FCZtQrF9MsN6zSQfIHheLZ9+IjYQt7YNfNO1HVoqibvQotjiTpB/VtcWhIGu2oXpql3hq09s98rc1kTUe22fAl1JsW0yS8qMYPUBbuxagBurH+MOj06fIPhLt/Tgk64lIZwQP18aSE4uh+/t5nQC+z1VOyTC3ewA0FWPZCh99Si4utuhXua5LY55bZsCKAVpMsVYxxhr++N9qYFrY9zFd37ZT0/BO13DaQnv6RoC5Vxak9a1EPp2HeQGfNwJ8rd0Pi4WHu71AF2VM9NVjSTXVzvDvW8dtDLF1snguTWOof+WInKi4dpoV3bV34UJ2yev7BF4LdGIEmANal3E1CwfT5tTAwtji+FA1CdwMuhdqHJ8FarkiXDCdxqci4lj1+aHQEu+LyCsrsqR6aucQF/lTDnF1c4g89gayzypCaniwHNLHMUeW2KZ+5ZYlj1nHFz1dxUbyC391QBWkOI5ufGcUMPfEgaCdsAKcuRU7YTzoFM7MH21I8Uytw1RWvctMcwDgbfEAcboHkWxlGPdvSiGjcmLhrNB7qBrbqIL7T3zGBSLNeC5uIUcQcilsZELx3oaHVf601Oevo2gEFanljNdlQOguAYcqEbOxVSTOa8KrUdIlFtRDBPBi2JFYR218K0g+PVUDV3rpvYZAXHi4LqW8Zxx3gIXm/X0m6z1GEHp1XIC7JA9w1pH3Z6h6nYOr5fZvulX4l4YC+48rHthjEHsVhjNUFQvjIVTu/PF251W2AYei1vAY7GG9z+vyDWt4u89u/oh6NQjQG8kndoedJV2TKdG2Yv5kRxLlcwq0T2Lg+NgqRk+R7kWRDE38miGSsyKFy9YcvoJuC9qAffFvBZxUFT7HQnHlZx+LP6e/kQg06ltmZ4A0W0RGmEp55yX2g7WzjPLlpkFDk9DSAItiAYUNVMgiKtx4vKa5rPiRVML2sFtUYsohHJbdF8Elc4ZHtMCqQVt4u+wO7sEUF7Dma7ShnFuC3qqYW4LejWnqRNM42U9+piYE1x+NLjkR1ITrhRHMXSpsIbHRHyZCu1PHtCFmzTPYOIqLbguuk/grh9w3hG3iDU8RqhNXK2FJu0z+o32xw9Af2IswnKgFdYUo+ulTrLh562Z3LKHnD6n7d4NULnmR/GgUeCyOZJRvlmocXXK+Vrm0Txx9bCJlII2guskvgGpkgva6BxhtF75kIdCOCtGqrTGmiS3YvpKa0Bh/XThkFrx30nzCPu3XDYjOKdRmyaxjjzSoE5zm7ja+lM7RAgce049hvCVGhj1wX1w+eC+6IKS81thj2TP4/jqbBFoVLg9RGCJLJm+Uppz0ldYQXKUaarYQHdTE3PnrDDtyE2TGIoAeUj0UbxwDl1awzuBW0A6Lt7Uw+Efn0DO4Yew/shD2HPqkcGK42h//AtkVufBrv1uoKsYhquMwHxsCXqKBQ0DfcUw0JUPZSicE7ePMCwmO2YIUKPyImFk3kQ2Km8SkDZFgjOfO+dOpCYwH8nPhxTPYl9d+s4A8Hnj+M0fIGTHLBZSqGQIJ6p8CCOJ+VASDw+68sHYABT994CtBvA48C44rgnVCGAjcycBOcUTDXKEFnOc4/PQHbMhsyqPABvbb4vAGGMt58Rn4L8lgTs3dyI0HLYhIA5sCDZgGKswNpgj2Vt2N1x9YQyKc8xw5mGdciOYCE4uiMudNuI83RExxrrzRk5YE5ybl9bC2ftf+IGu3ILpKxDMAkF56EF8jLIwdNUgtjTNNMOY22DYLRxbK0AIEuCdN0bwks4b59KacHwEOG4IJ3iM/fJCoeF7K9DzUASoQkgL0BMs5uaMaqpBoCsfRF735cBrxrydhomFqdxhtVLrtCECBOFFpY4wnIcxAQydUxjNCTLOnTaEQ9ZOV4ZAegIzZ09VZkxHMudrZgz9adlAqqHufT1QK/+trWM8BoyxSnNYH8ZQwkU5RYDT+nBOG8LBcX04dBzDzWEu1tdzx0jPm7A5iIfqgONiMx7YDHSiD2C6soHk8UE9E4w5nzssYhyX4cW7kkNOqAgp1nPCOh0nSJ4TyvAc1M49jhyYAKgaCE9552D7M13ZAGyKU9kASE/pvcyY7w8N8xh5BoHlhPEQnKMEMPm6UOaYg02FkcR5PhcclVg0moCk0qsQ1rCmK+vHqF7WH5am9nz+Q/t7o6/nkAT7FRO08nWhIojDujAYsS6EydeFMIyFmsO6UKqjMMdzpHnDIQuCQzBD9QNdWV+G/rS0D9OV9mH39vfVpkSZpBnz/KVhMshUbrt0bD0BZocweTbv60I5yOwQNiJbyYQ5UeK8kr2z3ZODI9C+gJAEztU4L+2DDifzTWvllt3+2AP7Z4ZZ9IgMAcw+W8nk2SEEap+FMedCPCKLm0MFbRwHDYcG4Spz4kF1paYitK60N7u3r5c2PcXkr+33PzrwbgxOctmKoAgpld3aYGrALiuY5uyzlFQv+I+cAHWlpgjN6UhvMb63r6cmPaVHhnm/bubG1/s/G9hI/wCrNOv3/GsRnIA/VYriakoYv2EcwncIwY/0YrojveDIpz1V86b3eOv/Fbyrgc3gw26e4Jg1dK5CZbNkTD02YbtmAvv3ruFwb5+J9srnJvW7PzQpWTO3R1ZyVLfUvwv6fwEUyYWf10jSXwAAAABJRU5ErkJggg==" InformativeScreenshot="222482c080e1e2bf7f48dda5d1de7856.jpg" Selector="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" Url="http://localhost:8001/purchase-orders/PO-1003" Version="V3" />
+                    </uix:NApplicationCard.TargetApp>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </uix:NApplicationCard>
+                </Sequence>
+                <Sequence DisplayName="MANUAL_SELECTOR_REQUIRED_Verify_Post_WriteBack_Status" sap:VirtualizedContainerService.HintSize="484.8,480" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome Mock Legacy ERP" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="451.2,388" sap2010:WorkflowViewState.IdRef="NApplicationCard_3" InteractionMode="DebuggerApi" ScopeGuid="5f6c62d9-ba62-4e98-8a61-3d612961c533" Version="V2">
+                    <uix:NApplicationCard.Body>
+                      <ActivityAction x:TypeArguments="x:Object">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Execute" sap:VirtualizedContainerService.HintSize="449.6,193.6" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <uix:NGetText DisplayName="Get Text Post Writeback Status" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,133.6" sap2010:WorkflowViewState.IdRef="NGetText_6" ScopeIdentifier="5f6c62d9-ba62-4e98-8a61-3d612961c533" TextString="[postWriteBackStatusText]" Version="V5">
+                            <uix:NGetText.Target>
+                              <uix:TargetAnchorable BrowserURL="localhost/purchase-orders/PO-1003/request-approval" DesignTimeRectangle="1350, 454, 249, 23" ElementType="Text" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='ctl00_MainContent_lblWritebackStatus' tag='SPAN' /&gt;" Guid="a4bf7cea-d1af-428f-848f-b6a47d5cac00" InformativeScreenshot="64c1c5a833402ff731ea3ce33d2a22ea.jpg" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" SearchSteps="Selector" Version="V6" />
+                            </uix:NGetText.Target>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </uix:NGetText>
+                        </Sequence>
+                      </ActivityAction>
+                    </uix:NApplicationCard.Body>
+                    <uix:NApplicationCard.OCREngine>
+                      <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
+                        <ActivityFunc.Argument>
+                          <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
+                        </ActivityFunc.Argument>
+                      </ActivityFunc>
+                    </uix:NApplicationCard.OCREngine>
+                    <uix:NApplicationCard.TargetApp>
+                      <uix:TargetApp Area="-9, -9, 1938, 1038" BrowserType="Chrome" ContentHash="QegphTmB2k2RgJYGLDzbHA" IconBase64="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" InformativeScreenshot="b75d10bd6ce371ac0e09bbce71938248.jpg" Selector="&lt;html app='chrome.exe' title='Contoso Legacy ERP 2009' /&gt;" Url="http://localhost:8001/purchase-orders/PO-1003/request-approval" Version="V3">
+                        <uix:TargetApp.Arguments>
+                          <InArgument x:TypeArguments="x:String" />
+                        </uix:TargetApp.Arguments>
+                        <uix:TargetApp.WorkingDirectory>
+                          <InArgument x:TypeArguments="x:String" />
+                        </uix:TargetApp.WorkingDirectory>
+                      </uix:TargetApp>
+                    </uix:NApplicationCard.TargetApp>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </uix:NApplicationCard>
+                </Sequence>
+                <Assign DisplayName="Set write-back completed" sap:VirtualizedContainerService.HintSize="484.8,56.8" sap2010:WorkflowViewState.IdRef="Assign_29">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[writeBackStatus]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["WRITE_BACK_COMPLETED"]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <Assign DisplayName="Set write-back completed message" sap:VirtualizedContainerService.HintSize="484.8,56.8" sap2010:WorkflowViewState.IdRef="Assign_30">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[writeBackMessage]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["RPA Write-back Result: WRITE_BACK_COMPLETED" + vbCrLf + "PO-1003 was approved by human and written back to Legacy ERP UI."]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <Assign DisplayName="Set final timeline write-back completed" sap:VirtualizedContainerService.HintSize="484.8,48" sap2010:WorkflowViewState.IdRef="Assign_31">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[finalTimelineLog]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed"]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Skip RPA write-back" sap:VirtualizedContainerService.HintSize="518.4,24.8" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign DisplayName="Set write-back skipped" sap2010:WorkflowViewState.IdRef="Assign_32">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[writeBackStatus]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["WRITE_BACK_SKIPPED"]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Set write-back skipped message" sap2010:WorkflowViewState.IdRef="Assign_33">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[writeBackMessage]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">["RPA Write-back skipped because human approval was not APPROVED."]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Set final timeline write-back skipped" sap2010:WorkflowViewState.IdRef="Assign_34">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[finalTimelineLog]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[caseTimelineLog + " -&gt; RPA Write-back Skipped"]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </If.Else>
+          </If>
+          <Sequence DisplayName="Validation Gate after RPA Write-back" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="Sequence_18">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If Condition="[writeBackStatus = &quot;WRITE_BACK_COMPLETED&quot;]" DisplayName="If write-back completed before validation" sap2010:WorkflowViewState.IdRef="If_8">
+              <If.Then>
+                <Sequence DisplayName="Run validation-suite" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                  <Assign DisplayName="Build validation request" sap2010:WorkflowViewState.IdRef="Assign_28">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[validationRequestJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""business_action"":""request_purchase_order_approval"",""po_id"":""PO-1003"",""rpa_test_case_id"":""PO-1003-RPA"",""api_test_case_id"":""PO-1003-API""}"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+              <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Validation HTTP Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_2" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8004/validate/request-purchase-order-approval" Result="[validationHttpResult]" RetryCount="3" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[validationRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+                    <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                      <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                        <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="10000" />
+                      </InArgument>
+                    </uwah:NetHttpRequest.TimeoutInMiliseconds>
+                  </uwah:NetHttpRequest>
+                  <Assign DisplayName="Read validation response body" sap2010:WorkflowViewState.IdRef="Assign_35">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[validationResponseJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[validationHttpResult.TextContent]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set validation passed" sap2010:WorkflowViewState.IdRef="Assign_36">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Boolean">[validationPassed]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Boolean">[validationResponseJson.Contains("""contract_test"":""passed""") AndAlso validationResponseJson.Contains("""business_rule_test"":""passed""") AndAlso validationResponseJson.Contains("""rpa_api_parity_check"":""passed""") AndAlso validationResponseJson.Contains("""same_initial_state"":true")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[validationPassed]" DisplayName="If validation passed" sap2010:WorkflowViewState.IdRef="If_9">
+                    <If.Then>
+                      <Sequence DisplayName="Validation passed path" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                        <Assign DisplayName="Set validation status passed" sap2010:WorkflowViewState.IdRef="Assign_37">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[validationStatus]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["VALIDATION_PASSED"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set validation message passed" sap2010:WorkflowViewState.IdRef="Assign_38">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[validationMessage]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Validation Gate Result: VALIDATION_PASSED" + vbCrLf + "RPA write-back result matches expected legacy ERP state."]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set final case decision trusted candidate" sap2010:WorkflowViewState.IdRef="Assign_39">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[finalCaseDecision]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["CASE_READY_FOR_TRUSTED_TOOL_REGISTRATION"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set final validation timeline passed" sap2010:WorkflowViewState.IdRef="Assign_40">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[finalValidationTimelineLog]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed -&gt; Validation Passed"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Validation failed path" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                        <Assign DisplayName="Set validation status failed" sap2010:WorkflowViewState.IdRef="Assign_41">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[validationStatus]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["VALIDATION_FAILED"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set validation message failed" sap2010:WorkflowViewState.IdRef="Assign_42">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[validationMessage]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Validation Gate Result: VALIDATION_FAILED" + vbCrLf + "RPA write-back result does not match expected legacy ERP state. Case is blocked."]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set final case decision blocked" sap2010:WorkflowViewState.IdRef="Assign_43">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[finalCaseDecision]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["CASE_BLOCKED_BY_VALIDATION"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set final validation timeline failed" sap2010:WorkflowViewState.IdRef="Assign_44">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[finalValidationTimelineLog]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed -&gt; Validation Failed -&gt; Case Blocked"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Validation skipped path" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                  <Assign DisplayName="Set validation skipped status" sap2010:WorkflowViewState.IdRef="Assign_45">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[validationStatus]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["VALIDATION_SKIPPED"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set validation skipped message" sap2010:WorkflowViewState.IdRef="Assign_46">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[validationMessage]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["Validation Gate skipped because RPA write-back was not completed."]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set final case decision validation skipped" sap2010:WorkflowViewState.IdRef="Assign_47">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[finalCaseDecision]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["CASE_NOT_READY_FOR_VALIDATION"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set final validation timeline skipped" sap2010:WorkflowViewState.IdRef="Assign_48">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[finalValidationTimelineLog]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[finalTimelineLog]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+          <Sequence DisplayName="External LLM Agent Gate" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="Sequence_90">
+            <Assign DisplayName="Build modernization readiness request" sap2010:WorkflowViewState.IdRef="Assign_90">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[modernizationReadinessRequestJson]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""po_id"":""PO-1003"",""business_action"":""request_purchase_order_approval"",""detected_exception_type"":""" + detectedExceptionType + """,""frequency_30d"":42,""rpa_writeback_status"":""" + postWriteBackStatusText + """,""validation_status"":""" + validationStatus + """,""human_approval"":""" + approvalStatus + """}"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Modernization Readiness LLM Agent Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_90" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8002/modernization/readiness" Result="[modernizationReadinessHttpResult]" RetryCount="3" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[modernizationReadinessRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+              <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                  <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="60000" />
+                </InArgument>
+              </uwah:NetHttpRequest.TimeoutInMiliseconds>
+            </uwah:NetHttpRequest>
+            <Assign DisplayName="Read modernization readiness response" sap2010:WorkflowViewState.IdRef="Assign_91">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[modernizationReadinessResponseJson]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[modernizationReadinessHttpResult.TextContent]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Set readiness LLM gate passed" sap2010:WorkflowViewState.IdRef="Assign_92">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[readinessLlmGatePassed]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">[modernizationReadinessResponseJson.Contains("reasoning_mode") AndAlso modernizationReadinessResponseJson.Contains("llm_backed") AndAlso modernizationReadinessResponseJson.Contains("llm_enabled") AndAlso modernizationReadinessResponseJson.Contains("true") AndAlso modernizationReadinessResponseJson.Contains("llm_call_mode") AndAlso modernizationReadinessResponseJson.Contains("real") AndAlso modernizationReadinessResponseJson.Contains("llm_provider") AndAlso modernizationReadinessResponseJson.Contains("deepseek") AndAlso modernizationReadinessResponseJson.Contains("schema_validated") AndAlso modernizationReadinessResponseJson.Contains("guardrails_applied") AndAlso modernizationReadinessResponseJson.Contains("decision_status") AndAlso modernizationReadinessResponseJson.Contains("DECISION_READY") AndAlso modernizationReadinessResponseJson.Contains("llm_invocation_verified")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Build modernization plan request" sap2010:WorkflowViewState.IdRef="Assign_93">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[modernizationPlanRequestJson]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""po_id"":""PO-1003"",""business_action"":""request_purchase_order_approval"",""readiness_response"":" + modernizationReadinessResponseJson + "}"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Modernization Plan LLM Agent Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_91" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8002/modernization/plan" Result="[modernizationPlanHttpResult]" RetryCount="3" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[modernizationPlanRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+              <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                  <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="60000" />
+                </InArgument>
+              </uwah:NetHttpRequest.TimeoutInMiliseconds>
+            </uwah:NetHttpRequest>
+            <Assign DisplayName="Read modernization plan response" sap2010:WorkflowViewState.IdRef="Assign_94">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[modernizationPlanResponseJson]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[modernizationPlanHttpResult.TextContent]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Set planner LLM gate passed" sap2010:WorkflowViewState.IdRef="Assign_95">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[planLlmGatePassed]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">[modernizationPlanResponseJson.Contains("reasoning_mode") AndAlso modernizationPlanResponseJson.Contains("llm_backed") AndAlso modernizationPlanResponseJson.Contains("llm_enabled") AndAlso modernizationPlanResponseJson.Contains("true") AndAlso modernizationPlanResponseJson.Contains("llm_call_mode") AndAlso modernizationPlanResponseJson.Contains("real") AndAlso modernizationPlanResponseJson.Contains("llm_provider") AndAlso modernizationPlanResponseJson.Contains("deepseek") AndAlso modernizationPlanResponseJson.Contains("schema_validated") AndAlso modernizationPlanResponseJson.Contains("guardrails_applied") AndAlso modernizationPlanResponseJson.Contains("decision_status") AndAlso modernizationPlanResponseJson.Contains("DECISION_READY") AndAlso modernizationPlanResponseJson.Contains("llm_invocation_verified")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Set all LLM agent gates passed" sap2010:WorkflowViewState.IdRef="Assign_96">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[allAgentLlmGatesPassed]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">[validationPassed AndAlso readinessLlmGatePassed AndAlso planLlmGatePassed]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Build LLM agent gate message" sap2010:WorkflowViewState.IdRef="Assign_97">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[agentLlmGateMessage]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">["LLM Agent Gate:" + vbCrLf + "- Readiness LLM Gate: " + If(readinessLlmGatePassed, "PASSED", "FAILED") + vbCrLf + "- Planner LLM Gate: " + If(planLlmGatePassed, "PASSED", "FAILED") + vbCrLf + "- All LLM Agent Gates: " + If(allAgentLlmGatesPassed, "PASSED", "FAILED") + vbCrLf + "- reasoning_mode: llm_backed" + vbCrLf + "- llm_provider: deepseek" + vbCrLf + "- llm_invocation_verified required: true"]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[Not allAgentLlmGatesPassed]" DisplayName="If LLM agent gate failed" sap2010:WorkflowViewState.IdRef="If_90">
+              <If.Then>
+                <Sequence DisplayName="Fail closed before trusted tool and API mode" sap2010:WorkflowViewState.IdRef="Sequence_91">
+                  <Assign DisplayName="Set final decision blocked by LLM gate" sap2010:WorkflowViewState.IdRef="Assign_98">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[finalCaseDecision]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">["CASE_BLOCKED_BY_LLM_AGENT_GATE"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set final timeline blocked by LLM gate" sap2010:WorkflowViewState.IdRef="Assign_99">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[finalValidationTimelineLog]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[finalValidationTimelineLog + " -&gt; LLM Agent Gate Failed -&gt; Tool Registry Skipped -&gt; API Mode Skipped"]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Then>
+            </If>
+          </Sequence>
+          <Sequence DisplayName="Trusted Tool Registration Approval" sap:VirtualizedContainerService.HintSize="520,56.8" sap2010:WorkflowViewState.IdRef="Sequence_23">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign DisplayName="Set trusted tool registration approval required" sap2010:WorkflowViewState.IdRef="Assign_49">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:Boolean">[toolRegistrationApprovalRequired]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:Boolean">[validationPassed AndAlso allAgentLlmGatesPassed AndAlso validationResponseJson.Contains("""trusted_tool_candidate"":true") AndAlso validationResponseJson.Contains("""requires_registration_approval"":true")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[toolRegistrationApprovalRequired]" DisplayName="If trusted tool registration approval required" sap2010:WorkflowViewState.IdRef="If_10">
+              <If.Then>
+                <Sequence DisplayName="Automation owner approval input" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                  <ui:InputDialog Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Trusted Tool Registration Approval Input" sap2010:WorkflowViewState.IdRef="InputDialog_2" IsPassword="False" Label="[&quot;Case ID: CASE-003&quot; + vbCrLf + &quot;PO ID: PO-1003&quot; + vbCrLf + &quot;Business action: request_purchase_order_approval&quot; + vbCrLf + &quot;Exception type: budget_exceeded&quot; + vbCrLf + &quot;Validation result: VALIDATION_PASSED&quot; + vbCrLf + &quot;Trusted tool candidate: true&quot; + vbCrLf + &quot;Requires registration approval: true&quot; + vbCrLf + &quot;Proposed API tool: request_purchase_order_approval&quot; + vbCrLf + &quot;Instruction: type REGISTER or REJECT&quot;]" Title="Automation Owner Approval - Trusted Tool Registration" TopMost="False">
+                    <ui:InputDialog.Result>
+                      <OutArgument x:TypeArguments="x:String">[toolRegistrationDecision]</OutArgument>
+                    </ui:InputDialog.Result>
+                  </ui:InputDialog>
+                  <Assign DisplayName="Normalize registration decision" sap2010:WorkflowViewState.IdRef="Assign_50">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[toolRegistrationDecision]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[toolRegistrationDecision.Trim.ToUpperInvariant]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[toolRegistrationDecision = &quot;REGISTER&quot;]" DisplayName="If registration approved" sap2010:WorkflowViewState.IdRef="If_11">
+                    <If.Then>
+                      <Sequence DisplayName="Registration approved path" sap2010:WorkflowViewState.IdRef="Sequence_25">
+                        <Assign DisplayName="Set registration approved status" sap2010:WorkflowViewState.IdRef="Assign_51">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[toolRegistrationStatus]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["TRUSTED_TOOL_REGISTRATION_APPROVED"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Set registration approved message" sap2010:WorkflowViewState.IdRef="Assign_52">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[toolRegistrationMessage]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["Trusted Tool Registration Result: APPROVED" + vbCrLf + "Tool request_purchase_order_approval is approved for API mode execution."]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Build trusted tool registration request record" sap2010:WorkflowViewState.IdRef="Assign_53">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[toolRegistrationRequestJson]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""tool_name"":""request_purchase_order_approval"",""business_action"":""request_purchase_order_approval"",""approval_status"":""APPROVED"",""approved_by"":""automation_owner"",""validation_status"":""VALIDATION_PASSED"",""source_execution_mode"":""RPA"",""target_execution_mode"":""API""}"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Record approval-gated registration proof" sap2010:WorkflowViewState.IdRef="Assign_54">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[toolRegistrationResponseJson]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">["{""registration_mode"":""UIPATH_APPROVAL_GATED_SIMULATION"",""registry_post_endpoint_found"":false,""tool_name"":""request_purchase_order_approval"",""approval_status"":""APPROVED"",""target_execution_mode"":""API""}"]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Sequence DisplayName="API Mode Execution via Generated API Facade" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                          <Assign DisplayName="Build API mode request" sap2010:WorkflowViewState.IdRef="Assign_55">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[apiModeRequestJson]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">["{""approval_reason"":""Amount exceeds budget limit"",""manager_id"":""MGR-001"",""source_case_id"":""CASE-003""}"]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <uwah:NetHttpRequest BasicAuthPassword="{x:Null}" BasicAuthSecurePassword="{x:Null}" BasicAuthUsername="{x:Null}" BinaryPayload="{x:Null}" ClientCertPassword="{x:Null}" ClientCertPath="{x:Null}" ClientCertSecurePassword="{x:Null}" Cookies="{x:Null}" CustomNegotiatedAuthCredentials="{x:Null}" FilePath="{x:Null}" FormData="{x:Null}" FormDataParts="{x:Null}" LocalFiles="{x:Null}" OAuthToken="{x:Null}" OutputFileName="{x:Null}" OutputFileTargetFolder="{x:Null}" Parameters="{x:Null}" PathResource="{x:Null}" ProxyConfiguration="{x:Null}" ResourceFiles="{x:Null}" RetryStatusCodes="{x:Null}" AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Generated API Facade Approval Request" EnableCookies="True" FileOverwrite="AutoRename" FollowRedirects="True" Headers="[new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }]" sap2010:WorkflowViewState.IdRef="NetHttpRequest_3" InitialDelay="500" MaxRedirects="3" MaxRetryAfterDelay="30000" Method="POST" Multiplier="2" PreferRetryAfterValue="True" RequestBodyType="Text" RequestUrl="http://localhost:8003/api/purchase-orders/PO-1003/approval-request" Result="[apiModeHttpResult]" RetryCount="3" RetryPolicyType="Basic" SaveRawRequestResponse="False" SaveResponseAsFile="False" TextPayload="[apiModeRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" TlsProtocol="Automatic" UseJitter="True" UseOsNegotiatedAuthCredentials="True">
+                            <uwah:NetHttpRequest.TimeoutInMiliseconds>
+                              <InArgument x:TypeArguments="s:Nullable(x:Int32)">
+                                <Literal x:TypeArguments="s:Nullable(x:Int32)" Value="10000" />
+                              </InArgument>
+                            </uwah:NetHttpRequest.TimeoutInMiliseconds>
+                          </uwah:NetHttpRequest>
+                          <Assign DisplayName="Read API mode response body" sap2010:WorkflowViewState.IdRef="Assign_56">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[apiModeResponseJson]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[apiModeHttpResult.TextContent]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <If Condition="[apiModeResponseJson.Contains(&quot;&quot;&quot;execution_mode&quot;&quot;:&quot;&quot;API&quot;&quot;&quot;) AndAlso apiModeResponseJson.Contains(&quot;&quot;&quot;status&quot;&quot;:&quot;&quot;PENDING_MANAGER_APPROVAL&quot;&quot;&quot;) AndAlso apiModeResponseJson.Contains(&quot;&quot;&quot;audit_log_created&quot;&quot;:true&quot;)]" DisplayName="If API mode execution succeeded" sap2010:WorkflowViewState.IdRef="If_12">
+                            <If.Then>
+                              <Sequence DisplayName="API mode success path" sap2010:WorkflowViewState.IdRef="Sequence_27">
+                                <Assign DisplayName="Set API mode completed status" sap2010:WorkflowViewState.IdRef="Assign_57">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[apiModeExecutionStatus]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["API_MODE_EXECUTION_COMPLETED"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set API mode completed message" sap2010:WorkflowViewState.IdRef="Assign_58">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[apiModeMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["API Mode Execution Result: API_MODE_EXECUTION_COMPLETED" + vbCrLf + "Generated API facade executed request_purchase_order_approval with execution_mode=API."]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set final Issue 7 decision completed" sap2010:WorkflowViewState.IdRef="Assign_59">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[finalIssue7Decision]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["API_MODE_EXECUTED"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set final Issue 7 timeline API executed" sap2010:WorkflowViewState.IdRef="Assign_60">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[finalIssue7TimelineLog]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed -&gt; Validation Passed -&gt; Trusted Tool Registration Approved -&gt; API Mode Executed"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </If.Then>
+                            <If.Else>
+                              <Sequence DisplayName="API mode failed path" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                                <Assign DisplayName="Set API mode failed status" sap2010:WorkflowViewState.IdRef="Assign_61">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[apiModeExecutionStatus]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["API_MODE_EXECUTION_FAILED"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set API mode failed message" sap2010:WorkflowViewState.IdRef="Assign_62">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[apiModeMessage]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["API Mode Execution Result: API_MODE_EXECUTION_FAILED" + vbCrLf + "Case remains on RPA mode pending API remediation."]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set final Issue 7 decision API remediation" sap2010:WorkflowViewState.IdRef="Assign_63">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[finalIssue7Decision]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["CASE_REQUIRES_API_REMEDIATION"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set final Issue 7 timeline API failed" sap2010:WorkflowViewState.IdRef="Assign_64">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[finalIssue7TimelineLog]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed -&gt; Validation Passed -&gt; Trusted Tool Registration Approved -&gt; API Mode Failed"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </Sequence>
+                            </If.Else>
+                          </If>
+                        </Sequence>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <If Condition="[toolRegistrationDecision = &quot;REJECT&quot;]" DisplayName="If registration rejected" sap2010:WorkflowViewState.IdRef="If_13">
+                        <If.Then>
+                          <Sequence DisplayName="Registration rejected path" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                            <Assign DisplayName="Set registration rejected status" sap2010:WorkflowViewState.IdRef="Assign_65">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[toolRegistrationStatus]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["TRUSTED_TOOL_REGISTRATION_REJECTED"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set registration rejected message" sap2010:WorkflowViewState.IdRef="Assign_66">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[toolRegistrationMessage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["Trusted Tool Registration Result: REJECTED" + vbCrLf + "API mode execution is blocked."]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Record rejected registration response" sap2010:WorkflowViewState.IdRef="Assign_67">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[toolRegistrationResponseJson]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["{""registration_skipped"":true,""reason"":""registration_rejected"",""api_mode_execution"":""blocked""}"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Clear API mode response rejected" sap2010:WorkflowViewState.IdRef="Assign_68">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[apiModeResponseJson]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set API mode skipped message rejected" sap2010:WorkflowViewState.IdRef="Assign_69">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[apiModeMessage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["API Mode Execution skipped because trusted tool registration was rejected."]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set final Issue 7 decision stopped before API" sap2010:WorkflowViewState.IdRef="Assign_70">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[finalIssue7Decision]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["CASE_STOPPED_BEFORE_API_MODE"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set final Issue 7 timeline rejected" sap2010:WorkflowViewState.IdRef="Assign_71">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[finalIssue7TimelineLog]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed -&gt; Validation Passed -&gt; Trusted Tool Registration Rejected -&gt; API Mode Blocked"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence DisplayName="Invalid registration decision path" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                            <Assign DisplayName="Set invalid registration status" sap2010:WorkflowViewState.IdRef="Assign_72">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[toolRegistrationStatus]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["INVALID_REGISTRATION_DECISION"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set invalid registration message" sap2010:WorkflowViewState.IdRef="Assign_73">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[toolRegistrationMessage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["Invalid registration decision. Please enter REGISTER or REJECT."]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Record invalid registration response" sap2010:WorkflowViewState.IdRef="Assign_74">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[toolRegistrationResponseJson]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["{""registration_skipped"":true,""reason"":""invalid_registration_decision"",""api_mode_execution"":""blocked""}"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Clear API mode response invalid" sap2010:WorkflowViewState.IdRef="Assign_75">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[apiModeResponseJson]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set API mode skipped message invalid" sap2010:WorkflowViewState.IdRef="Assign_76">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[apiModeMessage]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["API Mode Execution skipped because trusted tool registration decision was invalid."]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set final Issue 7 decision invalid" sap2010:WorkflowViewState.IdRef="Assign_77">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[finalIssue7Decision]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["CASE_STOPPED_BEFORE_API_MODE"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Set final Issue 7 timeline invalid" sap2010:WorkflowViewState.IdRef="Assign_78">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[finalIssue7TimelineLog]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">["Case Created -&gt; RPA Extracted -&gt; Agent Classified budget_exceeded -&gt; Routed to Human Approval -&gt; Human Approved -&gt; RPA Write-back Completed -&gt; Validation Passed -&gt; Invalid Registration Decision -&gt; API Mode Blocked"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Registration not required path" sap2010:WorkflowViewState.IdRef="Sequence_31">
+                  <Assign DisplayName="Set registration not required status" sap2010:WorkflowViewState.IdRef="Assign_79">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[toolRegistrationStatus]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[If(validationPassed AndAlso Not allAgentLlmGatesPassed, "TRUSTED_TOOL_REGISTRATION_BLOCKED_BY_LLM_AGENT_GATE", "TRUSTED_TOOL_REGISTRATION_NOT_REQUIRED")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set registration not required message" sap2010:WorkflowViewState.IdRef="Assign_80">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[toolRegistrationMessage]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[If(validationPassed AndAlso Not allAgentLlmGatesPassed, "Trusted Tool Registration skipped because the LLM Agent Gate failed. Tool Registry: SKIPPED. API Mode Execution: SKIPPED.", "Trusted Tool Registration skipped because validation did not pass or trusted-tool registration flags were missing. No API mode execution.")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Record registration not required response" sap2010:WorkflowViewState.IdRef="Assign_81">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[toolRegistrationResponseJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[If(validationPassed AndAlso Not allAgentLlmGatesPassed, "{""registration_skipped"":true,""reason"":""llm_agent_gate_failed"",""tool_registry"":""SKIPPED"",""api_mode_execution"":""SKIPPED""}", "{""registration_skipped"":true,""reason"":""validation_not_passed_or_not_candidate"",""api_mode_execution"":""not_called""}")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Clear API mode response not required" sap2010:WorkflowViewState.IdRef="Assign_82">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[apiModeResponseJson]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Set API mode skipped message not required" sap2010:WorkflowViewState.IdRef="Assign_83">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[apiModeMessage]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[If(validationPassed AndAlso Not allAgentLlmGatesPassed, "API Mode Execution skipped because the LLM Agent Gate failed.", "API Mode Execution skipped because validation or trusted tool registration approval was not satisfied.")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Carry final Issue 7 decision from validation" sap2010:WorkflowViewState.IdRef="Assign_84">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[finalIssue7Decision]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[If(validationPassed AndAlso Not allAgentLlmGatesPassed, "CASE_BLOCKED_BY_LLM_AGENT_GATE", finalCaseDecision)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Carry final Issue 7 timeline from validation" sap2010:WorkflowViewState.IdRef="Assign_85">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[finalIssue7TimelineLog]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[If(validationPassed AndAlso Not allAgentLlmGatesPassed, finalValidationTimelineLog + " -&gt; Tool Registry Skipped -&gt; API Mode Skipped", finalValidationTimelineLog)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+          <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Final case result" sap:VirtualizedContainerService.HintSize="520,113.6" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Final Case Result:&quot; + vbCrLf + routeMessage + vbCrLf + vbCrLf + approvalMessage + vbCrLf + vbCrLf + writeBackMessage + vbCrLf + vbCrLf + &quot;Validation Response:&quot; + vbCrLf + validationResponseJson + vbCrLf + vbCrLf + validationMessage + vbCrLf + vbCrLf + &quot;LLM Agent Validation Proof:&quot; + vbCrLf + agentLlmGateMessage + vbCrLf + vbCrLf + &quot;Modernization Readiness Response:&quot; + vbCrLf + modernizationReadinessResponseJson + vbCrLf + vbCrLf + &quot;Modernization Plan Response:&quot; + vbCrLf + modernizationPlanResponseJson + vbCrLf + vbCrLf + toolRegistrationMessage + vbCrLf + vbCrLf + &quot;Tool Registration Response:&quot; + vbCrLf + toolRegistrationResponseJson + vbCrLf + vbCrLf + &quot;API Mode Response:&quot; + vbCrLf + apiModeResponseJson + vbCrLf + vbCrLf + apiModeMessage + vbCrLf + vbCrLf + &quot;Final Decision: &quot; + finalIssue7Decision + vbCrLf + vbCrLf + &quot;Audit Timeline:&quot; + vbCrLf + finalIssue7TimelineLog]">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:MessageBox>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="No human approval route proof output">
+    <Sequence DisplayName="Run Memory - Finalize">
+      <If Condition="[Not System.String.IsNullOrWhiteSpace(currentRunId)]" DisplayName="If memory run is active">
+        <If.Then>
+          <Sequence DisplayName="Record run memory events artifacts complete commit">
+    <Assign DisplayName="Build memory event CASE_CREATED">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryEventRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""event_type"":""CASE_CREATED"",""case_id"":""CASE-003"",""po_id"":""PO-1003"",""stage"":""CASE"",""status"":""success"",""payload"":{}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory event CASE_CREATED" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/events&quot;]" Result="[memoryEventHttpResult]" TextPayload="[memoryEventRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory event TRIAGE_CALLED">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryEventRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""event_type"":""TRIAGE_CALLED"",""case_id"":""CASE-003"",""po_id"":""PO-1003"",""stage"":""TRIAGE"",""status"":""called"",""payload"":{}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory event TRIAGE_CALLED" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/events&quot;]" Result="[memoryEventHttpResult]" TextPayload="[memoryEventRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory event TRIAGE_COMPLETED">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryEventRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""event_type"":""TRIAGE_COMPLETED"",""case_id"":""CASE-003"",""po_id"":""PO-1003"",""stage"":""TRIAGE"",""status"":""success"",""payload"":{}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory event TRIAGE_COMPLETED" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/events&quot;]" Result="[memoryEventHttpResult]" TextPayload="[memoryEventRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory event CAPABILITY_GAP_DETECTED">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryEventRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""event_type"":""CAPABILITY_GAP_DETECTED"",""case_id"":""CASE-003"",""po_id"":""PO-1003"",""stage"":""CAPABILITY_GAP"",""status"":""success"",""payload"":{}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory event CAPABILITY_GAP_DETECTED" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/events&quot;]" Result="[memoryEventHttpResult]" TextPayload="[memoryEventRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory event XAML_WORKFLOW_PROPOSAL_CREATED">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryEventRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""event_type"":""XAML_WORKFLOW_PROPOSAL_CREATED"",""case_id"":""CASE-003"",""po_id"":""PO-1003"",""stage"":""CAPABILITY_GAP"",""status"":""success"",""payload"":{}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory event XAML_WORKFLOW_PROPOSAL_CREATED" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/events&quot;]" Result="[memoryEventHttpResult]" TextPayload="[memoryEventRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory event RUN_COMPLETED">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryEventRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""event_type"":""RUN_COMPLETED"",""case_id"":""CASE-003"",""po_id"":""PO-1003"",""stage"":""RUN"",""status"":""success"",""payload"":{}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory event RUN_COMPLETED" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/events&quot;]" Result="[memoryEventHttpResult]" TextPayload="[memoryEventRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory artifact triage_agent_io">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryArtifactRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""artifact_type"":""triage_agent_io"",""case_id"":""CASE-003"",""data"":{""request_base64"":""" + Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(triageRequestJson)) + """,""response_base64"":""" + Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(triageResponseJson)) + """}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory artifact triage_agent_io" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/artifacts&quot;]" Result="[memoryArtifactHttpResult]" TextPayload="[memoryArtifactRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory artifact capability_gap_result">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryArtifactRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""artifact_type"":""capability_gap_result"",""case_id"":""CASE-003"",""data"":{""decision"":""XAML_WORKFLOW_PROPOSAL"",""proposed_workflow"":""HandleInventoryShortageReview.xaml""}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory artifact capability_gap_result" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/artifacts&quot;]" Result="[memoryArtifactHttpResult]" TextPayload="[memoryArtifactRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory artifact capability_evolution_decision">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryArtifactRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""artifact_type"":""capability_evolution_decision"",""case_id"":""CASE-003"",""data"":{""response_base64"":""" + Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(capabilityEvolutionResponseJson)) + """}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory artifact capability_evolution_decision" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/artifacts&quot;]" Result="[memoryArtifactHttpResult]" TextPayload="[memoryArtifactRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory artifact http_call">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryArtifactRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""artifact_type"":""http_call"",""case_id"":""CASE-003"",""data"":{""endpoint"":""http://localhost:8002/capability-evolution/decision"",""method"":""POST"",""response_base64"":""" + Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(capabilityEvolutionResponseJson)) + """}}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Record memory artifact http_call" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/artifacts&quot;]" Result="[memoryArtifactHttpResult]" TextPayload="[memoryArtifactRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory complete request">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCompleteRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003"",""result"":""PROPOSAL_CREATED"",""final_stage"":""CAPABILITY_GAP_DETECTED"",""execution_mode"":""NONE""}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Complete run memory" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/complete&quot;]" Result="[memoryCompleteHttpResult]" TextPayload="[memoryCompleteRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Build memory commit request">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitRequestJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["{""case_id"":""CASE-003""}"]</InArgument>
+      </Assign.Value>
+    </Assign>    <uwah:NetHttpRequest AuthenticationType="None" ContinueOnError="True" DisableSslVerification="False" DisplayName="Commit run memory" EnableCookies="True" FollowRedirects="True" Headers="[If(System.String.IsNullOrWhiteSpace(memoryWriteApiKey), new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; } }, new System.Collections.Generic.Dictionary(Of System.String, System.String) From { { &quot;Content-Type&quot;, &quot;application/json&quot; }, { &quot;X-API-Key&quot;, memoryWriteApiKey } })]" Method="POST" RequestBodyType="Text" RequestUrl="[&quot;http://localhost:8002/memory/runs/&quot; + currentRunId + &quot;/commit&quot;]" Result="[memoryCommitHttpResult]" TextPayload="[memoryCommitRequestJson]" TextPayloadContentType="application/json" TextPayloadEncoding="UTF-8" UseOsNegotiatedAuthCredentials="True" />    <Assign DisplayName="Read memory commit response">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitResponseJson]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(memoryCommitHttpResult Is Nothing, "", memoryCommitHttpResult.TextContent)]</InArgument>
+      </Assign.Value>
+    </Assign>    <Assign DisplayName="Set memory commit status">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitStatus]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(System.String.IsNullOrWhiteSpace(memoryCommitResponseJson), "SKIPPED", "COMPLETED")]</InArgument>
+      </Assign.Value>
+    </Assign>    <Assign DisplayName="Set memory commit decision">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitDecision]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(System.String.IsNullOrWhiteSpace(memoryCommitResponseJson), capabilityEvolutionDecision, memoryCommitResponseJson)]</InArgument>
+      </Assign.Value>
+    </Assign>          </Sequence>
+        </If.Then>
+        <If.Else>
+    <Assign DisplayName="Skip memory commit without run id">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[memoryCommitStatus]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">["SKIPPED"]</InArgument>
+      </Assign.Value>
+    </Assign>        </If.Else>
+      </If>
+      <Assign DisplayName="Refresh run dashboard URL">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[runDashboardUrl]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[If(System.String.IsNullOrWhiteSpace(currentRunId), "http://localhost:8002/case-dashboard/CASE-003", "http://localhost:8002/case-dashboard/CASE-003?run_id=" + currentRunId)]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>      <ui:StartProcess Arguments="{x:Null}" WorkingDirectory="{x:Null}" ContinueOnError="True" DisplayName="Open dashboard CASE-003" sap2010:WorkflowViewState.IdRef="StartProcess_203" FileName="[runDashboardUrl]" />
+      <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="No human approval required" sap:VirtualizedContainerService.HintSize="553.6,90.4" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[If(routeMessage.StartsWith(&quot;Route blocked:&quot;), routeMessage, &quot;Case: CASE-003 / PO-1003&quot; + vbCrLf + &quot;Run ID: &quot; + If(System.String.IsNullOrWhiteSpace(currentRunId), &quot;not_available&quot;, currentRunId) + vbCrLf + &quot;Route: inventory_shortage -&gt; CAPABILITY_GAP_DETECTED&quot; + vbCrLf + &quot;Capability Decision: &quot; + If(String.IsNullOrWhiteSpace(capabilityEvolutionDecision), &quot;XAML_WORKFLOW_PROPOSAL&quot;, capabilityEvolutionDecision) + vbCrLf + &quot;Proposed Workflow: HandleInventoryShortageReview.xaml&quot; + vbCrLf + &quot;API Modernization: NOT_TRIGGERED&quot; + vbCrLf + &quot;Memory Commit: &quot; + memoryCommitStatus + vbCrLf + &quot;Human Review Required: TRUE&quot; + vbCrLf + capabilityEvolutionMessage + vbCrLf + &quot;Dashboard:&quot; + vbCrLf + runDashboardUrl)]">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:MessageBox>
+              </Sequence>
+      </If.Else>
+    </If>
+  </Sequence>
+</Activity>
+
+

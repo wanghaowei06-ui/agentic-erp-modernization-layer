@@ -1,31 +1,47 @@
 # Automation Memory Layer
 
-Structured Automation Memory is the Hard MVP audit source. It records case state, timeline events, agent decisions, human approval, RPA trace evidence, validation results, trusted capability registration, and capability gaps.
+Automation Memory is the audit and learning layer for the RPA-first ERP Worker.
+It records what UiPath extracted, what the route agent decided, which enterprise
+context was used, what policy gate blocked or allowed, which ERP action was
+selected, and how repeated runs aggregate into modernization proposals.
 
-Local files are written under `memory/data/`:
+## Current Stores
 
-- `case_state_CASE-001.json`
-- `case_timeline_CASE-001.json`
-- `agent_decision_CASE-001.json`
-- `human_approval_CASE-001.json`
-- `rpa_trace_CASE-001.json`
-- `validation_result_CASE-001.json`
-- `capability_registry.json`
-- `capability_gap_CASE-003.json`
+- `memory/runs/`: run-level event and artifact records written by the current Run Memory API.
+- `memory/cases/`: case-level summaries and dashboard data.
+- `memory/patterns/`: Pattern Memory grouped by business action, exception type, route family, policy gate family, and side-effect signature.
+- `memory/proposals/`: governed API modernization and XAML workflow proposals.
+- `memory/codex_sessions/`: human-approved Codex CLI handoff sessions.
+- `memory/data/`: legacy compatibility and seeded demo evidence.
 
-The repository API is in `memory/repository.py`:
+## Run Memory Fields
 
-- `record_case_event(case_id, event)`
-- `record_agent_decision(case_id, decision)`
-- `record_human_approval(case_id, approval)`
-- `record_rpa_trace(case_id, trace)`
-- `record_validation_result(capability_id, result)`
-- `register_trusted_capability(capability)`
-- `find_trusted_capability(business_action)`
-- `record_capability_gap(case_id, gap)`
+Current Run Memory should include:
+
+- ERP extracted fields.
+- `business_remarks`.
+- company context snapshot or reference.
+- route plan.
+- agent reasoning summary.
+- `llm_validation_proof`.
+- policy gate.
+- selected ERP action.
+- final branch result.
+
+## Pattern Memory
+
+Pattern Memory does not group solely by PO ID. It uses:
+
+```text
+business_action + exception_type + route_family + policy_gate_family + side_effects_signature
+```
+
+This is what lets the demo show repeated CAPEX budget exceptions becoming an
+API modernization proposal and repeated inventory shortages becoming a XAML
+workflow proposal.
 
 ## Boundary
 
-This JSON store is intentionally simple and deterministic for the Hard MVP. It is the source used for demo audit evidence.
-
-LangGraph memory, vector memory, or conversation memory can be added later as enhanced context for agents, but those layers should not replace Structured Automation Memory as the authoritative audit record.
+Automation Memory can create proposals after thresholds are reached, but it does
+not approve them. It does not call Codex before human approval. It does not
+deploy APIs, register trusted capabilities, or modify Windows XAML automatically.

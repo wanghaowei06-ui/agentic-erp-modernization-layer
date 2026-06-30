@@ -1,0 +1,33 @@
+{
+  "case_id": "CASE-003",
+  "po_id": "PO-1003",
+  "precheck_result": "CLEAR_EXCEPTION",
+  "agent_required": true,
+  "detected_exception_type": "inventory_shortage",
+  "final_route": "CAPABILITY_GAP_DETECTED",
+  "policy_decision": "REQUIRE_CAPABILITY_REVIEW",
+  "capability_decision": "XAML_WORKFLOW_PROPOSAL",
+  "agent_context_used": true,
+  "company_context_reference": {
+    "finance_policy_used": true,
+    "sales_context_used": true,
+    "operations_context_used": true
+  },
+  "agent_reasoning_summary": "Inventory shortage intersects with low operations risk tolerance and substitute-part review requirements, so the case should be flagged as a capability gap for supply-chain review.",
+  "llm_validation_proof": {
+    "agent_runtime": "langgraph",
+    "reasoning_mode": "llm_backed",
+    "llm_enabled": true,
+    "llm_call_mode": "mock",
+    "llm_provider": "deepseek",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_invocation_verified": true
+  },
+  "recommended_erp_action": {
+    "action_id": "FLAG_CAPABILITY_GAP",
+    "button_selector_id": "ctl00_MainContent_btnFlagCapabilityGap",
+    "reason": "Current RPA/API capabilities do not cover the required review path."
+  }
+}

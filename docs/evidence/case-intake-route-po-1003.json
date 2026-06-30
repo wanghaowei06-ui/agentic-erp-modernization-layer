@@ -1,0 +1,150 @@
+{
+  "case_id": "CASE-003",
+  "po_id": "PO-1003",
+  "scenario": null,
+  "exception_reason": null,
+  "business_remarks": "Operations note: substitute parts may be available but require supply chain review.",
+  "agent_context_policy": "fetch_enterprise_context_before_decision",
+  "enterprise_context_source": "mock_enterprise_context",
+  "route_agent_mode": "real_llm_with_mock_enterprise_context",
+  "business_action": "request_inventory_review",
+  "case_type": "exception",
+  "precheck_result": "CLEAR_EXCEPTION",
+  "precheck_decision_source": "deterministic_rule",
+  "agent_required": true,
+  "triage_result": {
+    "case_id": "CASE-003",
+    "po_id": "PO-1003",
+    "detected_exception_type": "inventory_shortage",
+    "risk_level": "medium",
+    "confidence": 0.88,
+    "recommended_path": "capability_gap_proposal",
+    "next_action": "create_capability_gap_proposal",
+    "requires_human_approval": true,
+    "next_stage": "CAPABILITY_GAP_DETECTED",
+    "reasoning_summary": "Inventory is not available, and the current trusted API capability does not cover inventory review.",
+    "evidence": [
+      {
+        "field": "inventory_available",
+        "value": false,
+        "source": "legacy_erp_screen"
+      },
+      {
+        "field": "raw_exception_text",
+        "value": "Inventory shortage",
+        "source": "legacy_erp_screen"
+      }
+    ],
+    "fallback": "manual_investigation",
+    "decision_source": "deterministic_rule",
+    "business_action": "resolve_inventory_shortage",
+    "required_approval_type": "operations_review",
+    "recommended_next_stage": "CAPABILITY_GAP_DETECTED",
+    "capability_lookup_required": true,
+    "guardrail_status": "passed",
+    "memory_references": [
+      {
+        "type": "capability_lookup",
+        "business_action": "resolve_inventory_shortage",
+        "capability_found": false,
+        "capability_id": null,
+        "execution_mode": null,
+        "endpoint": null,
+        "workflow_name": null,
+        "lookup_status": "completed"
+      }
+    ],
+    "correlation_id": "corr_17700c70dae243ad979f41a02261b731",
+    "schema_version": "1.0"
+  },
+  "detected_exception_type": "inventory_shortage",
+  "confidence": 0.88,
+  "final_route": "CAPABILITY_GAP_DETECTED",
+  "policy_decision": "REQUIRE_CAPABILITY_REVIEW",
+  "next_stage": "CAPABILITY_GAP_DETECTED",
+  "capability_decision": "XAML_WORKFLOW_PROPOSAL",
+  "human_required": true,
+  "execution_allowed": false,
+  "auto_modernization_allowed": false,
+  "recommended_uipath_workflow": "RouteProof_PO1003.xaml",
+  "dashboard_url": "http://localhost:8002/case-dashboard/CASE-003",
+  "portfolio_url": "http://localhost:8002/case-portfolio",
+  "reason": "Deterministic exception (inventory_shortage) routes to CAPABILITY_GAP_DETECTED; capability decision is XAML_WORKFLOW_PROPOSAL.",
+  "policy_gate": {
+    "case_id": "CASE-003",
+    "policy_decision": "REQUIRE_CAPABILITY_REVIEW",
+    "execution_allowed": false,
+    "allowed_execution_mode": "NONE",
+    "human_required": true,
+    "validation_required": false,
+    "reason": "Capability gap detected; a XAML workflow proposal has been created but requires human review before any implementation.",
+    "required_gates": [
+      "CAPABILITY_REVIEW",
+      "PROPOSAL_APPROVAL"
+    ],
+    "blocked_actions": [
+      "AUTO_EXECUTE_WITHOUT_APPROVAL",
+      "AUTO_GENERATE_XAML",
+      "AUTO_DEPLOY_WORKFLOW"
+    ],
+    "audit_required": true,
+    "proposal_only": true
+  },
+  "agent_context_used": true,
+  "company_context_reference": {
+    "finance_policy_used": true,
+    "sales_context_used": true,
+    "operations_context_used": true
+  },
+  "company_context_snapshot": {
+    "enterprise_context_source": "mock_enterprise_context",
+    "enterprise_context_mode": "local_demo_snapshot",
+    "enterprise_context_provider": "reasoning-agent.company_context_payload",
+    "company": {
+      "name": "Demo Manufacturing Group",
+      "current_quarter": "Q4",
+      "strategic_goals": [
+        "protect strategic customer renewals",
+        "reduce uncontrolled procurement spend",
+        "avoid production stoppage for critical orders"
+      ],
+      "finance_policy": {
+        "budget_exception_threshold": 10000,
+        "requires_manager_approval_above_budget": true,
+        "strict_vendor_compliance": true
+      },
+      "sales_context": {
+        "strategic_accounts_at_risk": [
+          "ACME Retail",
+          "Northwind Energy"
+        ],
+        "quarter_end_revenue_pressure": true
+      },
+      "operations_context": {
+        "inventory_risk_tolerance": "low",
+        "substitute_part_review_required": true
+      }
+    }
+  },
+  "agent_reasoning_summary": "Inventory shortage detected. Triage indicates no automated capability to resolve. Business remarks suggest substitute parts requiring supply chain review. Company context emphasizes low inventory risk tolerance and substitute part review required. Hence, route to capability gap detection for review. Human approval will be required later.",
+  "llm_validation_proof": {
+    "agent_runtime": "langgraph",
+    "reasoning_mode": "llm_backed",
+    "llm_enabled": true,
+    "model": "deepseek-v4-flash",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_call_mode": "real",
+    "llm_provider": "deepseek",
+    "llm_model": "deepseek-v4-flash",
+    "llm_request_id": "route-aa64ac8af8a6",
+    "llm_latency_ms": 17411,
+    "llm_invocation_verified": true
+  },
+  "recommended_erp_action": {
+    "action_id": "FLAG_CAPABILITY_GAP",
+    "button_selector_id": "ctl00_MainContent_btnFlagCapabilityGap",
+    "reason": "Current RPA/API capabilities do not cover the required review path."
+  }
+}

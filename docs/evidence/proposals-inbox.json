@@ -1,0 +1,61 @@
+{
+  "total": 2,
+  "proposals": [
+    {
+      "proposal_id": "PROP-API-DEMO-0001",
+      "proposal_type": "API_MODERNIZATION_PROPOSAL",
+      "process_signature": "request_capex_budget_exception_approval__budget_exceeded__waiting_for_human_approval__require_human_approval__approval_task_created_audit_log_created",
+      "source_pattern": "request_capex_budget_exception_approval__budget_exceeded__waiting_for_human_approval__require_human_approval__approval_task_created_audit_log_created",
+      "source_run_ids": [
+        "RUN-DEMO-API-SEED-001",
+        "RUN-DEMO-API-SEED-002",
+        "RUN-DEMO-API-SEED-003"
+      ],
+      "latest_run_id": "RUN-DEMO-API-SEED-003",
+      "case_id": "CASE-DEMO-API-PROPOSAL",
+      "status": "PROPOSAL_CREATED",
+      "codex_session_id": null,
+      "codex_session_url": null,
+      "observed_count": 3,
+      "threshold": 3,
+      "recommended_change": "Create FastAPI endpoint for CAPEX budget exception approval intake.",
+      "human_review_required": true,
+      "coding_agent_allowed": "after_approval_only",
+      "auto_execution_allowed": false,
+      "created_at": "2026-06-30T02:41:01.468Z",
+      "evidence_run_ids": [
+        "RUN-DEMO-API-SEED-001",
+        "RUN-DEMO-API-SEED-002",
+        "RUN-DEMO-API-SEED-003"
+      ]
+    },
+    {
+      "proposal_id": "PROP-XAML-DEMO-0001",
+      "proposal_type": "XAML_WORKFLOW_PROPOSAL",
+      "process_signature": "request_inventory_review__inventory_shortage__capability_gap_detected__policy_gate_skipped__audit_log_created",
+      "source_pattern": "request_inventory_review__inventory_shortage__capability_gap_detected__policy_gate_skipped__audit_log_created",
+      "source_run_ids": [
+        "RUN-DEMO-XAML-SEED-001",
+        "RUN-DEMO-XAML-SEED-002",
+        "RUN-DEMO-XAML-SEED-003"
+      ],
+      "latest_run_id": "RUN-DEMO-XAML-SEED-003",
+      "case_id": "CASE-DEMO-XAML-PROPOSAL",
+      "status": "PROPOSAL_CREATED",
+      "codex_session_id": null,
+      "codex_session_url": null,
+      "observed_count": 3,
+      "threshold": 3,
+      "recommended_change": "Create HandleInventoryShortage.xaml candidate for human review.",
+      "human_review_required": true,
+      "coding_agent_allowed": "after_approval_only",
+      "auto_execution_allowed": false,
+      "created_at": "2026-06-30T02:41:01.468Z",
+      "evidence_run_ids": [
+        "RUN-DEMO-XAML-SEED-001",
+        "RUN-DEMO-XAML-SEED-002",
+        "RUN-DEMO-XAML-SEED-003"
+      ]
+    }
+  ]
+}

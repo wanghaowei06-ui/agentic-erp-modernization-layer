@@ -1,0 +1,33 @@
+{
+  "case_id": "CASE-002",
+  "po_id": "PO-1002",
+  "precheck_result": "CLEAR_EXCEPTION",
+  "agent_required": true,
+  "detected_exception_type": "vendor_info_missing",
+  "final_route": "WAITING_VENDOR_INFO",
+  "policy_decision": "WAIT_FOR_BUSINESS_DATA",
+  "capability_decision": "WAIT_FOR_VENDOR_INFO",
+  "agent_context_used": true,
+  "company_context_reference": {
+    "finance_policy_used": true,
+    "sales_context_used": true,
+    "operations_context_used": true
+  },
+  "agent_reasoning_summary": "Vendor compliance data is missing. Strict vendor compliance in company policy means the ERP case should wait for vendor master data before processing.",
+  "llm_validation_proof": {
+    "agent_runtime": "langgraph",
+    "reasoning_mode": "llm_backed",
+    "llm_enabled": true,
+    "llm_call_mode": "mock",
+    "llm_provider": "deepseek",
+    "schema_validated": true,
+    "guardrails_applied": true,
+    "decision_status": "DECISION_READY",
+    "llm_invocation_verified": true
+  },
+  "recommended_erp_action": {
+    "action_id": "MARK_WAITING_VENDOR",
+    "button_selector_id": "ctl00_MainContent_btnMarkWaitingVendor",
+    "reason": "Vendor compliance data is missing."
+  }
+}
