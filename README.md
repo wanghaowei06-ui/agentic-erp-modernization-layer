@@ -122,6 +122,18 @@ This solution uses a hybrid automation pattern:
 In short: the project combines a coded agent service with a UiPath low-code RPA
 workflow. It does not depend on a low-code Agent Builder agent.
 
+## Agent Runtime And Libraries
+
+The coded agent service uses LangGraph:
+
+- `StateGraph` models the guarded decision path for intake, context lookup,
+  route planning, validation, and fallback handling.
+- `MemorySaver` is used as a case-level agent checkpoint layer so the agent
+  state can be inspected or resumed around human approval steps.
+- Structured Run Memory under `memory/runs/`, `memory/patterns/`, and
+  `memory/proposals/` remains the audit system of record. LangGraph checkpoint
+  memory is supporting agent state, not the compliance ledger.
+
 ## Enterprise Context And Agent Decisioning
 
 The enterprise context API returns a mock company snapshot:
