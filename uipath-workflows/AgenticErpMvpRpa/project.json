@@ -1,0 +1,97 @@
+﻿{
+    "name":  "AgenticErpMvpRpa",
+    "projectId":  "c5405b68-d0cc-49fc-b4b4-a2b4af13f2ed",
+    "description":  "UiPath Hard MVP main workflow",
+    "main":  "Main.xaml",
+    "dependencies":  {
+                         "UiPath.System.Activities":  "[26.6.0]",
+                         "UiPath.UIAutomation.Activities":  "[26.4.4-preview]",
+                         "UiPath.WebAPI.Activities":  "[2.5.0-preview]"
+                     },
+    "webServices":  [
+
+                    ],
+    "entitiesStores":  [
+
+                       ],
+    "schemaVersion":  "4.0",
+    "studioVersion":  "26.0.195.0",
+    "projectVersion":  "1.0.0",
+    "runtimeOptions":  {
+                           "autoDispose":  false,
+                           "netFrameworkLazyLoading":  false,
+                           "isPausable":  true,
+                           "isAttended":  false,
+                           "requiresUserInteraction":  true,
+                           "supportsPersistence":  false,
+                           "workflowSerialization":  "NewtonsoftJson",
+                           "excludedLoggedData":  [
+                                                      "Private:*",
+                                                      "*password*"
+                                                  ],
+                           "executionType":  "Workflow",
+                           "readyForPiP":  false,
+                           "startsInPiP":  false,
+                           "mustRestoreAllDependencies":  true,
+                           "pipType":  "ChildSession"
+                       },
+    "designOptions":  {
+                          "projectProfile":  "Developement",
+                          "outputType":  "Process",
+                          "libraryOptions":  {
+                                                 "privateWorkflows":  [
+
+                                                                      ]
+                                             },
+                          "processOptions":  {
+                                                 "ignoredFiles":  [
+
+                                                                  ]
+                                             },
+                          "fileInfoCollection":  [
+
+                                                 ],
+                          "saveToCloud":  false
+                      },
+    "expressionLanguage":  "VisualBasic",
+    "entryPoints":  [
+                        {
+                            "filePath":  "Main.xaml",
+                            "uniqueId":  "e4749e84-6744-49f7-8471-3a7ee003ecd8",
+                            "input":  [
+
+                                      ],
+                            "output":  [
+
+                                      ]
+                        },
+                        {
+                            "filePath":  "RouteProof_PO1003.xaml",
+                            "uniqueId":  "f36f5741-b359-4a21-95e6-84ff5d2f5b7f",
+                            "input":  [
+
+                                      ],
+                            "output":  [
+
+                                       ]
+                        },
+                        {
+                            "filePath":  "RouteProof_PO1002.xaml",
+                            "uniqueId":  "0f4d4088-2e33-4f3b-b3dd-539d3cd81862",
+                            "input":  [
+
+                                      ],
+                            "output":  [
+
+                                       ]
+                        }
+                    ],
+    "isTemplate":  false,
+    "templateProjectData":  {
+
+                            },
+    "publishData":  {
+
+                    },
+    "targetFramework":  "Windows"
+}
